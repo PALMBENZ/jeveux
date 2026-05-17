@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JeVeux — Tous mes services en un seul endroit</title>
+<meta name="description" content="JeVeux.net regroupe en un seul portail tous les services pour vous aider au quotidien : coaching minceur, cours d'anglais, conseil auto, achats groupés et formations IA.">
+<meta property="og:title" content="JeVeux — Tous mes services en un seul endroit">
+<meta property="og:description" content="13 services pour vous accompagner au quotidien : auto, langues, carrière, achats malins, IA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.jeveux.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;color:#0f172a;line-height:1.6;background:#fafafa;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* Header */
+  header{padding:24px 0;background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(255,255,255,.9)}
+  .nav{display:flex;justify-content:space-between;align-items:center}
+  .logo{font-size:24px;font-weight:900;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+  .logo .dot{color:#6366f1;font-size:30px;line-height:0}
+  .nav-links{display:flex;gap:28px;font-weight:500;font-size:15px}
+  .nav-links a:hover{color:#6366f1}
+
+  /* Hero */
+  .hero{padding:80px 0 60px;background:linear-gradient(135deg,#eef2ff 0%,#fef3c7 100%);text-align:center}
+  .hero-badge{display:inline-block;padding:6px 14px;background:#fff;color:#6366f1;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.4px;margin-bottom:24px;border:1px solid #e0e7ff}
+  .hero h1{font-size:56px;line-height:1.05;font-weight:900;margin-bottom:20px;color:#0f172a;letter-spacing:-1.5px}
+  .hero h1 span{background:linear-gradient(135deg,#6366f1 0%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero p{font-size:20px;color:#475569;max-width:680px;margin:0 auto 32px}
+  .hero-stats{display:inline-flex;gap:42px;padding:16px 32px;background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,.06);margin-top:16px}
+  .hero-stats .stat strong{display:block;font-size:28px;color:#6366f1;font-weight:800}
+  .hero-stats .stat span{font-size:13px;color:#64748b}
+
+  /* Sections */
+  section{padding:64px 0}
+  .section-title{text-align:center;margin-bottom:48px}
+  .section-title small{display:inline-block;color:#6366f1;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:13px;margin-bottom:10px}
+  .section-title h2{font-size:36px;font-weight:800;color:#0f172a;letter-spacing:-.8px}
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;transition:all .25s;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08);border-color:#c7d2fe}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent,#6366f1);opacity:.85}
+  .card .icon{font-size:36px;margin-bottom:16px;display:inline-block}
+  .card-tag{display:inline-block;padding:3px 10px;background:#f1f5f9;color:#64748b;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
+  .card h3{font-size:20px;font-weight:800;margin-bottom:8px;color:#0f172a;letter-spacing:-.3px}
+  .card .url-suffix{font-size:13px;color:#94a3b8;font-family:'SF Mono',Monaco,monospace;margin-bottom:14px}
+  .card p{color:#64748b;font-size:14px;margin-bottom:20px;flex-grow:1;line-height:1.55}
+  .card-link{margin-top:auto;display:inline-flex;align-items:center;gap:6px;color:#6366f1;font-weight:700;font-size:14px;transition:gap .2s}
+  .card:hover .card-link{gap:12px}
+
+  /* Section colors */
+  .cat-auto .card::before{background:#3b82f6}
+  .cat-auto .card:hover{border-color:#bfdbfe}
+  .cat-coaching .card::before{background:#ec4899}
+  .cat-coaching .card:hover{border-color:#fbcfe8}
+  .cat-achats .card::before{background:#f59e0b}
+  .cat-achats .card:hover{border-color:#fde68a}
+  .cat-outils .card::before{background:#10b981}
+  .cat-outils .card:hover{border-color:#a7f3d0}
+
+  /* CTA section */
+  .cta{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 100%);color:#fff;text-align:center;padding:80px 0}
+  .cta h2{color:#fff;font-size:36px;margin-bottom:16px;font-weight:800}
+  .cta p{font-size:18px;opacity:.9;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+  .cta-btn{display:inline-block;padding:16px 40px;background:#fff;color:#1e1b4b;border-radius:12px;font-weight:700;font-size:16px;transition:transform .2s,box-shadow .2s}
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+  /* Footer */
+  footer{padding:48px 0 32px;background:#0f172a;color:#94a3b8;text-align:center}
+  footer .logo{justify-content:center;color:#fff;margin-bottom:16px}
+  footer p{font-size:14px;margin-bottom:8px}
+  footer a{color:#6366f1}
+  footer .legal{font-size:12px;margin-top:24px;opacity:.7}
+
+  @media (max-width:760px){
+    .hero h1{font-size:36px}
+    .hero p{font-size:16px}
+    .hero-stats{flex-direction:column;gap:12px;padding:20px;width:100%;max-width:300px}
+    .nav-links{display:none}
+    section{padding:48px 0}
+    .section-title h2{font-size:26px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo"><span class="dot">●</span> JeVeux<span style="color:#6366f1">.net</span></div>
+    <nav class="nav-links">
+      <a href="#auto">Auto</a>
+      <a href="#coaching">Coaching</a>
+      <a href="#achats">Achats malins</a>
+      <a href="#outils">Outils &amp; IA</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="hero-badge">⚡ 13 services en un seul portail</span>
+    <h1><span>JE VEUX</span></h1>
+    <p>Des services concrets pour votre auto, votre carrière, votre santé, vos achats et votre productivité — tous regroupés sur un seul portail.</p>
+    <div class="hero-stats">
+      <div class="stat"><strong>13</strong><span>Services actifs</span></div>
+      <div class="stat"><strong>4</strong><span>Univers</span></div>
+      <div class="stat"><strong>100 %</strong><span>Sans abonnement caché</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTO -->
+<section id="auto" class="cat-auto">
+  <div class="container">
+    <div class="section-title">
+      <small>🚗 Univers Auto</small>
+      <h2>Maîtrisez votre voiture</h2>
+    </div>
+    <div class="grid">
+
+      <a href="/no/" class="card">
+        <span class="icon">🧑‍🔧</span>
+        <span class="card-tag">MonMecano</span>
+        <h3>MonMecano</h3>
+        <div class="url-suffix">jeveux.net/no</div>
+        <p>Conseiller indépendant pour vos achats véhicule : analyse d'annonce, vérification cote, négociation et accompagnement, sans conflit d'intérêt.</p>
+        <span class="card-link">Visiter MonMecano →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- COACHING -->
+<section id="coaching" class="cat-coaching" style="background:#fafafa">
+  <div class="container">
+    <div class="section-title">
+      <small>💪 Univers Coaching</small>
+      <h2>Devenez la meilleure version de vous-même</h2>
+    </div>
+    <div class="grid">
+
+      <a href="/cm/" class="card">
+        <span class="icon">🥗</span>
+        <span class="card-tag">CoachMinceur</span>
+        <h3>Coach Minceur</h3>
+        <div class="url-suffix">jeveux.net/cm</div>
+        <p>Mincir, mieux manger et retrouver votre énergie. Programmes personnalisés, suivi régulier, recettes faciles et habitudes durables.</p>
+        <span class="card-link">Visiter Coach Minceur →</span>
+      </a>
+
+      <a href="/ca/" class="card">
+        <span class="icon">🇬🇧</span>
+        <span class="card-tag">EnglishPro</span>
+        <h3>Cours d'Anglais</h3>
+        <div class="url-suffix">jeveux.net/ca</div>
+        <p>Apprenez l'anglais en ligne ou en présentiel à Reims avec un professeur dédié, super sympa et fun. Essai à 25 € pour évaluer votre niveau.</p>
+        <span class="card-link">Visiter EnglishPro →</span>
+      </a>
+
+      <a href="/bc/" class="card">
+        <span class="icon">🚀</span>
+        <span class="card-tag">BoosteMaCarrière</span>
+        <h3>Boost Ma Carrière</h3>
+        <div class="url-suffix">jeveux.net/bc</div>
+        <p>Coaching carrière sur mesure : refonte de CV, préparation entretien, négociation de salaire, reconversion. Concret, mesurable, sans bullshit.</p>
+        <span class="card-link">Visiter Boost Ma Carrière →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACHATS GROUPES -->
+<section id="achats" class="cat-achats">
+  <div class="container">
+    <div class="section-title">
+      <small>🛒 Univers Achats Malins</small>
+      <h2>L'union fait la force</h2>
+    </div>
+    <div class="grid">
+
+      <a href="/ga/" class="card">
+        <span class="icon">🤝</span>
+        <span class="card-tag">GroupAction</span>
+        <h3>GroupAction</h3>
+        <div class="url-suffix">jeveux.net/ga</div>
+        <p>La plateforme d'achats groupés généraliste. Rejoignez d'autres acheteurs sur votre produit et négociez des remises impossibles à obtenir seul.</p>
+        <span class="card-link">Visiter GroupAction →</span>
+      </a>
+
+      <a href="/ip/" class="card">
+        <span class="icon">📱</span>
+        <span class="card-tag">iPhone</span>
+        <h3>GroupAction iPhone</h3>
+        <div class="url-suffix">jeveux.net/ip</div>
+        <p>Achetez votre iPhone neuf en groupe et profitez de remises jusqu'à -20 % du prix officiel Apple. Garantie constructeur préservée.</p>
+        <span class="card-link">Voir l'offre iPhone →</span>
+      </a>
+
+      <a href="/cl/" class="card">
+        <span class="icon">❄️</span>
+        <span class="card-tag">Climatisation</span>
+        <h3>GroupAction Climatisation</h3>
+        <div class="url-suffix">jeveux.net/cl</div>
+        <p>Climatisation réversible installée à -25 % du tarif marché. Devis groupé entre voisins, installateurs certifiés, garantie 5 ans.</p>
+        <span class="card-link">Voir l'offre Climatisation →</span>
+      </a>
+
+      <a href="/im/" class="card">
+        <span class="icon">🏠</span>
+        <span class="card-tag">Immobilier</span>
+        <h3>GroupAction Immobilier</h3>
+        <div class="url-suffix">jeveux.net/im</div>
+        <p>Achetez votre résidence principale ou un investissement locatif en groupe. Négociation collective sur des programmes neufs ou anciens.</p>
+        <span class="card-link">Voir l'offre Immobilier →</span>
+      </a>
+
+      <a href="/vo/" class="card">
+        <span class="icon">🚙</span>
+        <span class="card-tag">Voitures</span>
+        <h3>GroupAction Voitures</h3>
+        <div class="url-suffix">jeveux.net/vo</div>
+        <p>Voiture neuve ou occasion en achat groupé : remise mandataire amplifiée par le volume. Toutes marques, livraison France.</p>
+        <span class="card-link">Voir l'offre Voitures →</span>
+      </a>
+
+      <a href="/bi/" class="card">
+        <span class="icon">💍</span>
+        <span class="card-tag">Bijoux Luxe</span>
+        <h3>GroupAction Bijoux Luxe</h3>
+        <div class="url-suffix">jeveux.net/bi</div>
+        <p>Joaillerie haut de gamme accessible : pièces authentifiées des plus grandes maisons à prix négocié collectivement. Certificat fournisseur.</p>
+        <span class="card-link">Voir l'offre Bijoux →</span>
+      </a>
+
+      <a href="/ma/" class="card">
+        <span class="icon">👜</span>
+        <span class="card-tag">Maroquinerie</span>
+        <h3>GroupAction Maroquinerie Luxe</h3>
+        <div class="url-suffix">jeveux.net/ma</div>
+        <p>Sacs et accessoires des grandes maisons (Louis Vuitton, Hermès, Chanel…) en achat groupé sourcés et authentifiés.</p>
+        <span class="card-link">Voir l'offre Maroquinerie →</span>
+      </a>
+
+      <a href="/mo/" class="card">
+        <span class="icon">⌚</span>
+        <span class="card-tag">Montres Luxe</span>
+        <h3>GroupAction Montres Luxe</h3>
+        <div class="url-suffix">jeveux.net/mo</div>
+        <p>Montres horlogerie suisse à prix négocié : Rolex, Omega, Tudor, Tag Heuer… Pièces tracées, papiers d'origine, garantie internationale.</p>
+        <span class="card-link">Voir l'offre Montres →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section id="outils" class="cat-outils" style="background:#fafafa">
+  <div class="container">
+    <div class="section-title">
+      <small>🤖 Univers Outils &amp; IA</small>
+      <h2>Décidez mieux, plus vite</h2>
+    </div>
+    <div class="grid">
+
+      <a href="/sc/" class="card">
+        <span class="icon">🎯</span>
+        <span class="card-tag">SmartChoice+</span>
+        <h3>SmartChoice+</h3>
+        <div class="url-suffix">jeveux.net/sc</div>
+        <p>Vous cherchez quoi acheter ? L'IA trouve la meilleure option pour vous selon votre budget, vos critères et les avis vérifiés du marché.</p>
+        <span class="card-link">Visiter SmartChoice+ →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Un projet, une question, une suggestion ?</h2>
+    <p>Tous nos services sont accessibles, transparents et tenus par une équipe française. Écrivez-nous, on répond sous 24 h.</p>
+    <a href="mailto:contact@jeveux.net" class="cta-btn">Nous contacter →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo"><span class="dot" style="color:#6366f1">●</span> JeVeux<span style="color:#6366f1">.net</span></div>
+    <p>13 services pour vous accompagner au quotidien.</p>
+    <p>Contact : <a href="mailto:contact@jeveux.net">contact@jeveux.net</a></p>
+    <p class="legal">© 2026 JeVeux.net — Tous droits réservés. <a href="/mentions-legales">Mentions légales</a> · <a href="/cgu">CGU</a> · <a href="/confidentialite">Confidentialité</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
