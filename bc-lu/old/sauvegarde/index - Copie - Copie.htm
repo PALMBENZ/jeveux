@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <script 
+    src="https://www.paypal.com/sdk/js?client-id=BAAYD8P8lkdgNCYUVzDZ6spkLX9Wmp6XuDCD9XnVOajtGMV5v-99DC25auR3E2l7sbFD9K_tVTSjmfnjsw&components=buttons&enable-funding=card&commit=true&intent=capture&disable-funding=venmo&currency=EUR&locale=fr_FR">
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Boostez votre carrière : optimisation de CV, LinkedIn et candidatures automatisées. Simple, rapide et efficace.">
+  <link rel="canonical" href="https://www.boostemacarriere.online/">
+  <title>BOOSTE MA CARRIÈRE&nbsp;!</title>
+  <style>
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background: #222;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      overflow-y: auto;
+    }
+    nav a {
+      display: block;
+      padding: 12px 20px;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      transition: color .3s ease;
+      position: relative;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #007BFF, #00C6FF);
+      transition: width .3s ease;
+    }
+    nav a:hover {
+      color: #00C6FF;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      margin-left: 200px;
+      padding: 20px;
+      position: relative;
+      z-index: 0;
+    }
+
+    header {
+      background: #f5f5f5;
+      padding: 40px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      color: #007BFF;
+    }
+
+    section {
+      padding: 40px 0;
+    }
+
+    .method-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #007BFF;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 12px;
+    }
+    h2, h3 {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 6px;
+      transition: color .3s ease;
+    }
+    h2::after, h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #007BFF, #00C6FF);
+      transition: width .4s ease;
+    }
+    h2:hover, h3:hover {
+      color: #007BFF;
+    }
+    h2:hover::after, h3:hover::after {
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .card {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      text-align: center;
+      background: #fff;
+    }
+    .card-premium {
+      border: 2px solid #007BFF;
+      transform: scale(1.03);
+    }
+    .price {
+      font-weight: 600;
+      color: #007BFF;
+    }
+    .qty {
+      margin-top: 8px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s ease;
+      will-change: opacity, transform;
+    }
+    .reveal-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .slide-up {
+      transform: translateY(28px);
+    }
+    .reveal-visible.slide-up {
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .slide-up {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+    @media (max-width: 900px) {
+      nav {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        padding: 10px 0;
+      }
+      main {
+        margin-left: 0;
+        padding-top: 80px;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav role="navigation" aria-label="Navigation principale">
+    <a href="#method">Méthode</a>
+    <a href="#commande" style="color:#00C6FF; font-weight:bold; margin-bottom:6px;">Commandez</a>
+    <a href="#contact">Contactez-nous</a>
+  </nav>
+
+  <main>
+    <header class="reveal slide-up">
+      <h1><strong>BOOSTE MA CARRIÈRE!</strong></h1>
+      <p>
+        À la recherche d’un stage, d’un emploi, d’un meilleur poste, ou d’une nouvelle aventure ?
+        N’attendez plus. Confiez-nous votre carrière ! Nous optimisons votre CV et postulons pour vous
+        sur des centaines de sites, <strong style="color:#007BFF;">choisis par vous</strong>, pour maximiser vos chances.
+      </p>
+    </header>
+
+    <section id="method" style="padding-top:20px;">
+      <h2 class="reveal slide-up">Notre méthode</h2>
+      <div class="method-step reveal"><div class="step-number">1</div><h3>🔍 Analyse : Diagnostic complet de votre profil</h3></div>
+      <div class="method-step reveal"><div class="step-number">2</div><h3>📝 Refonte : CV + LinkedIn optimisés pour faire la différence.</h3></div>
+      <div class="method-step reveal"><div class="step-number">3</div><h3>📌 Proposition : Nous ciblons pour vous les sites de candidatures les plus pertinents.</h3></div>
+      <div class="method-step reveal"><div class="step-number">4</div><h3>🚀 Soumissions : notre outil remplit et soumet les candidatures validées.</h3></div>
+      <div class="method-step reveal"><div class="step-number">5</div><h3>🔔 Notification : vous êtes alerté dès que les candidatures sont soumises.</h3></div>
+    </section>
+
+    <section id="commande" style="margin-top:-30px;">
+      <h2 class="reveal slide-up">Commandez</h2>
+      <div class="grid-3">
+        <div class="card reveal slide-up" id="order-starter">
+          <h3>Starter – 30 candidatures <span class="price">— 99 €</span></h3>
+          <div class="qty reveal" style="margin-top:8px;">
+            <label for="qty-starter">Quantité</label>
+            <input id="qty-starter" type="number" min="1" value="1" style="width:72px; padding:6px; margin-left:8px;">
+          </div>
+          <div id="paypal-container-CVLHLWQHBFM5N"></div>
+          <noscript>
+            <p>JavaScript requis. <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CVLHLWQHBFM5N" rel="noopener">Payer</a></p>
+          </noscript>
+        </div>
+        <div class="card reveal slide-up" id="order-pro">
+          <h3>Pro – 100 candidatures <span class="price">— 199 €</span></h3>
+          <div class="qty reveal" style="margin-top:8px;">
+            <label for="qty-pro">Quantité</label>
+            <input id="qty-pro" type="number" min="1" value="1" style="width:72px; padding:6px; margin-left:8px;">
+          </div>
+          <div id="paypal-container-E8KW8QA2E6Q98"></div>
+          <noscript>
+            <p>JavaScript requis. <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E8KW8QA2E6Q98" rel="noopener">Payer</a></p>
+          </noscript>
+        </div>
+        <div class="card card-premium reveal slide-up" id="order-premium">
+          <h3>Premium – 250 candidatures <span class="price">— 299 €</span></h3>
+          <div class="qty reveal" style="margin-top:8px;">
+            <label for="qty-premium">Quantité</label>
+            <input id="qty-premium" type="number" min="1" value="1" style="width:72px; padding:6px; margin-left:8px;">
+          </div>
+          <div id="paypal-container-NSGKGSPF3SBPY"></div>
+          <noscript>
+            <p>JavaScript requis. <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NSGKGSPF3SBPY" rel="noopener">Payer</a></p>
+          </noscript>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="grid-3" style="margin-top:-40px;">
+      <div class="reveal">
+        <h2>Contactez-nous</h2>
+        <p>Expliquez-nous vos besoins pour obtenir un plan personnalisé.</p>
+        <p>
+          <strong>TEL :</strong> <a href="tel:+35266117771">+352 66117771</a>&nbsp;
+          <strong>EMAIL :</strong> <a href="mailto:careerboost06@gmail.com">careerboost06@gmail.com</a>
+        </p>
+        <p>
+          Venez nous rencontrer sur rendez-vous au 8 bis rue Gabriel VOISIN 51100 REIMS
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('reveal-visible'));
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('reveal-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.15});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    })();
+
+    (function setupPayPal(){
+      function renderButtons(){
+        if (!(window.paypal && paypal.Buttons)) { setTimeout(renderButtons, 150); return; }
+        const packs = [
+          { selector:'#paypal-container-CVLHLWQHBFM5N', desc:'Pack Starter – 30 candidatures', unitPrice:99.00, qtySelector:'#qty-starter', hostedId:'CVLHLWQHBFM5N' },
+          { selector:'#paypal-container-E8KW8QA2E6Q98', desc:'Pack Pro – 100 candidatures', unitPrice:199.00, qtySelector:'#qty-pro', hostedId:'E8KW8QA2E6Q98' },
+          { selector:'#paypal-container-NSGKGSPF3SBPY', desc:'Pack Premium – 250 candidatures', unitPrice:299.00, qtySelector:'#qty-premium', hostedId:'NSGKGSPF3SBPY' }
+        ];
+        packs.forEach(p=>{
+          paypal.Buttons({
+            style:{ label:'pay', layout:'vertical', shape:'pill' },
+            createOrder: (_, actions) => {
+              const qtyEl = document.querySelector(p.qtySelector);
+              let qty = parseInt(qtyEl && qtyEl.value ? qtyEl.value : '1', 10);
+              if (isNaN(qty) || qty < 1) qty = 1;
+              if (qty > 99) qty = 99;
+              const total = p.unitPrice * qty;
+              return actions.order.create({
+                intent:'CAPTURE',
+                application_context:{ shipping_preference:'NO_SHIPPING', user_action:'PAY_NOW' },
+                purchase_units:[{
+                  description: p.desc,
+                  amount:{ currency_code:'EUR', value: total.toFixed(2) }
+                }]
+              });
+            },
+            onApprove: (data, actions) => actions.order.capture().then(()=> {
+              alert('Paiement validé. Merci !');
+            }),
+            onError: (err) => {
+              console.error('PayPal error', err);
+              if (confirm('Carte bancaire indisponible. Ouvrir la page PayPal classique ?')) {
+                const qty = parseInt(document.querySelector(p.qtySelector).value) || 1;
+                const url = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=' + p.hostedId + '&quantity=' + qty;
+                window.open(url, '_blank');
+              } else {
+                alert('Erreur de paiement. Veuillez réessayer.');
+              }
+            }
+          }).render(p.selector);
+        });
+      }
+      renderButtons();
+    })();
+  </script>
+</body>
+</html>

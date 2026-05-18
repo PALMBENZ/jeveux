@@ -1,0 +1,93 @@
+// === Config ===
+const SHEET_NAME = 'Feuille 1'; // ou le nom exact de l’onglet
+const NOTIFY_EMAIL = 'careerboost06@gmail.com';
+
+// === Utilitaires ===
+function _sheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEET_NAME) || ss.getSheets()[0];
+  return sh;
+}
+
+function _nowParis() {
+  return Utilities.formatDate(new Date(), 'Europe/Paris', 'yyyy-MM-dd HH:mm:ss');
+}
+
+function _saveBlobToDrive_(blob, folderName) {
+  const parent = DriveApp.getFoldersByName(folderName).hasNext()
+    ? DriveApp.getFoldersByName(folderName).next()
+    : DriveApp.createFolder(folderName);
+
+  const file = parent.createFile(blob);
+  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW); // lien partageable
+  return file.getUrl();
+}
+
+// === Endpoint Web App ===
+function doPost(e) {
+  try {
+    // Parse multipart/form-data
+    const data = e.parameter; // champs texte
+    const ip = (e.headers && e.headers['X-Forwarded-For']) || '';
+
+    // Fichier (si présent)
+    let cvUrl = '';
+    if (e.files && e.files.cv) {
+      const cvFile = e.files.cv; // {length, name, type, contents}
+      const blob = Utilities.newBlob(cvFile.contents, cvFile.type || 'application/octet-stream', cvFile.name || 'cv');
+      cvUrl = _saveBlobToDrive_(blob, 'CareerBoost_CV');
+    }
+
+    // Écrit dans la feuille
+    const sh = _sheet();
+    sh.appendRow([
+      _nowParis(),
+      data.Nom || '',
+      data.Email || '',
+      data['Téléphone'] || '',
+      data.Objectifs || '',
+      cvUrl,
+      data.Source || 'Web',
+      ip
+    ]);
+
+    // Email de notification
+    const subject = '🔔 Nouvelle demande CareerBoost';
+    const htmlBody = `
+      <p><b>Nouvelle demande depuis le site</b></p>
+      <ul>
+        <li><b>Nom:</b> ${_esc(data.Nom)}</li>
+        <li><b>Email:</b> ${_esc(data.Email)}</li>
+        <li><b>Téléphone:</b> ${_esc(data['Téléphone'])}</li>
+        <li><b>Objectifs:</b><br/>${_nl2br(_esc(data.Objectifs))}</li>
+        <li><b>CV:</b> ${cvUrl ? `<a href="${cvUrl}">Ouvrir le fichier</a>` : 'Aucun'}</li>
+        <li><b>IP:</b> ${_esc(ip)}</li>
+      </ul>
+    `;
+    GmailApp.sendEmail(NOTIFY_EMAIL, subject, 'Voir en HTML', { htmlBody });
+
+    // Réponse JSON
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true, message: 'Merci ! Votre demande a bien été envoyée.' }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    console.error(err);
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: false, message: "Erreur lors de l'envoi. Réessayez plus tard." }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Helpers safe HTML
+function _esc(s) {
+  if (s === undefined || s === null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function _nl2br(s) {
+  return String(s).replace(/\\n/g, '<br/>');
+}
