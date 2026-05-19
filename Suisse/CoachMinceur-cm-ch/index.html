@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coach Nutrition & Healthy Lifestyle</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #1f2933;
+      background: #fffdf8;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #d9f99d, #86efac, #5eead4);
+      min-height: 90vh;
+      padding: 24px 8%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 70px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #064e3b;
+    }
+
+    .nav-links a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: #064e3b;
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+      flex: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 70px);
+      line-height: 1.05;
+      color: #064e3b;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 21px;
+      max-width: 660px;
+      margin-bottom: 32px;
+      color: #17463b;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 26px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #064e3b;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #064e3b;
+      border: 2px solid #064e3b;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 32px;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(6, 78, 59, 0.18);
+    }
+
+    .hero-card img {
+      width: 100%;
+      border-radius: 26px;
+      margin-bottom: 20px;
+    }
+
+    .hero-card h3 {
+      color: #064e3b;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    section {
+      padding: 80px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 48px;
+    }
+
+    .section-title h2 {
+      font-size: 42px;
+      color: #064e3b;
+      margin-bottom: 14px;
+    }
+
+    .section-title p {
+      font-size: 18px;
+      color: #52616b;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid #ecfdf5;
+    }
+
+    .card .icon {
+      font-size: 42px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      color: #064e3b;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .about {
+      background: #ecfdf5;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 32px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    }
+
+    .about h2 {
+      font-size: 42px;
+      color: #064e3b;
+      margin-bottom: 18px;
+    }
+
+    .about ul {
+      margin-top: 22px;
+      list-style: none;
+    }
+
+    .about li {
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .program {
+      background: #fff7ed;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .step {
+      background: white;
+      padding: 24px;
+      border-radius: 24px;
+      border-left: 6px solid #22c55e;
+    }
+
+    .step span {
+      font-size: 34px;
+      font-weight: 900;
+      color: #22c55e;
+    }
+
+    .pricing {
+      background: #f8fafc;
+    }
+
+    .price {
+      font-size: 38px;
+      color: #064e3b;
+      font-weight: 900;
+      margin: 18px 0;
+    }
+
+    .card ul {
+      list-style: none;
+      margin: 18px 0 24px;
+    }
+
+    .card li {
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      transform: translateY(-10px);
+      border: 2px solid #22c55e;
+    }
+
+    .testimonials {
+      background: white;
+    }
+
+    blockquote {
+      font-style: italic;
+      color: #334155;
+      margin-bottom: 16px;
+    }
+
+    .contact {
+      background: linear-gradient(135deg, #064e3b, #047857);
+      color: white;
+    }
+
+    .contact .section-title h2,
+    .contact .section-title p {
+      color: white;
+    }
+
+    form {
+      max-width: 760px;
+      margin: auto;
+      display: grid;
+      gap: 16px;
+      background: white;
+      padding: 32px;
+      border-radius: 30px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px;
+      background: #022c22;
+      color: white;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .about-content,
+      .grid,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links a {
+        margin: 0 8px;
+      }
+
+      header {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Vitalité Coach</div>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#programme">Programme</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <h1>Mincir, mieux manger et retrouver votre énergie.</h1>
+        <p>Un accompagnement humain, simple et motivant pour perdre du poids durablement, cuisiner healthy et intégrer le sport à votre rythme.</p>
+        <div class="buttons">
+          <a href="#contact" class="btn btn-primary">Réserver un appel gratuit</a>
+          <a href="#services" class="btn btn-secondary">Découvrir les services</a>
+        </div>
+      </div>
+      <div class="hero-card" style="text-align:center;">
+        <img src="PhotoDaji.png" alt="Darejan - Coach minceur & bien-être" style="width:200px; height:200px; border-radius:50%; object-fit:cover; margin:0 auto 18px; display:block; box-shadow:0 8px 24px rgba(6,78,59,0.2); border:4px solid #064e3b;" />
+        <h3>Votre coach : Darejan</h3>
+        <p>Coaching à distance ou en présentiel — nutrition, recettes, sport doux et motivation au quotidien.</p>
+      </div>
+    </div>
+  </header>
+
+  <section id="services">
+    <div class="section-title">
+      <h2>Mes services</h2>
+      <p>Des solutions concrètes pour transformer vos habitudes sans frustration ni régime extrême.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🥗</div>
+        <h3>Coaching nutrition</h3>
+        <p>Bilan personnalisé, menus équilibrés, conseils adaptés à votre rythme de vie et à vos objectifs minceur.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👩‍🍳</div>
+        <h3>Cuisine healthy</h3>
+        <p>Préparation de repas ensemble, recettes simples, gourmandes et saines pour retrouver le plaisir de cuisiner.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🏃‍♀️</div>
+        <h3>Sport & motivation</h3>
+        <p>Programme d’activité progressif : marche, renforcement, mobilité et routines faciles à tenir.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="about-content">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80" alt="Assiette healthy" />
+      <div>
+        <h2>Un accompagnement bienveillant et réaliste</h2>
+        <p>Je vous aide à construire une méthode durable, adaptée à votre quotidien, votre budget, vos goûts et votre niveau sportif.</p>
+        <ul>
+          <li>✅ Objectifs clairs et atteignables</li>
+          <li>✅ Menus simples et savoureux</li>
+          <li>✅ Suivi régulier et motivation</li>
+          <li>✅ Pas de culpabilité, pas de régime extrême</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="programme" class="program">
+    <div class="section-title">
+      <h2>Comment ça marche ?</h2>
+      <p>Un parcours simple en 4 étapes pour reprendre le contrôle de votre santé.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span>1</span>
+        <h3>Bilan</h3>
+        <p>Nous analysons vos habitudes, vos objectifs et vos blocages.</p>
+      </div>
+      <div class="step">
+        <span>2</span>
+        <h3>Plan d’action</h3>
+        <p>Vous recevez une stratégie nutrition, sport et organisation.</p>
+      </div>
+      <div class="step">
+        <span>3</span>
+        <h3>Ateliers cuisine</h3>
+        <p>Nous préparons des repas healthy ensemble, à distance ou sur place.</p>
+      </div>
+      <div class="step">
+        <span>4</span>
+        <h3>Suivi</h3>
+        <p>On ajuste, on mesure les progrès et on garde la motivation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tarifs" class="pricing">
+    <div class="section-title">
+      <h2>Formules d’accompagnement</h2>
+      <p>Choisissez la formule la plus adaptée à vos besoins.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>Découverte</h3>
+        <div class="price">38€ <s style="color:#9ca3af; font-weight:normal; font-size:0.5em; margin-left:6px;">152€</s> <span style="display:inline-block; background:#dc2626; color:#fff; font-size:0.4em; font-weight:bold; padding:4px 8px; border-radius:6px; vertical-align:middle; margin-left:6px;">-75%</span></div>
+        <p>Pour démarrer avec des conseils clairs.</p>
+        <ul>
+          <li>✅ Bilan de 45 minutes</li>
+          <li>✅ Objectifs personnalisés</li>
+          <li>✅ Conseils nutrition de base</li>
+        </ul>
+        <a href="https://buy.stripe.com/6oU7sL5tU19Z64qaSb18c03" target="_blank" rel="noopener" class="btn btn-secondary">Choisir</a>
+      </div>
+      <div class="card highlight">
+        <h3>Transformation</h3>
+        <div class="price">289€</div>
+        <p>Le programme complet sur 5 mois.</p>
+        <ul>
+          <li>✅ Bilan complet</li>
+          <li>✅ Menus hebdomadaires</li>
+          <li>✅ 2 ateliers cuisine</li>
+          <li>✅ Programme sport progressif</li>
+          <li>✅ Suivi WhatsApp</li>
+        </ul>
+        <a href="https://buy.stripe.com/dRm14n5tU3i7akG3pJ18c04" target="_blank" rel="noopener" class="btn btn-primary">Le plus populaire</a>
+      </div>
+      <div class="card">
+        <h3>Premium</h3>
+        <div class="price">689€</div>
+        <p>Un suivi renforcé sur 12 mois.</p>
+        <ul>
+          <li>✅ Coaching personnalisé</li>
+          <li>✅ Suivi hebdomadaire</li>
+          <li>✅ Recettes adaptées</li>
+          <li>✅ Ajustements réguliers</li>
+        </ul>
+        <a href="https://buy.stripe.com/00wfZh3lMf0PfF09O718c05" target="_blank" rel="noopener" class="btn btn-secondary">Choisir</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <div class="section-title">
+      <h2>Ils ont retrouvé confiance</h2>
+      <p>Des résultats obtenus avec une méthode progressive et agréable.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <blockquote>“J’ai appris à manger mieux sans me priver. Les ateliers cuisine m’ont beaucoup aidée.”</blockquote>
+        <strong>— Sarah, 34 ans</strong>
+      </div>
+      <div class="card">
+        <blockquote>“Le programme sport était simple et adapté à mon niveau. J’ai enfin tenu dans la durée.”</blockquote>
+        <strong>— Marc, 42 ans</strong>
+      </div>
+      <div class="card">
+        <blockquote>“J’ai perdu du poids, mais surtout j’ai retrouvé de l’énergie et une meilleure organisation.”</blockquote>
+        <strong>— Lina, 29 ans</strong>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="section-title">
+      <h2>Réservez votre appel gratuit</h2>
+      <p>Expliquez votre objectif et recevez une première orientation personnalisée.</p>
+      <p style="margin-top:18px; font-size:20px; font-weight:700;">📞 Contactez-nous directement au <a href="tel:+33651478171" style="color:#064e3b; text-decoration:none;">06 51 47 81 71</a></p>
+    </div>
+    <iframe data-tally-src="https://tally.so/embed/EkvLML?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="644" frameborder="0" marginheight="0" marginwidth="0" title="Coach minceur"></iframe>
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+  </section>
+
+  <footer>
+    <p>© 2026 Vitalité Coach — Coaching nutrition, cuisine healthy et sport bien-être.</p>
+    <p style="margin-top:8px;">📞 <a href="tel:+33651478171" style="color:#facc15; text-decoration:none; font-weight:bold;">06 51 47 81 71</a></p>
+  </footer>
+</body>
+</html>
