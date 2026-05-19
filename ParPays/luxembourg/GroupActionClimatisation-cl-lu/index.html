@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GroupAction Climatisation — Achat groupé de clim</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f5f7fb;
+      color:#222;
+      line-height:1.6;
+    }
+
+    header{
+      background:linear-gradient(135deg,#0c4a6e,#0891b2);
+      color:white;
+      padding:80px 20px;
+      text-align:center;
+    }
+
+    header h1{
+      font-size:3rem;
+      margin-bottom:20px;
+    }
+
+    header p{
+      max-width:900px;
+      margin:auto;
+      font-size:1.2rem;
+    }
+
+    .cta{
+      margin-top:30px;
+    }
+
+    .cta a{
+      background:#67e8f9;
+      color:white;
+      text-decoration:none;
+      padding:15px 30px;
+      border-radius:8px;
+      font-weight:bold;
+      display:inline-block;
+      transition:0.3s;
+    }
+
+    .cta a:hover{
+      background:#22d3ee;
+      transform:scale(1.05);
+    }
+
+    section{
+      padding:70px 20px;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .section-title h2{
+      font-size:2.2rem;
+      color:#0f172a;
+      margin-bottom:15px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:white;
+      border-radius:15px;
+      padding:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      color:#0891b2;
+    }
+
+    .card p{
+      color:#555;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:20px;
+      margin-top:30px;
+    }
+
+    .gallery img{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      border-radius:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.12);
+      transition:0.3s;
+    }
+
+    .gallery img:hover{
+      transform:scale(1.02);
+    }
+
+    .form-container{
+      background:white;
+      border-radius:20px;
+      padding:40px;
+      box-shadow:0 5px 25px rgba(0,0,0,0.08);
+      max-width:800px;
+      margin:auto;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    label{
+      font-weight:bold;
+      color:#0f172a;
+      margin-bottom:-12px;
+    }
+
+    input, textarea, select{
+      padding:15px;
+      border:1px solid #d1d5db;
+      border-radius:10px;
+      font-size:1rem;
+      background:white;
+    }
+
+    button{
+      background:#0891b2;
+      color:white;
+      border:none;
+      padding:16px;
+      border-radius:10px;
+      font-size:1rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#0c4a6e;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .stat-box{
+      background:#0f172a;
+      color:white;
+      padding:35px;
+      border-radius:15px;
+      text-align:center;
+    }
+
+    .stat-box h3{
+      font-size:2rem;
+      margin-bottom:10px;
+      color:#67e8f9;
+    }
+
+    footer{
+      background:#0f172a;
+      color:white;
+      text-align:center;
+      padding:40px 20px;
+      margin-top:60px;
+    }
+
+    footer a{
+      color:#67e8f9;
+      text-decoration:none;
+    }
+
+    @media(max-width:768px){
+      header h1{
+        font-size:2.2rem;
+      }
+
+      .section-title h2{
+        font-size:1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>❄️ L'Union Fait La Force <span style="color:#67e8f9;">— CLIMATISATION POSE INCLUSE</span></h1>
+
+    <p>
+      Vous envisagez d'installer une climatisation chez vous ? Rejoignez le groupe ! Nous négocions matériel + pose auprès des installateurs RGE QualiPAC : de 10% à 40% de remise selon le nombre de participants dans votre secteur.
+    </p>
+
+    <div class="cta">
+      <a href="#formulaire">Je rejoins l'action de groupe</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-title">
+      <h2>📸 Aperçu — Climatisations</h2>
+      <p>Quelques exemples de climatisation que nous pouvons négocier ensemble.</p>
+    </div>
+
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1631545306180-bd4e80fb24fc?auto=format&fit=crop&w=800&q=80" alt="Climatisation 1" onerror="this.src='https://placehold.co/800x500/0891b2/67e8f9?text=Climatisation+1'"/>
+      <img src="https://images.unsplash.com/photo-1607400201515-c2c41c07d307?auto=format&fit=crop&w=800&q=80" alt="Climatisation 2" onerror="this.src='https://placehold.co/800x500/0891b2/67e8f9?text=Climatisation+2'"/>
+      <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=80" alt="Climatisation 3" onerror="this.src='https://placehold.co/800x500/0891b2/67e8f9?text=Climatisation+3'"/>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>💡 Comment ça fonctionne ?</h2>
+      <p>
+        Nous regroupons les acheteurs pour négocier
+        des remises de <strong>10% à 40%</strong> auprès des vendeurs.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>1️⃣ Vous indiquez votre besoin</h3>
+        <p>
+          Choisissez le modèle de climatisation que vous souhaitez acquérir
+          dans notre liste déroulante.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2️⃣ Nous regroupons les demandes</h3>
+        <p>
+          Plus il y a d'acheteurs intéressés par le même modèle,
+          plus notre pouvoir de négociation augmente.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3️⃣ Nous négocions de -10% à -40%</h3>
+        <p>
+          Nous contactons les installateurs RGE QualiPAC et grossistes pour obtenir
+          des remises exclusives grâce à la force du groupe.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>4️⃣ Vous économisez</h3>
+        <p>
+          Vous recevez une offre de groupe avec un prix négocié,
+          parfois jusqu'à 40% en dessous du tarif public.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>📈 Pourquoi rejoindre l'action de groupe ?</h2>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat-box">
+        <h3>-10% à -40%</h3>
+        <p>Réductions négociées</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>100%</h3>
+        <p>Gratuit pour les membres</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>+ de pouvoir</h3>
+        <p>Grâce aux achats groupés</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>0 engagement</h3>
+        <p>Vous décidez si vous achetez</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="formulaire">
+
+    <div class="section-title">
+      <h2>📝 Quel modèle souhaitez-vous acquérir ?</h2>
+      <p>
+        Sélectionnez une climatisation dans la liste —
+        plus nous sommes nombreux sur le même modèle, plus la remise sera importante.
+      </p>
+    </div>
+
+    <div class="form-container">
+
+      <form onsubmit="event.preventDefault(); alert('Merci ! Votre demande a bien été enregistrée. Nous vous recontacterons dès que le groupe sera constitué.');">
+
+        <label for="nom">Votre nom complet</label>
+        <input id="nom" name="nom" type="text" placeholder="Nom et prénom" required />
+
+        <label for="email">Votre email</label>
+        <input id="email" name="email" type="email" placeholder="email@exemple.fr" required />
+
+        <label for="tel">Votre téléphone</label>
+        <input id="tel" name="tel" type="tel" placeholder="+352 66117771" />
+
+        <label for="modele">Modèle souhaité (44 choix)</label>
+        <select id="modele" name="modele" required>
+          <option value="">— Sélectionnez un modèle —</option>
+          <option value="Daikin Perfera FTXM-R">Daikin Perfera FTXM-R</option>
+          <option value="Daikin Stylish FTXA-AW">Daikin Stylish FTXA-AW</option>
+          <option value="Daikin Stylish FTXA-AS">Daikin Stylish FTXA-AS</option>
+          <option value="Daikin Stylish FTXA-AT">Daikin Stylish FTXA-AT</option>
+          <option value="Daikin Emura FTXJ-MW">Daikin Emura FTXJ-MW</option>
+          <option value="Daikin Emura FTXJ-MS">Daikin Emura FTXJ-MS</option>
+          <option value="Daikin Comfora FTXP-N">Daikin Comfora FTXP-N</option>
+          <option value="Daikin Sensira FTXF-D">Daikin Sensira FTXF-D</option>
+          <option value="Mitsubishi Electric MSZ-LN">Mitsubishi Electric MSZ-LN</option>
+          <option value="Mitsubishi Electric MSZ-AP">Mitsubishi Electric MSZ-AP</option>
+          <option value="Mitsubishi Electric MSZ-EF Design">Mitsubishi Electric MSZ-EF Design</option>
+          <option value="Mitsubishi Heavy SRK ZS">Mitsubishi Heavy SRK ZS</option>
+          <option value="Mitsubishi Heavy SRK ZSP">Mitsubishi Heavy SRK ZSP</option>
+          <option value="LG ArtCool Gallery">LG ArtCool Gallery</option>
+          <option value="LG ArtCool Mirror">LG ArtCool Mirror</option>
+          <option value="LG Standard Plus">LG Standard Plus</option>
+          <option value="LG Dual Cool Premium">LG Dual Cool Premium</option>
+          <option value="LG Atmosfera">LG Atmosfera</option>
+          <option value="Samsung WindFree Elite">Samsung WindFree Elite</option>
+          <option value="Samsung WindFree Confort">Samsung WindFree Confort</option>
+          <option value="Samsung Cebu">Samsung Cebu</option>
+          <option value="Samsung BAC Geo">Samsung BAC Geo</option>
+          <option value="Panasonic Etherea KIT-Z">Panasonic Etherea KIT-Z</option>
+          <option value="Panasonic Etherea KIT-XZ">Panasonic Etherea KIT-XZ</option>
+          <option value="Panasonic Compact KIT-TZ">Panasonic Compact KIT-TZ</option>
+          <option value="Panasonic Heatcharge">Panasonic Heatcharge</option>
+          <option value="Panasonic Z-Series">Panasonic Z-Series</option>
+          <option value="Toshiba Shorai Edge">Toshiba Shorai Edge</option>
+          <option value="Toshiba Seiya">Toshiba Seiya</option>
+          <option value="Toshiba Daiseikai 9">Toshiba Daiseikai 9</option>
+          <option value="Atlantic Nordik">Atlantic Nordik</option>
+          <option value="Atlantic Takao">Atlantic Takao</option>
+          <option value="Atlantic Fujitsu ASYG-LMC">Atlantic Fujitsu ASYG-LMC</option>
+          <option value="Hitachi Performance">Hitachi Performance</option>
+          <option value="Hitachi Mode-Air">Hitachi Mode-Air</option>
+          <option value="Hitachi Akebono">Hitachi Akebono</option>
+          <option value="Fujitsu Designer">Fujitsu Designer</option>
+          <option value="Fujitsu Eco">Fujitsu Eco</option>
+          <option value="Fujitsu Nocria X">Fujitsu Nocria X</option>
+          <option value="General Climatisation ASHG-LLC">General Climatisation ASHG-LLC</option>
+          <option value="Haier Flexis">Haier Flexis</option>
+          <option value="Haier Tundra">Haier Tundra</option>
+          <option value="Airwell HKD">Airwell HKD</option>
+          <option value="Airwell Harmonia">Airwell Harmonia</option>
+        </select>
+
+        <label for="budget">Budget approximatif</label>
+        <input id="budget" name="budget" type="text" placeholder="ex. 3 500 €" />
+
+        <label for="delai">Délai d'achat envisagé</label>
+        <select id="delai" name="delai">
+          <option value="immediat">Immédiat (sous 1 mois)</option>
+          <option value="court">Court terme (1 à 3 mois)</option>
+          <option value="moyen">Moyen terme (3 à 6 mois)</option>
+          <option value="long">Long terme (6 à 12 mois)</option>
+        </select>
+
+        <label for="commentaire">Précisions / options souhaitées</label>
+        <textarea id="commentaire" name="commentaire" rows="4" placeholder="Couleur, options, état (neuf/occasion), particularités…"></textarea>
+
+        <button type="submit">Je rejoins l'action de groupe ✓</button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-title">
+      <h2>🔥 Pourquoi climatisation ?</h2>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h3>🌿 Pompe à chaleur réversible</h3>
+        <p>La plupart des modèles sont des PAC air-air : chaud en hiver, froid en été.</p>
+      </div>
+
+      <div class="card">
+        <h3>💶 Aides MaPrimeRénov'</h3>
+        <p>Nous vous accompagnons sur les aides de l'État cumulables avec la remise groupe.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔧 Pose incluse</h3>
+        <p>Le tarif négocié inclut la pose par un installateur RGE de votre secteur.</p>
+      </div>
+
+      <div class="card">
+        <h3>🛡️ Garantie 5 ans</h3>
+        <p>Garantie pièces et main d'œuvre négociée sur l'ensemble du groupe.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+
+    <h3>🤝 Ensemble, nous achetons mieux.</h3>
+
+    <p style="margin-top:15px;">
+      L'union fait la force.
+      Plus nous sommes nombreux à vouloir le même système de climatisation,
+      plus la remise négociée sera importante.
+    </p>
+
+    <p style="margin-top:20px;">
+      📞 Téléphone : <a href="tel:+35266117771">+352 66117771</a>
+    </p>
+
+  </footer>
+
+</body>
+</html>

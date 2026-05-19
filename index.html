@@ -18,6 +18,15 @@
   a{text-decoration:none;color:inherit}
   .container{max-width:1180px;margin:0 auto;padding:0 24px}
 
+  /* Flag bar */
+  .flag-bar{background:#0f172a;color:#e2e8f0;padding:8px 0;border-bottom:1px solid #1e293b;font-size:14px}
+  .flag-bar .container{display:flex;align-items:center;gap:14px}
+  .flag-bar-label{font-size:11px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-right:6px}
+  .flag-bar a{font-size:22px;line-height:1;display:inline-block;transition:transform .15s ease;cursor:pointer;text-decoration:none}
+  .flag-bar a:hover{transform:scale(1.25)}
+  .flag-bar a.flag-disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.4)}
+  .flag-bar a.flag-disabled:hover{transform:none}
+
   /* Header */
   header{padding:24px 0;background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(255,255,255,.9)}
   .nav{display:flex;justify-content:space-between;align-items:center}
@@ -90,6 +99,19 @@
 </style>
 </head>
 <body>
+
+<div class="flag-bar">
+  <div class="container">
+    <span class="flag-bar-label">🌍 Pays</span>
+    <a href="./ParPays/Suisse/" title="Suisse" aria-label="Suisse">🇨🇭</a>
+    <a href="./ParPays/Allemagne/" title="Allemagne" aria-label="Allemagne">🇩🇪</a>
+    <a href="#" class="flag-disabled" title="Royaume-Uni — bientôt disponible" aria-label="Royaume-Uni" onclick="event.preventDefault()">🇬🇧</a>
+    <a href="#" class="flag-disabled" title="Pays-Bas — bientôt disponible" aria-label="Pays-Bas" onclick="event.preventDefault()">🇳🇱</a>
+    <a href="./ParPays/luxembourg/" title="Luxembourg" aria-label="Luxembourg">🇱🇺</a>
+    <a href="#" class="flag-disabled" title="Belgique — bientôt disponible" aria-label="Belgique" onclick="event.preventDefault()">🇧🇪</a>
+    <a href="#" class="flag-disabled" title="Danemark — bientôt disponible" aria-label="Danemark" onclick="event.preventDefault()">🇩🇰</a>
+  </div>
+</div>
 
 <header>
   <div class="container nav">
@@ -260,48 +282,4 @@
       </a>
 
       <a href="/ps/" class="card">
-        <span class="icon">☀️</span>
-        <span class="card-tag">Panneaux Solaires</span>
-        <h3>Panneaux Solaires</h3>
-        <div class="url-suffix">jeveux.net/ps</div>
-        <p>Installation de panneaux photovoltaïques sur votre toit. Jusqu'à 70 % d'économies sur votre facture d'électricité. Éligible MaPrimeRénov', prime à l'autoconsommation et aides régionales.</p>
-        <span class="card-link">Visiter Panneaux Solaires →</span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- OUTILS -->
-<section id="outils" class="cat-outils" style="background:#fafafa">
-  <div class="container">
-    <div class="section-title">
-      <small>🤖 Univers Outils &amp; IA</small>
-      <h2>Décidez mieux, plus vite</h2>
-    </div>
-    <div class="grid">
-
-      <a href="/sc/" class="card">
-        <span class="icon">🎯</span>
-        <span class="card-tag">SmartChoice+</span>
-        <h3>SmartChoice+</h3>
-        <div class="url-suffix">jeveux.net/sc</div>
-        <p>Vous cherchez quoi acheter ? L'IA trouve la meilleure option pour vous selon votre budget, vos critères et les avis vérifiés du marché.</p>
-        <span class="card-link">Visiter SmartChoice+ →</span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <div class="container">
-    <h2>Un projet, une question, une suggestion ?</h2>
-    <p>Tous nos services sont accessibles, transparents et tenus par une équipe française. Écrivez-nous, on répond sous 24 h.</p>
-    <a href="mailto:contact@jeveux.net" class="cta-btn">Nous contacter →</a>
-  </div>
-</section>
-
-<footer>
-  <div class="
+        <span class="icon">
