@@ -1,519 +1,374 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GroupAction Boutiques — Quelle est votre boutique préférée ?</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JeVeux — Tous mes services en un seul endroit</title>
+<meta name="description" content="JeVeux.net regroupe en un seul portail tous les services pour vous aider au quotidien : coaching minceur, cours d'anglais, conseil auto, achats groupés et formations IA.">
+<meta property="og:title" content="JeVeux — Tous mes services en un seul endroit">
+<meta property="og:description" content="19 services pour vous accompagner au quotidien : auto, langues, carrière, achats malins, IA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.jeveux.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;color:#0f172a;line-height:1.6;background:#fafafa;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px}
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+  /* Flag bar */
+  .flag-bar{background:#0f172a;color:#e2e8f0;padding:8px 0;border-bottom:1px solid #1e293b;font-size:14px}
+  .flag-bar .container{display:flex;align-items:center;gap:14px}
+  .flag-bar-label{font-size:11px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-right:6px}
+  .flag-bar a{font-size:22px;line-height:1;display:inline-block;transition:transform .15s ease;cursor:pointer;text-decoration:none}
+  .flag-bar a:hover{transform:scale(1.25)}
+  .flag-bar a.flag-disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.4)}
+  .flag-bar a.flag-disabled:hover{transform:none}
 
-    body{
-      background:#fff7ed;
-      color:#222;
-      line-height:1.6;
-    }
+  /* Header */
+  header{padding:24px 0;background:#fff;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);background:rgba(255,255,255,.9)}
+  .nav{display:flex;justify-content:space-between;align-items:center}
+  .logo{font-size:24px;font-weight:900;letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+  .logo .dot{color:#6366f1;font-size:30px;line-height:0}
+  .nav-links{display:flex;gap:28px;font-weight:500;font-size:15px}
+  .nav-links a:hover{color:#6366f1}
 
-    header{
-      background:linear-gradient(135deg,#7c2d12,#ea580c);
-      color:white;
-      padding:80px 20px;
-      text-align:center;
-    }
+  /* Hero */
+  .hero{padding:80px 0 60px;background:linear-gradient(135deg,#eef2ff 0%,#fef3c7 100%);text-align:center}
+  .hero-badge{display:inline-block;padding:6px 14px;background:#fff;color:#6366f1;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.4px;margin-bottom:24px;border:1px solid #e0e7ff}
+  .hero h1{font-size:56px;line-height:1.05;font-weight:900;margin-bottom:20px;color:#0f172a;letter-spacing:-1.5px}
+  .hero h1 span{background:linear-gradient(135deg,#6366f1 0%,#ec4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero p{font-size:20px;color:#475569;max-width:680px;margin:0 auto 32px}
+  .hero-stats{display:inline-flex;gap:42px;padding:16px 32px;background:#fff;border-radius:20px;box-shadow:0 4px 24px rgba(0,0,0,.06);margin-top:16px}
+  .hero-stats .stat strong{display:block;font-size:28px;color:#6366f1;font-weight:800}
+  .hero-stats .stat span{font-size:13px;color:#64748b}
 
-    header h1{
-      font-size:3rem;
-      margin-bottom:20px;
-    }
+  /* Sections */
+  section{padding:64px 0}
+  .section-title{text-align:center;margin-bottom:48px}
+  .section-title small{display:inline-block;color:#6366f1;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:13px;margin-bottom:10px}
+  .section-title h2{font-size:36px;font-weight:800;color:#0f172a;letter-spacing:-.8px}
 
-    header p{
-      max-width:900px;
-      margin:auto;
-      font-size:1.2rem;
-    }
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:20px;padding:28px;transition:all .25s;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08);border-color:#c7d2fe}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent,#6366f1);opacity:.85}
+  .card .icon{font-size:36px;margin-bottom:16px;display:inline-block}
+  .card-tag{display:inline-block;padding:3px 10px;background:#f1f5f9;color:#64748b;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px}
+  .card h3{font-size:20px;font-weight:800;margin-bottom:8px;color:#0f172a;letter-spacing:-.3px}
+  .card .url-suffix{font-size:13px;color:#94a3b8;font-family:'SF Mono',Monaco,monospace;margin-bottom:14px}
+  .card p{color:#64748b;font-size:14px;margin-bottom:20px;flex-grow:1;line-height:1.55}
+  .card-link{margin-top:auto;display:inline-flex;align-items:center;gap:6px;color:#6366f1;font-weight:700;font-size:14px;transition:gap .2s}
+  .card:hover .card-link{gap:12px}
 
-    .cta{
-      margin-top:30px;
-    }
+  /* Section colors */
+  .cat-auto .card::before{background:#3b82f6}
+  .cat-auto .card:hover{border-color:#bfdbfe}
+  .cat-coaching .card::before{background:#ec4899}
+  .cat-coaching .card:hover{border-color:#fbcfe8}
+  .cat-achats .card::before{background:#f59e0b}
+  .cat-achats .card:hover{border-color:#fde68a}
+  .cat-outils .card::before{background:#10b981}
+  .cat-outils .card:hover{border-color:#a7f3d0}
 
-    .cta a{
-      background:#facc15;
-      color:#0f172a;
-      text-decoration:none;
-      padding:15px 30px;
-      border-radius:8px;
-      font-weight:bold;
-      display:inline-block;
-      transition:0.3s;
-    }
+  /* CTA section */
+  .cta{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 100%);color:#fff;text-align:center;padding:80px 0}
+  .cta h2{color:#fff;font-size:36px;margin-bottom:16px;font-weight:800}
+  .cta p{font-size:18px;opacity:.9;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto}
+  .cta-btn{display:inline-block;padding:16px 40px;background:#fff;color:#1e1b4b;border-radius:12px;font-weight:700;font-size:16px;transition:transform .2s,box-shadow .2s}
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
 
-    .cta a:hover{
-      background:#eab308;
-      transform:scale(1.05);
-    }
+  /* Footer */
+  footer{padding:48px 0 32px;background:#0f172a;color:#94a3b8;text-align:center}
+  footer .logo{justify-content:center;color:#fff;margin-bottom:16px}
+  footer p{font-size:14px;margin-bottom:8px}
+  footer a{color:#6366f1}
+  footer .legal{font-size:12px;margin-top:24px;opacity:.7}
 
-    section{
-      padding:70px 20px;
-      max-width:1200px;
-      margin:auto;
-    }
-
-    .section-title{
-      text-align:center;
-      margin-bottom:50px;
-    }
-
-    .section-title h2{
-      font-size:2.2rem;
-      color:#7c2d12;
-      margin-bottom:15px;
-    }
-
-    .section-title p{
-      color:#555;
-      max-width:800px;
-      margin:auto;
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:25px;
-    }
-
-    .card{
-      background:white;
-      border-radius:15px;
-      padding:30px;
-      box-shadow:0 5px 20px rgba(0,0,0,0.08);
-      transition:0.3s;
-    }
-
-    .card:hover{
-      transform:translateY(-5px);
-    }
-
-    .card h3{
-      margin-bottom:15px;
-      color:#ea580c;
-    }
-
-    .card p{
-      color:#555;
-    }
-
-    .shop-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:15px;
-      margin-top:30px;
-    }
-
-    .shop-tile{
-      background:white;
-      border:2px solid #fed7aa;
-      border-radius:12px;
-      padding:18px 10px;
-      text-align:center;
-      font-weight:bold;
-      color:#7c2d12;
-      transition:0.25s;
-    }
-
-    .shop-tile:hover{
-      background:#fff7ed;
-      border-color:#ea580c;
-      transform:translateY(-3px);
-    }
-
-    .shop-tile .emoji{
-      display:block;
-      font-size:2rem;
-      margin-bottom:6px;
-    }
-
-    .form-container{
-      background:white;
-      border-radius:20px;
-      padding:40px;
-      box-shadow:0 5px 25px rgba(0,0,0,0.08);
-      max-width:800px;
-      margin:auto;
-    }
-
-    form{
-      display:flex;
-      flex-direction:column;
-      gap:20px;
-    }
-
-    label{
-      font-weight:bold;
-      color:#0f172a;
-      margin-bottom:-12px;
-    }
-
-    input, textarea, select{
-      padding:15px;
-      border:1px solid #d1d5db;
-      border-radius:10px;
-      font-size:1rem;
-      background:white;
-    }
-
-    .checkbox-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:10px;
-      padding:10px 0;
-    }
-
-    .checkbox-grid label{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      background:#fff7ed;
-      padding:10px 14px;
-      border-radius:8px;
-      border:1px solid #fed7aa;
-      cursor:pointer;
-      font-weight:normal;
-      margin:0;
-      font-size:0.95rem;
-    }
-
-    .checkbox-grid input[type="checkbox"]{
-      width:auto;
-      padding:0;
-      margin:0;
-    }
-
-    button{
-      background:#ea580c;
-      color:white;
-      border:none;
-      padding:16px;
-      border-radius:10px;
-      font-size:1rem;
-      font-weight:bold;
-      cursor:pointer;
-      transition:0.3s;
-    }
-
-    button:hover{
-      background:#c2410c;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:25px;
-      margin-top:40px;
-    }
-
-    .stat-box{
-      background:#0f172a;
-      color:white;
-      padding:35px;
-      border-radius:15px;
-      text-align:center;
-    }
-
-    .stat-box h3{
-      font-size:2rem;
-      margin-bottom:10px;
-      color:#facc15;
-    }
-
-    footer{
-      background:#0f172a;
-      color:white;
-      text-align:center;
-      padding:40px 20px;
-      margin-top:60px;
-    }
-
-    footer a{
-      color:#facc15;
-      text-decoration:none;
-    }
-
-    @media(max-width:768px){
-      header h1{
-        font-size:2.2rem;
-      }
-
-      .section-title h2{
-        font-size:1.8rem;
-      }
-    }
-  </style>
+  @media (max-width:760px){
+    .hero h1{font-size:36px}
+    .hero p{font-size:16px}
+    .hero-stats{flex-direction:column;gap:12px;padding:20px;width:100%;max-width:300px}
+    .nav-links{display:none}
+    section{padding:48px 0}
+    .section-title h2{font-size:26px}
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>🛍️ L'Union Fait La Force <span style="color:#facc15;">— VOTRE BOUTIQUE PRÉFÉRÉE NÉGOCIÉE</span></h1>
+<div class="flag-bar">
+  <div class="container">
+    <span class="flag-bar-label">🌍 Pays</span>
+    <a href="./Suisse/" title="Suisse" aria-label="Suisse">🇨🇭</a>
+    <a href="./Allemagne/" title="Allemagne" aria-label="Allemagne">🇩🇪</a>
+    <a href="#" class="flag-disabled" title="Royaume-Uni — bientôt disponible" aria-label="Royaume-Uni" onclick="event.preventDefault()">🇬🇧</a>
+    <a href="#" class="flag-disabled" title="Pays-Bas — bientôt disponible" aria-label="Pays-Bas" onclick="event.preventDefault()">🇳🇱</a>
+    <a href="./luxembourg/" title="Luxembourg" aria-label="Luxembourg">🇱🇺</a>
+    <a href="#" class="flag-disabled" title="Belgique — bientôt disponible" aria-label="Belgique" onclick="event.preventDefault()">🇧🇪</a>
+    <a href="#" class="flag-disabled" title="Danemark — bientôt disponible" aria-label="Danemark" onclick="event.preventDefault()">🇩🇰</a>
+  </div>
+</div>
 
-    <p>
-      Apple Store, Galeries Lafayette, Leroy Merlin, Decathlon, IKEA, Zara, Sephora, Fnac, Printemps, Nike, …
-      Dites-nous dans quelle boutique ou magasin vous achetez le plus souvent.
-      Plus nous sommes nombreux à fréquenter la même enseigne,
-      plus nous pouvons négocier ensemble des ristournes, bons d'achat
-      et avantages exclusifs auprès des commerçants.
-    </p>
+<header>
+  <div class="container nav">
+    <div class="logo"><span class="dot">●</span> JeVeux<span style="color:#6366f1">.net</span></div>
+    <nav class="nav-links">
+      <a href="#auto">Auto</a>
+      <a href="#coaching">Coaching</a>
+      <a href="#achats">Achats malins</a>
+      <a href="#outils">Outils &amp; IA</a>
+    </nav>
+  </div>
+</header>
 
-    <div class="cta">
-      <a href="#formulaire">Je vote pour mes boutiques préférées</a>
+<section class="hero">
+  <div class="container">
+    <span class="hero-badge">⚡ 19 services en un seul portail</span>
+    <h1><span>JE VEUX</span></h1>
+    <p>Des services concrets pour votre auto, votre carrière, votre santé, vos achats et votre productivité — tous regroupés sur un seul portail.</p>
+    <div class="hero-stats">
+      <div class="stat"><strong>19</strong><span>Services actifs</span></div>
+      <div class="stat"><strong>4</strong><span>Univers</span></div>
+      <div class="stat"><strong>100 %</strong><span>Sans abonnement caché</span></div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <section>
+<!-- AUTO -->
+<section id="auto" class="cat-auto">
+  <div class="container">
     <div class="section-title">
-      <h2>💡 Comment ça fonctionne ?</h2>
-      <p>
-        Nous regroupons les clients fidèles d'une même enseigne pour négocier
-        des <strong>ristournes collectives</strong> auprès des boutiques et magasins.
-      </p>
+      <small>🚗 Univers Auto</small>
+      <h2>Maîtrisez votre voiture</h2>
     </div>
+    <div class="grid">
 
-    <div class="cards">
-
-      <div class="card">
-        <h3>1️⃣ Vous votez pour votre boutique</h3>
-        <p>
-          Indiquez la boutique ou le magasin dans lequel vous
-          achetez le plus souvent — en ligne ou en magasin physique.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>2️⃣ Nous regroupons les votes</h3>
-        <p>
-          Plus une enseigne reçoit de votes, plus notre groupe
-          de clients devient intéressant à négocier pour elle.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>3️⃣ Nous négocions des ristournes</h3>
-        <p>
-          Nous contactons l'enseigne pour obtenir des remises
-          collectives, bons d'achat ou avantages réservés au groupe.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>4️⃣ Vous économisez à chaque achat</h3>
-        <p>
-          Vous recevez un code de groupe à utiliser à chaque
-          passage en caisse ou commande en ligne.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="formulaire">
-
-    <div class="section-title">
-      <h2>📝 Quelle est votre boutique ou magasin préféré ?</h2>
-      <p>
-        Indiquez l'enseigne dans laquelle vous achetez le plus —
-        plus nous sommes nombreux sur la même boutique,
-        plus la ristourne négociée sera importante.
-      </p>
-    </div>
-
-    <iframe data-tally-src="https://tally.so/embed/vGdLAX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0" title="MaBoutique — Vos boutiques préférées (action de groupe)"></iframe>
-    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-
-  </section>
-
-  <section>
-    <div class="section-title">
-      <h2>🏬 Exemples d'enseignes que nous pouvons négocier</h2>
-      <p>Mode, beauté, sport, déco, high-tech, maison, alimentation… Toutes les catégories sont concernées.</p>
-    </div>
-
-    <div class="shop-grid">
-      <div class="shop-tile"><span class="emoji">👗</span>Zara</div>
-      <div class="shop-tile"><span class="emoji">👕</span>H&amp;M</div>
-      <div class="shop-tile"><span class="emoji">👖</span>Uniqlo</div>
-      <div class="shop-tile"><span class="emoji">🧢</span>Nike</div>
-      <div class="shop-tile"><span class="emoji">👟</span>Adidas</div>
-      <div class="shop-tile"><span class="emoji">💄</span>Sephora</div>
-      <div class="shop-tile"><span class="emoji">💅</span>Marionnaud</div>
-      <div class="shop-tile"><span class="emoji">💊</span>Pharmacie</div>
-      <div class="shop-tile"><span class="emoji">🛒</span>Carrefour</div>
-      <div class="shop-tile"><span class="emoji">🛍️</span>Leclerc</div>
-      <div class="shop-tile"><span class="emoji">🥖</span>Auchan</div>
-      <div class="shop-tile"><span class="emoji">🥩</span>Monoprix</div>
-      <div class="shop-tile"><span class="emoji">📚</span>Fnac</div>
-      <div class="shop-tile"><span class="emoji">🎮</span>Micromania</div>
-      <div class="shop-tile"><span class="emoji">📱</span>Apple Store</div>
-      <div class="shop-tile"><span class="emoji">💻</span>Boulanger</div>
-      <div class="shop-tile"><span class="emoji">🔌</span>Darty</div>
-      <div class="shop-tile"><span class="emoji">🏠</span>IKEA</div>
-      <div class="shop-tile"><span class="emoji">🔨</span>Leroy Merlin</div>
-      <div class="shop-tile"><span class="emoji">🪴</span>Castorama</div>
-      <div class="shop-tile"><span class="emoji">⚽</span>Decathlon</div>
-      <div class="shop-tile"><span class="emoji">🚴</span>Intersport</div>
-      <div class="shop-tile"><span class="emoji">🛋️</span>Conforama</div>
-      <div class="shop-tile"><span class="emoji">🛏️</span>BUT</div>
-      <div class="shop-tile"><span class="emoji">🎁</span>Galeries Lafayette</div>
-      <div class="shop-tile"><span class="emoji">🏪</span>Printemps</div>
-      <div class="shop-tile"><span class="emoji">🧸</span>Picwic Toys</div>
-      <div class="shop-tile"><span class="emoji">🍷</span>Nicolas</div>
-      <div class="shop-tile"><span class="emoji">🐶</span>Maxi Zoo</div>
-      <div class="shop-tile"><span class="emoji">👜</span>Et beaucoup d'autres…</div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-title">
-      <h2>📈 Pourquoi rejoindre l'action de groupe ?</h2>
-    </div>
-
-    <div class="stats">
-
-      <div class="stat-box">
-        <h3>-5% à -30%</h3>
-        <p>Ristournes négociées</p>
-      </div>
-
-      <div class="stat-box">
-        <h3>100%</h3>
-        <p>Gratuit pour les membres</p>
-      </div>
-
-      <div class="stat-box">
-        <h3>+ de pouvoir</h3>
-        <p>Grâce au collectif client</p>
-      </div>
-
-      <div class="stat-box">
-        <h3>0 engagement</h3>
-        <p>Vous achetez quand vous voulez</p>
-      </div>
-
-    </div>
-  </section>
-
-  <section>
-
-    <div class="section-title">
-      <h2>🔥 Ce que nous pouvons négocier pour vous</h2>
-    </div>
-
-    <div class="cards">
-
-      <div class="card">
-        <h3>💰 Ristournes immédiates</h3>
-        <p>
-          Réductions de -5% à -30% directement appliquées en caisse
-          ou sur le panier en ligne grâce à un code de groupe.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>🎟️ Bons d'achat offerts</h3>
-        <p>
-          Bons de 10 € à 100 € offerts par l'enseigne
-          dès l'inscription dans le groupe d'acheteurs.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>🚚 Livraison &amp; services offerts</h3>
-        <p>
-          Livraison gratuite, retours étendus, montage offert
-          ou services premium réservés au groupe.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>🎁 Ventes privées &amp; avant-premières</h3>
-        <p>
-          Accès aux soldes en avance, ventes privées et offres
-          spéciales avant le grand public.
-        </p>
-      </div>
-
-    </div>
-
-  </section>
-
-  <section>
-
-    <div class="section-title">
-      <h2>🔗 Nos autres actions de groupe</h2>
-      <p>
-        Découvrez nos autres actions de groupe par catégorie.
-        Cliquez sur la carte qui vous intéresse.
-      </p>
-    </div>
-
-    <div class="cards">
-
-      <a href="/voit/" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>🚗 Voitures</h3>
-        <p>Achat groupé de véhicules — remise 10% à 40%.</p>
+      <a href="/monmecano/" class="card">
+        <span class="icon">🧑‍🔧</span>
+        <span class="card-tag">MonMecano</span>
+        <h3>MonMecano</h3>
+        <div class="url-suffix">jeveux.net/monmecano</div>
+        <p>Conseiller indépendant pour vos achats véhicule : analyse d'annonce, vérification cote, négociation et accompagnement, sans conflit d'intérêt.</p>
+        <span class="card-link">Visiter MonMecano →</span>
       </a>
 
-      <a href="/iph/" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>📱 iPhone</h3>
-        <p>Achat groupé d'iPhone — du 15 Pro Max à l'iPhone X.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COACHING -->
+<section id="coaching" class="cat-coaching" style="background:#fafafa">
+  <div class="container">
+    <div class="section-title">
+      <small>💪 Univers Coaching</small>
+      <h2>Devenez la meilleure version de vous-même</h2>
+    </div>
+    <div class="grid">
+
+      <a href="/cm/" class="card">
+        <span class="icon">🥗</span>
+        <span class="card-tag">CoachMinceur</span>
+        <h3>Coach Minceur</h3>
+        <div class="url-suffix">jeveux.net/cm</div>
+        <p>Mincir, mieux manger et retrouver votre énergie. Programmes personnalisés, suivi régulier, recettes faciles et habitudes durables.</p>
+        <span class="card-link">Visiter Coach Minceur →</span>
       </a>
 
-      <a href="/clim/" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>❄️ Climatisation</h3>
-        <p>Climatisation pose incluse — Daikin, Mitsubishi, LG, Samsung…</p>
+      <a href="/ca/" class="card">
+        <span class="icon">🇬🇧</span>
+        <span class="card-tag">EnglishPro</span>
+        <h3>Cours d'Anglais</h3>
+        <div class="url-suffix">jeveux.net/ca</div>
+        <p>Apprenez l'anglais en ligne ou en présentiel à Reims avec un professeur dédié, super sympa et fun. Essai à 19 € pour évaluer votre niveau.</p>
+        <span class="card-link">Visiter EnglishPro →</span>
       </a>
 
-      <a href="/montr/" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>⌚ Montres de luxe</h3>
-        <p>Horlogerie négociée — Rolex, Patek Philippe, Omega, AP…</p>
+      <a href="https://www.jeveux.net/lagarderieanglaise.html" class="card">
+        <span class="icon">🎒</span>
+        <span class="card-tag">English Kids Care</span>
+        <h3>Garderie et cours d'Anglais pour vos enfants</h3>
+        <div class="url-suffix">jeveux.net/lagarderieanglaise.html</div>
+        <p>Daji récupère vos enfants à la sortie de l'école et les garde jusqu'à votre retour en leur apprenant l'anglais en s'amusant. Reims et environs.</p>
+        <span class="card-link">Visiter English Kids Care →</span>
       </a>
 
-      <a href="/bij/" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>💎 Bijoux de luxe</h3>
-        <p>Joaillerie négociée — Cartier, Van Cleef, Bulgari, Tiffany…</p>
+      <a href="/bc/" class="card">
+        <span class="icon">🚀</span>
+        <span class="card-tag">BoosteMaCarrière</span>
+        <h3>Boost Ma Carrière</h3>
+        <div class="url-suffix">jeveux.net/bc</div>
+        <p>Coaching carrière sur mesure : refonte de CV, préparation entretien, négociation de salaire, reconversion. Concret, mesurable, sans bullshit.</p>
+        <span class="card-link">Visiter Boost Ma Carrière →</span>
       </a>
-
-      <a href="/maroq/" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>👜 Maroquinerie de luxe</h3>
-        <p>Sacs iconiques — Hermès Birkin, Chanel, Louis Vuitton, Dior…</p>
-      </a>
-
-      <div class="card" style="opacity:0.65; border:2px dashed #ea580c;">
-        <h3>🛍️ Boutiques &amp; magasins</h3>
-        <p><em>Vous êtes ici — votez pour votre boutique préférée.</em></p>
-      </div>
 
     </div>
+  </div>
+</section>
 
-  </section>
+<!-- ACHATS GROUPES -->
+<section id="achats" class="cat-achats">
+  <div class="container">
+    <div class="section-title">
+      <small>🛒 Univers Achats Malins</small>
+      <h2>L'union fait la force</h2>
+    </div>
+    <div class="grid">
 
-  <footer>
+      <a href="/ga/" class="card">
+        <span class="icon">🤝</span>
+        <span class="card-tag">GroupAction</span>
+        <h3>GroupAction</h3>
+        <div class="url-suffix">jeveux.net/ga</div>
+        <p>La plateforme d'achats groupés généraliste. Rejoignez d'autres acheteurs sur votre produit et négociez des remises impossibles à obtenir seul.</p>
+        <span class="card-link">Visiter GroupAction →</span>
+      </a>
 
-    <h3>🤝 Ensemble, nous achetons mieux.</h3>
+      <a href="/ip/" class="card">
+        <span class="icon">📱</span>
+        <span class="card-tag">iPhone</span>
+        <h3>GroupAction iPhone</h3>
+        <div class="url-suffix">jeveux.net/ip</div>
+        <p>Achetez votre iPhone neuf en groupe et profitez de remises jusqu'à -20 % du prix officiel Apple. Garantie constructeur préservée.</p>
+        <span class="card-link">Voir l'offre iPhone →</span>
+      </a>
 
-    <p style="margin-top:15px;">
-      L'union fait la force.
-      Plus nous sommes nombreux à fréquenter la même boutique,
-      plus la ristourne négociée sera importante.
-    </p>
+      <a href="/cl/" class="card">
+        <span class="icon">❄️</span>
+        <span class="card-tag">Climatisation</span>
+        <h3>GroupAction Climatisation</h3>
+        <div class="url-suffix">jeveux.net/cl</div>
+        <p>Climatisation réversible installée à -25 % du tarif marché. Devis groupé entre voisins, installateurs certifiés, garantie 5 ans.</p>
+        <span class="card-link">Voir l'offre Climatisation →</span>
+      </a>
 
-    <p style="margin-top:20px;">
-      EMAIL : <a href="mailto:maboutique@jeveux.net">maboutique@jeveux.net</a>
-    </p>
+      <a href="/im/" class="card">
+        <span class="icon">🏠</span>
+        <span class="card-tag">Immobilier</span>
+        <h3>GroupAction Immobilier</h3>
+        <div class="url-suffix">jeveux.net/im</div>
+        <p>Achetez votre résidence principale ou un investissement locatif en groupe. Négociation collective sur des programmes neufs ou anciens.</p>
+        <span class="card-link">Voir l'offre Immobilier →</span>
+      </a>
 
-  </footer>
+      <a href="/vo/" class="card">
+        <span class="icon">🚙</span>
+        <span class="card-tag">Voitures</span>
+        <h3>GroupAction Voitures</h3>
+        <div class="url-suffix">jeveux.net/vo</div>
+        <p>Voiture neuve ou occasion en achat groupé : remise mandataire amplifiée par le volume. Toutes marques, livraison France.</p>
+        <span class="card-link">Voir l'offre Voitures →</span>
+      </a>
+
+      <a href="/vl/" class="card">
+        <span class="icon">🏎️</span>
+        <span class="card-tag">Voitures Luxe</span>
+        <h3>GroupAction Voitures de Luxe</h3>
+        <div class="url-suffix">jeveux.net/vl</div>
+        <p>Rolls-Royce, Ferrari, Bugatti, Porsche, Mercedes-AMG G &amp; GLS, Maserati, Pagani, Lamborghini : véhicules d'exception négociés en groupe à conditions privées.</p>
+        <span class="card-link">Voir l'offre Voitures de Luxe →</span>
+      </a>
+
+      <a href="/bi/" class="card">
+        <span class="icon">💍</span>
+        <span class="card-tag">Bijoux Luxe</span>
+        <h3>GroupAction Bijoux Luxe</h3>
+        <div class="url-suffix">jeveux.net/bi</div>
+        <p>Joaillerie haut de gamme accessible : pièces authentifiées des plus grandes maisons à prix négocié collectivement. Certificat fournisseur.</p>
+        <span class="card-link">Voir l'offre Bijoux →</span>
+      </a>
+
+      <a href="/ma/" class="card">
+        <span class="icon">👜</span>
+        <span class="card-tag">Maroquinerie</span>
+        <h3>GroupAction Maroquinerie Luxe</h3>
+        <div class="url-suffix">jeveux.net/ma</div>
+        <p>Sacs et accessoires des grandes maisons (Louis Vuitton, Hermès, Chanel…) en achat groupé sourcés et authentifiés.</p>
+        <span class="card-link">Voir l'offre Maroquinerie →</span>
+      </a>
+
+      <a href="/ml/" class="card">
+        <span class="icon">⌚</span>
+        <span class="card-tag">Montres Luxe</span>
+        <h3>GroupAction Montres Luxe</h3>
+        <div class="url-suffix">jeveux.net/ml</div>
+        <p>Montres horlogerie suisse à prix négocié : Rolex, Omega, Tudor, Tag Heuer… Pièces tracées, papiers d'origine, garantie internationale.</p>
+        <span class="card-link">Voir l'offre Montres →</span>
+      </a>
+
+      <a href="/ps/" class="card">
+        <span class="icon">☀️</span>
+        <span class="card-tag">Panneaux Solaires</span>
+        <h3>Panneaux Solaires</h3>
+        <div class="url-suffix">jeveux.net/ps</div>
+        <p>Installation de panneaux photovoltaïques sur votre toit. Jusqu'à 70 % d'économies sur votre facture d'électricité. Éligible MaPrimeRénov', prime à l'autoconsommation et aides régionales.</p>
+        <span class="card-link">Visiter Panneaux Solaires →</span>
+      </a>
+
+      <a href="/MonResto/" class="card">
+        <span class="icon">🍽️</span>
+        <span class="card-tag">MonResto</span>
+        <h3>GroupAction MonResto</h3>
+        <div class="url-suffix">jeveux.net/MonResto</div>
+        <p>Remises groupées au restaurant : indiquez vos 3 restos préférés, nous négocions ensemble de -10 % à -30 % sur l'addition auprès des restaurateurs.</p>
+        <span class="card-link">Voir l'offre MonResto →</span>
+      </a>
+
+      <a href="/maboutique.html" class="card">
+        <span class="icon">🛍️</span>
+        <span class="card-tag">MaBoutique</span>
+        <h3>GroupAction MaBoutique</h3>
+        <div class="url-suffix">jeveux.net/maboutique.html</div>
+        <p>Votez pour votre boutique ou magasin préféré (Apple Store, Galeries Lafayette, IKEA, Zara, Sephora, Fnac…). Plus nous sommes nombreux à fréquenter la même enseigne, plus nous négocions des ristournes collectives.</p>
+        <span class="card-link">Voir l'offre MaBoutique →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section id="outils" class="cat-outils" style="background:#fafafa">
+  <div class="container">
+    <div class="section-title">
+      <small>🤖 Univers Outils &amp; IA</small>
+      <h2>Décidez mieux, plus vite</h2>
+    </div>
+    <div class="grid">
+
+      <a href="/sc/" class="card">
+        <span class="icon">🎯</span>
+        <span class="card-tag">SmartChoice+</span>
+        <h3>SmartChoice+</h3>
+        <div class="url-suffix">jeveux.net/sc</div>
+        <p>Vous cherchez quoi acheter ? L'IA trouve la meilleure option pour vous selon votre budget, vos critères et les avis vérifiés du marché.</p>
+        <span class="card-link">Visiter SmartChoice+ →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Un projet, une question, une suggestion ?</h2>
+    <p>Tous nos services sont accessibles, transparents et tenus par une équipe française. Écrivez-nous, on répond sous 24 h.</p>
+    <a href="mailto:contact@jeveux.net" class="cta-btn">Nous contacter →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="logo"><span class="dot" style="color:#6366f1">●</span> JeVeux<span style="color:#6366f1">.net</span></div>
+    <p>19 services pour vous accompagner au quotidien.</p>
+    <p>Contact : <a href="mailto:contact@jeveux.net">contact@jeveux.net</a></p>
+    <p class="legal">© 2026 JeVeux.net — Tous droits réservés. <a href="/mentions-legales">Mentions légales</a> · <a href="/cgu">CGU</a> · <a href="/confidentialite">Confidentialité</a></p>
+  </div>
+</footer>
 
 </body>
 </html>
