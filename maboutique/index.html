@@ -268,7 +268,7 @@
     </p>
 
     <div class="cta">
-      <a href="#formulaire">Je vote pour ma boutique préférée</a>
+      <a href="#formulaire">Je vote pour mes boutiques préférées</a>
     </div>
   </header>
 
@@ -316,6 +316,22 @@
       </div>
 
     </div>
+  </section>
+
+  <section id="formulaire">
+
+    <div class="section-title">
+      <h2>📝 Quelle est votre boutique ou magasin préféré ?</h2>
+      <p>
+        Indiquez l'enseigne dans laquelle vous achetez le plus —
+        plus nous sommes nombreux sur la même boutique,
+        plus la ristourne négociée sera importante.
+      </p>
+    </div>
+
+    <iframe data-tally-src="https://tally.so/embed/vGdLAX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0" title="MaBoutique — Vos boutiques préférées (action de groupe)"></iframe>
+    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
   </section>
 
   <section>
@@ -388,100 +404,6 @@
     </div>
   </section>
 
-  <section id="formulaire">
-
-    <div class="section-title">
-      <h2>📝 Quelle est votre boutique ou magasin préféré ?</h2>
-      <p>
-        Indiquez l'enseigne dans laquelle vous achetez le plus —
-        plus nous sommes nombreux sur la même boutique,
-        plus la ristourne négociée sera importante.
-      </p>
-    </div>
-
-    <div class="form-container">
-
-      <form onsubmit="event.preventDefault(); alert('Merci ! Votre vote a bien été enregistré. Nous vous recontacterons dès que le groupe sera constitué pour cette enseigne.');">
-
-        <label for="nom">Votre nom complet</label>
-        <input id="nom" name="nom" type="text" placeholder="Nom et prénom" required />
-
-        <label for="email">Votre email</label>
-        <input id="email" name="email" type="email" placeholder="email@exemple.fr" required />
-
-        <label for="tel">Votre téléphone (facultatif)</label>
-        <input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" />
-
-        <label for="boutique">Votre boutique ou magasin préféré</label>
-        <input id="boutique" name="boutique" type="text" placeholder="ex. Zara, Sephora, Fnac, Decathlon, IKEA, Apple Store…" required />
-
-        <label for="categorie">Catégorie de l'enseigne</label>
-        <select id="categorie" name="categorie" required>
-          <option value="">— Sélectionnez une catégorie —</option>
-          <option value="mode">👗 Mode &amp; prêt-à-porter</option>
-          <option value="luxe">💎 Mode de luxe</option>
-          <option value="beaute">💄 Beauté &amp; parfumerie</option>
-          <option value="sport">⚽ Sport &amp; outdoor</option>
-          <option value="hightech">💻 High-tech &amp; électronique</option>
-          <option value="maison">🏠 Maison &amp; déco</option>
-          <option value="bricolage">🔨 Bricolage &amp; jardin</option>
-          <option value="meuble">🛋️ Meuble &amp; ameublement</option>
-          <option value="alimentaire">🛒 Alimentaire &amp; supermarché</option>
-          <option value="culture">📚 Culture, jeux &amp; loisirs</option>
-          <option value="grand-magasin">🏬 Grand magasin</option>
-          <option value="jouet">🧸 Jouets &amp; enfants</option>
-          <option value="bijouterie">💎 Bijouterie &amp; horlogerie</option>
-          <option value="animalerie">🐶 Animalerie</option>
-          <option value="cave">🍷 Cave &amp; spiritueux</option>
-          <option value="auto">🚗 Auto &amp; moto</option>
-          <option value="autre">🛍️ Autre</option>
-        </select>
-
-        <label for="frequence">À quelle fréquence achetez-vous dans cette enseigne ?</label>
-        <select id="frequence" name="frequence" required>
-          <option value="">— Sélectionnez —</option>
-          <option value="hebdo">Chaque semaine</option>
-          <option value="mensuel">1 à 2 fois par mois</option>
-          <option value="trimestriel">1 fois par trimestre</option>
-          <option value="occasionnel">Plusieurs fois par an</option>
-          <option value="rare">Rarement, mais panier élevé</option>
-        </select>
-
-        <label for="panier">Panier moyen approximatif par visite</label>
-        <select id="panier" name="panier">
-          <option value="">— Sélectionnez —</option>
-          <option value="0-50">Moins de 50 €</option>
-          <option value="50-150">Entre 50 et 150 €</option>
-          <option value="150-500">Entre 150 et 500 €</option>
-          <option value="500-1500">Entre 500 et 1 500 €</option>
-          <option value="1500+">Plus de 1 500 €</option>
-        </select>
-
-        <label for="canal">Où achetez-vous le plus souvent ?</label>
-        <div class="checkbox-grid">
-          <label><input type="checkbox" name="canal" value="magasin" /> 🏬 En magasin physique</label>
-          <label><input type="checkbox" name="canal" value="site" /> 💻 Sur le site officiel</label>
-          <label><input type="checkbox" name="canal" value="appli" /> 📱 Via l'application mobile</label>
-          <label><input type="checkbox" name="canal" value="marketplace" /> 🛒 Sur une marketplace (Amazon…)</label>
-        </div>
-
-        <label for="ville">Ville / région où vous achetez</label>
-        <input id="ville" name="ville" type="text" placeholder="ex. Paris, Lyon, Bordeaux, en ligne…" />
-
-        <label for="autres">Autres boutiques que vous fréquentez (facultatif)</label>
-        <textarea id="autres" name="autres" rows="3" placeholder="Listez d'autres enseignes pour lesquelles vous voudriez aussi une ristourne de groupe…"></textarea>
-
-        <label for="commentaire">Quel type d'avantage aimeriez-vous obtenir ?</label>
-        <textarea id="commentaire" name="commentaire" rows="3" placeholder="ex. -15% en caisse, bon d'achat de 30 €, livraison offerte, ventes privées, accès soldes en avance…"></textarea>
-
-        <button type="submit">Je vote pour ma boutique préférée ✓</button>
-
-      </form>
-
-    </div>
-
-  </section>
-
   <section>
 
     <div class="section-title">
@@ -538,11 +460,6 @@
 
     <div class="cards">
 
-      <a href="/" class="card" style="text-decoration:none; color:inherit; display:block;">
-        <h3>🛒 L'Union Fait La Force</h3>
-        <p>Page d'accueil — toutes nos actions de groupe en un coup d'œil.</p>
-      </a>
-
       <a href="/voit/" class="card" style="text-decoration:none; color:inherit; display:block;">
         <h3>🚗 Voitures</h3>
         <p>Achat groupé de véhicules — remise 10% à 40%.</p>
@@ -593,7 +510,7 @@
     </p>
 
     <p style="margin-top:20px;">
-      📞 Téléphone : <a href="tel:+33745542008">07 45 54 20 08</a>
+      EMAIL : <a href="mailto:maboutique@jeveux.net">maboutique@jeveux.net</a>
     </p>
 
   </footer>
