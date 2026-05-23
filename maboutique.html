@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GroupAction Boutiques — Quelle est votre boutique préférée ?</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#fff7ed;
+      color:#222;
+      line-height:1.6;
+    }
+
+    header{
+      background:linear-gradient(135deg,#7c2d12,#ea580c);
+      color:white;
+      padding:80px 20px;
+      text-align:center;
+    }
+
+    header h1{
+      font-size:3rem;
+      margin-bottom:20px;
+    }
+
+    header p{
+      max-width:900px;
+      margin:auto;
+      font-size:1.2rem;
+    }
+
+    .cta{
+      margin-top:30px;
+    }
+
+    .cta a{
+      background:#facc15;
+      color:#0f172a;
+      text-decoration:none;
+      padding:15px 30px;
+      border-radius:8px;
+      font-weight:bold;
+      display:inline-block;
+      transition:0.3s;
+    }
+
+    .cta a:hover{
+      background:#eab308;
+      transform:scale(1.05);
+    }
+
+    section{
+      padding:70px 20px;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .section-title h2{
+      font-size:2.2rem;
+      color:#7c2d12;
+      margin-bottom:15px;
+    }
+
+    .section-title p{
+      color:#555;
+      max-width:800px;
+      margin:auto;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:white;
+      border-radius:15px;
+      padding:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      color:#ea580c;
+    }
+
+    .card p{
+      color:#555;
+    }
+
+    .shop-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:15px;
+      margin-top:30px;
+    }
+
+    .shop-tile{
+      background:white;
+      border:2px solid #fed7aa;
+      border-radius:12px;
+      padding:18px 10px;
+      text-align:center;
+      font-weight:bold;
+      color:#7c2d12;
+      transition:0.25s;
+    }
+
+    .shop-tile:hover{
+      background:#fff7ed;
+      border-color:#ea580c;
+      transform:translateY(-3px);
+    }
+
+    .shop-tile .emoji{
+      display:block;
+      font-size:2rem;
+      margin-bottom:6px;
+    }
+
+    .form-container{
+      background:white;
+      border-radius:20px;
+      padding:40px;
+      box-shadow:0 5px 25px rgba(0,0,0,0.08);
+      max-width:800px;
+      margin:auto;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    label{
+      font-weight:bold;
+      color:#0f172a;
+      margin-bottom:-12px;
+    }
+
+    input, textarea, select{
+      padding:15px;
+      border:1px solid #d1d5db;
+      border-radius:10px;
+      font-size:1rem;
+      background:white;
+    }
+
+    .checkbox-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+      padding:10px 0;
+    }
+
+    .checkbox-grid label{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:#fff7ed;
+      padding:10px 14px;
+      border-radius:8px;
+      border:1px solid #fed7aa;
+      cursor:pointer;
+      font-weight:normal;
+      margin:0;
+      font-size:0.95rem;
+    }
+
+    .checkbox-grid input[type="checkbox"]{
+      width:auto;
+      padding:0;
+      margin:0;
+    }
+
+    button{
+      background:#ea580c;
+      color:white;
+      border:none;
+      padding:16px;
+      border-radius:10px;
+      font-size:1rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#c2410c;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .stat-box{
+      background:#0f172a;
+      color:white;
+      padding:35px;
+      border-radius:15px;
+      text-align:center;
+    }
+
+    .stat-box h3{
+      font-size:2rem;
+      margin-bottom:10px;
+      color:#facc15;
+    }
+
+    footer{
+      background:#0f172a;
+      color:white;
+      text-align:center;
+      padding:40px 20px;
+      margin-top:60px;
+    }
+
+    footer a{
+      color:#facc15;
+      text-decoration:none;
+    }
+
+    @media(max-width:768px){
+      header h1{
+        font-size:2.2rem;
+      }
+
+      .section-title h2{
+        font-size:1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🛍️ L'Union Fait La Force <span style="color:#facc15;">— VOTRE BOUTIQUE PRÉFÉRÉE NÉGOCIÉE</span></h1>
+
+    <p>
+      Apple Store, Galeries Lafayette, Leroy Merlin, Decathlon, IKEA, Zara, Sephora, Fnac, Printemps, Nike, …
+      Dites-nous dans quelle boutique ou magasin vous achetez le plus souvent.
+      Plus nous sommes nombreux à fréquenter la même enseigne,
+      plus nous pouvons négocier ensemble des ristournes, bons d'achat
+      et avantages exclusifs auprès des commerçants.
+    </p>
+
+    <div class="cta">
+      <a href="#formulaire">Je vote pour mes boutiques préférées</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-title">
+      <h2>💡 Comment ça fonctionne ?</h2>
+      <p>
+        Nous regroupons les clients fidèles d'une même enseigne pour négocier
+        des <strong>ristournes collectives</strong> auprès des boutiques et magasins.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>1️⃣ Vous votez pour votre boutique</h3>
+        <p>
+          Indiquez la boutique ou le magasin dans lequel vous
+          achetez le plus souvent — en ligne ou en magasin physique.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2️⃣ Nous regroupons les votes</h3>
+        <p>
+          Plus une enseigne reçoit de votes, plus notre groupe
+          de clients devient intéressant à négocier pour elle.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3️⃣ Nous négocions des ristournes</h3>
+        <p>
+          Nous contactons l'enseigne pour obtenir des remises
+          collectives, bons d'achat ou avantages réservés au groupe.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>4️⃣ Vous économisez à chaque achat</h3>
+        <p>
+          Vous recevez un code de groupe à utiliser à chaque
+          passage en caisse ou commande en ligne.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="formulaire">
+
+    <div class="section-title">
+      <h2>📝 Quelle est votre boutique ou magasin préféré ?</h2>
+      <p>
+        Indiquez l'enseigne dans laquelle vous achetez le plus —
+        plus nous sommes nombreux sur la même boutique,
+        plus la ristourne négociée sera importante.
+      </p>
+    </div>
+
+    <iframe data-tally-src="https://tally.so/embed/vGdLAX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0" title="MaBoutique — Vos boutiques préférées (action de groupe)"></iframe>
+    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>🏬 Exemples d'enseignes que nous pouvons négocier</h2>
+      <p>Mode, beauté, sport, déco, high-tech, maison, alimentation… Toutes les catégories sont concernées.</p>
+    </div>
+
+    <div class="shop-grid">
+      <div class="shop-tile"><span class="emoji">👗</span>Zara</div>
+      <div class="shop-tile"><span class="emoji">👕</span>H&amp;M</div>
+      <div class="shop-tile"><span class="emoji">👖</span>Uniqlo</div>
+      <div class="shop-tile"><span class="emoji">🧢</span>Nike</div>
+      <div class="shop-tile"><span class="emoji">👟</span>Adidas</div>
+      <div class="shop-tile"><span class="emoji">💄</span>Sephora</div>
+      <div class="shop-tile"><span class="emoji">💅</span>Marionnaud</div>
+      <div class="shop-tile"><span class="emoji">💊</span>Pharmacie</div>
+      <div class="shop-tile"><span class="emoji">🛒</span>Carrefour</div>
+      <div class="shop-tile"><span class="emoji">🛍️</span>Leclerc</div>
+      <div class="shop-tile"><span class="emoji">🥖</span>Auchan</div>
+      <div class="shop-tile"><span class="emoji">🥩</span>Monoprix</div>
+      <div class="shop-tile"><span class="emoji">📚</span>Fnac</div>
+      <div class="shop-tile"><span class="emoji">🎮</span>Micromania</div>
+      <div class="shop-tile"><span class="emoji">📱</span>Apple Store</div>
+      <div class="shop-tile"><span class="emoji">💻</span>Boulanger</div>
+      <div class="shop-tile"><span class="emoji">🔌</span>Darty</div>
+      <div class="shop-tile"><span class="emoji">🏠</span>IKEA</div>
+      <div class="shop-tile"><span class="emoji">🔨</span>Leroy Merlin</div>
+      <div class="shop-tile"><span class="emoji">🪴</span>Castorama</div>
+      <div class="shop-tile"><span class="emoji">⚽</span>Decathlon</div>
+      <div class="shop-tile"><span class="emoji">🚴</span>Intersport</div>
+      <div class="shop-tile"><span class="emoji">🛋️</span>Conforama</div>
+      <div class="shop-tile"><span class="emoji">🛏️</span>BUT</div>
+      <div class="shop-tile"><span class="emoji">🎁</span>Galeries Lafayette</div>
+      <div class="shop-tile"><span class="emoji">🏪</span>Printemps</div>
+      <div class="shop-tile"><span class="emoji">🧸</span>Picwic Toys</div>
+      <div class="shop-tile"><span class="emoji">🍷</span>Nicolas</div>
+      <div class="shop-tile"><span class="emoji">🐶</span>Maxi Zoo</div>
+      <div class="shop-tile"><span class="emoji">👜</span>Et beaucoup d'autres…</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>📈 Pourquoi rejoindre l'action de groupe ?</h2>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat-box">
+        <h3>-5% à -30%</h3>
+        <p>Ristournes négociées</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>100%</h3>
+        <p>Gratuit pour les membres</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>+ de pouvoir</h3>
+        <p>Grâce au collectif client</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>0 engagement</h3>
+        <p>Vous achetez quand vous voulez</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-title">
+      <h2>🔥 Ce que nous pouvons négocier pour vous</h2>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>💰 Ristournes immédiates</h3>
+        <p>
+          Réductions de -5% à -30% directement appliquées en caisse
+          ou sur le panier en ligne grâce à un code de groupe.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🎟️ Bons d'achat offerts</h3>
+        <p>
+          Bons de 10 € à 100 € offerts par l'enseigne
+          dès l'inscription dans le groupe d'acheteurs.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🚚 Livraison &amp; services offerts</h3>
+        <p>
+          Livraison gratuite, retours étendus, montage offert
+          ou services premium réservés au groupe.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🎁 Ventes privées &amp; avant-premières</h3>
+        <p>
+          Accès aux soldes en avance, ventes privées et offres
+          spéciales avant le grand public.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-title">
+      <h2>🔗 Nos autres actions de groupe</h2>
+      <p>
+        Découvrez nos autres actions de groupe par catégorie.
+        Cliquez sur la carte qui vous intéresse.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <a href="/voit/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>🚗 Voitures</h3>
+        <p>Achat groupé de véhicules — remise 10% à 40%.</p>
+      </a>
+
+      <a href="/iph/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>📱 iPhone</h3>
+        <p>Achat groupé d'iPhone — du 15 Pro Max à l'iPhone X.</p>
+      </a>
+
+      <a href="/clim/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>❄️ Climatisation</h3>
+        <p>Climatisation pose incluse — Daikin, Mitsubishi, LG, Samsung…</p>
+      </a>
+
+      <a href="/montr/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>⌚ Montres de luxe</h3>
+        <p>Horlogerie négociée — Rolex, Patek Philippe, Omega, AP…</p>
+      </a>
+
+      <a href="/bij/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>💎 Bijoux de luxe</h3>
+        <p>Joaillerie négociée — Cartier, Van Cleef, Bulgari, Tiffany…</p>
+      </a>
+
+      <a href="/maroq/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>👜 Maroquinerie de luxe</h3>
+        <p>Sacs iconiques — Hermès Birkin, Chanel, Louis Vuitton, Dior…</p>
+      </a>
+
+      <div class="card" style="opacity:0.65; border:2px dashed #ea580c;">
+        <h3>🛍️ Boutiques &amp; magasins</h3>
+        <p><em>Vous êtes ici — votez pour votre boutique préférée.</em></p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+
+    <h3>🤝 Ensemble, nous achetons mieux.</h3>
+
+    <p style="margin-top:15px;">
+      L'union fait la force.
+      Plus nous sommes nombreux à fréquenter la même boutique,
+      plus la ristourne négociée sera importante.
+    </p>
+
+    <p style="margin-top:20px;">
+      EMAIL : <a href="mailto:maboutique@jeveux.net">maboutique@jeveux.net</a>
+    </p>
+
+  </footer>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
