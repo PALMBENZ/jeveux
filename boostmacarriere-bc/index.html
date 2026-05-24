@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BOOSTE MA CARRIÈRE</title>
+
+  <style>
+
+.table-container{
+  overflow-x:auto;
+  margin-top:30px;
+}
+
+.pricing-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+}
+
+.pricing-table th{
+  background:#2563eb;
+  color:white;
+  padding:20px;
+  font-size:20px;
+  text-align:center;
+}
+
+.pricing-table td{
+  border:1px solid #e5e7eb;
+  padding:20px;
+  vertical-align:top;
+  line-height:1.6;
+  font-size:16px;
+}
+
+.pricing-table tr:nth-child(even){
+  background:#f8fafc;
+}
+
+.pricing-table td:nth-child(2),
+.pricing-table td:nth-child(3){
+  text-align:center;
+  font-weight:bold;
+}
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      display:flex;
+      background:#f4f7fb;
+      color:#222;
+    }
+
+    /* MENU GAUCHE */
+
+    .sidebar{
+      width:260px;
+      height:100vh;
+      background:#0f172a;
+      position:fixed;
+      left:0;
+      top:0;
+      padding:30px 20px;
+      overflow-y:auto;
+    }
+
+    .logo{
+      color:white;
+      font-size:28px;
+      font-weight:bold;
+      margin-bottom:40px;
+      line-height:1.2;
+    }
+
+    .sidebar ul{
+      list-style:none;
+    }
+
+    .sidebar ul li{
+      margin-bottom:20px;
+    }
+
+    .sidebar ul li a{
+      text-decoration:none;
+      color:white;
+      font-size:18px;
+      display:block;
+      padding:12px;
+      border-radius:10px;
+      transition:0.3s;
+      background:rgba(255,255,255,0.05);
+    }
+
+    .sidebar ul li a:hover{
+      background:#2563eb;
+      transform:translateX(5px);
+    }
+
+    /* CONTENU */
+
+    .content{
+      margin-left:260px;
+      width:calc(100% - 260px);
+      padding:40px;
+    }
+
+    section{
+      background:white;
+      padding:40px;
+      border-radius:20px;
+      margin-bottom:40px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    h1{
+      font-size:48px;
+      color:#0f172a;
+      margin-bottom:25px;
+    }
+
+    h2{
+      font-size:34px;
+      color:#2563eb;
+      margin-bottom:25px;
+    }
+
+    p{
+      font-size:18px;
+      line-height:1.8;
+      margin-bottom:20px;
+    }
+
+    .highlight{
+      font-weight:bold;
+      color:#2563eb;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      margin-top:30px;
+    }
+
+    .step{
+      background:#f8fafc;
+      border-left:5px solid #2563eb;
+      padding:20px;
+      border-radius:12px;
+    }
+
+    .step h3{
+      margin-bottom:10px;
+      color:#0f172a;
+    }
+
+    .price-box{
+      background:#2563eb;
+      color:white;
+      padding:20px;
+      border-radius:15px;
+      margin-top:20px;
+      font-size:22px;
+      font-weight:bold;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:20px;
+      background:#2563eb;
+      color:white;
+      padding:15px 30px;
+      text-decoration:none;
+      border-radius:10px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      background:#1d4ed8;
+    }
+
+    @media(max-width:900px){
+
+      body{
+        flex-direction:column;
+      }
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+      }
+
+      .content{
+        margin-left:0;
+        width:100%;
+      }
+
+      h1{
+        font-size:36px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- MENU -->
+
+  <div class="sidebar">
+
+    <div class="logo">
+      BOOSTE<br>MA CARRIÈRE
+    </div>
+
+    <ul>
+      <li><a href="#methode">Comparatif de nos offres</a></li>
+      <li><a href="#contact">Contactez-nous</a></li>
+      <li><a href="#demo">Demo - Webinaire</a></li>
+      <li><a href="#formations">Formations</a></li>
+      <li><a href="#freelance">Freelances et Indépendants</a></li>
+    </ul>
+
+  </div>
+
+  <!-- CONTENU -->
+
+  <div class="content">
+
+    <!-- ACCUEIL -->
+
+    <section id="home">
+
+      <h1>BOOSTE MA CARRIÈRE!</h1>
+
+      <p>
+        Marre d’envoyer des CV sans réponse ? Ou trop occupé pour rechercher l’opportunité que vous méritez ?
+        Vous voulez un poste avec plus de télétravail ? Une meilleure rémunération ?
+      </p>
+
+      <p>
+        Nous vous accompagnons pour optimiser pour maximiser vos chances de décrocher le job qui vous convient.
+      </p>
+
+      <p class="highlight">
+        Résultat : plus d’entretiens, plus rapidement.
+      </p>
+
+      <p>
+        Arrêtez de chercher seul. Laissez-nous vous aider à trouver.
+        Confiez-nous vos objectifs 🚀
+      </p>
+
+      <p> 
+	<h3>
+		<strong>
+		Pour obtenir un audit gratuit, vérifiez que votre CV contient votre prénom, email et numéro de téléphone.
+		</strong>
+	</h3>
+
+      </p>
+
+<iframe data-tally-src="https://tally.so/embed/5BqLAQ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="427" frameborder="0" marginheight="0" marginwidth="0" title="Envoyer ton cv"></iframe>
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+      <a href="#" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
+        <div class="price-box" style="background:#0ea5e9;">
+          Je veux essayer la version basic du service -> 4,99€ <span style="font-size:0.75em; font-weight:normal; opacity:0.85;">/mois</span>
+        </div>
+      </a>
+
+      <a href="https://buy.stripe.com/6oU7sL5tU19Z64qaSb18c03" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
+        <div class="price-box">
+          Je veux gagner du temps et décrocher plus d'entretiens -> 38€ <s style="color:#cbd5e1; font-weight:normal; font-size:0.7em; margin-left:6px;">152€</s> <span style="display:inline-block; background:#dc2626; color:#fff; font-size:0.55em; font-weight:bold; padding:3px 7px; border-radius:6px; vertical-align:middle; margin-left:6px;">-75%</span>
+        </div>
+      </a>
+
+      <a href="https://buy.stripe.com/00wfZh3lMf0PfF09O718c05" target="_blank" rel="noopener" style="text-decoration:none; color:inherit; display:block;">
+        <div class="price-box">
+          Accompagnement PREMIUM -> 689€ <s>1879€</s> <span style="color:#dc2626; font-weight:bold;">-63%</span>
+        </div>
+      </a>
+
+    </section>
+
+    <!-- METHODE -->
+
+    <section id="methode">
+
+<!-- TABLEAU OFFRES -->
+
+<section id="offres">
+
+  <h2>Comparatif de nos offres</h2>
+
+  <div class="table-container">
+
+    <table class="pricing-table">
+
+      <tr>
+        <th>Notre méthode</th>
+        <th style="background:#0ea5e9;"><a href="#" target="_blank" rel="noopener" style="color:white; text-decoration:none;">Basic 4,99€ <span style="font-size:0.75em; font-weight:normal; opacity:0.9;">/ mois</span></a></th>
+        <th><a href="https://buy.stripe.com/6oU7sL5tU19Z64qaSb18c03" target="_blank" rel="noopener" style="color:white; text-decoration:none;">Starter 38€ au lieu de <s>152€</s> <span style="display:inline-block; background:#fff; color:#dc2626; font-size:0.75em; font-weight:bold; padding:2px 6px; border-radius:6px; vertical-align:middle; margin-left:4px;">-75%</span></a></th>
+        <th><a href="https://buy.stripe.com/00wfZh3lMf0PfF09O718c05" target="_blank" rel="noopener" style="color:white; text-decoration:none;">Premium 689€ au lieu de <s>1879€</s> <span style="display:inline-block; background:#fff; color:#dc2626; font-size:0.75em; font-weight:bold; padding:2px 6px; border-radius:6px; vertical-align:middle; margin-left:4px;">-63%</span></a> </th>
+      </tr>
+
+      <tr>
+        <td>
+          1 - 🔍 Analyse : Diagnostic complet de votre profil,
+          compréhension de votre parcours et de vos objectifs.
+        </td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>✔</td>
+      </tr>
+
+      <tr>
+        <td>
+          2 - ✍️ Refonte CV optimisé pour les recruteurs
+          et les algorithmes. Faites la différence !
+        </td>
+        <td>✔</td>
+        <td>✔</td>
+        <td>✔</td>
+      </tr>
+
+      <tr>
+        <td>
+          3 - 🌐 Site web Création de votre site Web personnel
+          afin que votre CV soit positionné au mieux sur Google.
+        </td>
+        <td>sans optimisation SEO</td>
+        <td>sans optimisation SEO</td>
+        <td>avec optimisation SEO</td>
+      </tr>
+
+      <tr>
+        <td>
+          4 - 📌 Proposition
+          Nous sélectionnons et ciblons les meilleures plateformes.
+        </td>
+        <td>1 semaine sur 1 plateforme</td>
+        <td>2 mois sur 2 plateformes</td>
+        <td>24 mois jusqu'à 15 plateformes</td>
+      </tr>
+
+      <tr>
+        <td>
+          5 - 🚀 Optimisation
+          Nous maximisons la visibilité de votre candidature.
+        </td>
+        <td>1 semaine sur 1 plateforme</td>
+        <td>1 mois sur 2 plateformes</td>
+        <td>10 mois sur 6 plateformes</td>
+      </tr>
+
+      <tr>
+        <td>
+          6 - 🤖 Sur-Mesure
+          Avec votre accord, nous implémentons votre outil automatique
+          de candidatures.
+        </td>
+        <td>1 semaine sur 1 plateforme</td>
+        <td>1 mois sur 2 plateformes</td>
+        <td>10 mois jusqu'à 15 plateformes</td>
+      </tr>
+
+      <tr>
+        <td>
+          7 - 🛡️ Notre garantie :
+          Nous vous offrons un accompagnement d'un à 16 semaines supplémentaires
+          si malgré nos efforts nous ne sommes pas arrivés à vous décrocher
+          3 entretiens d'embauche.
+        </td>
+        <td>aucune</td>
+        <td>1 mois en +</td>
+        <td>6 mois en +</td>
+      </tr>
+
+    </table>
+
+  </div>
+
+</section>
+
+      
+    </section>
+
+    <!-- CONTACT -->
+
+    <section id="contact">
+
+      <h2>Contactez-nous</h2>
+
+      <p>
+        Pour toute question ou demande spécifique :
+      </p>
+
+      <p>
+        📞 TEL : <a href="tel:+33745542008">07 45 54 20 08</a>
+      </p>
+
+      <p>
+        📧 EMAIL : boostemacarriere@gmail.com
+      </p>
+
+      <a href="mailto:boostemacarriere@gmail.com" class="btn">
+        Nous contacter
+      </a>
+
+    </section>
+
+    <!-- DEMO -->
+
+    <section id="demo">
+
+      <h2>Demo - Webinaire</h2>
+
+      <p>
+        Pour en savoir plus sur nos services,
+        réservez une place à notre prochain webinaire
+        qui aura lieu le lundi 18 mai à 20h.
+      </p>
+
+<iframe data-tally-src="https://tally.so/embed/7R91M2?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="574" frameborder="0" marginheight="0" marginwidth="0" title="Participer à la Démo-Webinaire"></iframe>
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+    </section>
+
+    <!-- FORMATIONS -->
+
+    <section id="formations">
+
+      <h2>Formations</h2>
+
+      <p>
+        GRATUIT : souscrivez à une de nos formations via votre compte CPF
+        et à la fin de celle-ci obtenez gratuitement notre accompagnement PREMIUM
+        pour rechercher votre nouveau métier !
+      </p>
+
+      <p class="highlight">
+        Nos formations sont éligibles au CPF
+      </p>
+
+      <div class="step">
+        <h3>📚 Formations professionnelles</h3>
+        <p>
+          Développez vos compétences et améliorez votre employabilité
+          avec nos formations spécialisées.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- FREELANCE -->
+
+    <section id="freelance">
+
+      <h2>Freelances et Indépendants : trouvez une mission rapidement</h2>
+
+      <p>
+        Gagnez entre 1h et 4h par jour.
+      </p>
+
+      <p>
+   
+        Nos freelances et indépendants expérimentés dans les domaines
+        de l'informatique et du digital vous accompagnent avec les meilleures pratiques
+        pour trouver votre prochaine mission le plus rapidement possible.
+      </p>
+
+      <p>
+        Si vous êtes en mission et beaucoup trop occupés pour rechercher votre prochaine mission,
+        nous nous occupons de 80% du travail de recherche
+        et sollicitons vos validations aux moments propices.
+      </p>
+
+      <a href="#" class="btn">
+        Commencer maintenant
+      </a>
+
+    </section>
+
+  </div>
+
+</body>
+</html>
