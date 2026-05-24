@@ -170,6 +170,38 @@
     </div>
   </div>
 
+  <!-- CLOUD SYNC -->
+  <div class="chart-card" style="margin-bottom:24px;">
+    <h3>☁️ Synchronisation cloud (partage Daji ↔ Bisi)</h3>
+    <p style="font-size:13px;color:#5b6679;margin-bottom:12px;">
+      Colle ci-dessous l'URL de ton Web App Apps Script (voir la marche à suivre plus bas).
+      Tout changement sera automatiquement synchronisé vers Google Sheets, accessible aux deux PC.
+    </p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
+      <input id="syncUrl" type="url" placeholder="https://script.google.com/macros/s/AKfycb.../exec"
+             style="flex:1;min-width:300px;padding:10px 14px;border:1.5px solid #e3e8f0;border-radius:8px;font-size:13px;font-family:inherit;" />
+      <button class="btn btn-primary" id="saveSyncUrl">💾 Enregistrer</button>
+      <button class="btn btn-secondary" id="pullBtn">⬇️ Récupérer (Pull)</button>
+      <button class="btn btn-secondary" id="pushBtn">⬆️ Envoyer (Push)</button>
+      <span id="syncStatus" style="font-size:13px;color:#5b6679;font-weight:600;"></span>
+    </div>
+    <details style="font-size:13px;color:#5b6679;background:#fafbfd;border:1px dashed #e3e8f0;border-radius:8px;padding:14px;">
+      <summary style="cursor:pointer;font-weight:700;color:#0B3D91;">📘 Marche à suivre (5 min, une seule fois)</summary>
+      <ol style="margin:12px 0 0 22px;line-height:1.7;">
+        <li>Crée un Google Sheet (Drive → Nouveau → Google Sheets).</li>
+        <li>Dans ce sheet : <strong>Extensions → Apps Script</strong>.</li>
+        <li>Efface le code par défaut et colle le script ci-dessous (bouton "Copier").</li>
+        <li>Clique sur <strong>Déployer → Nouveau déploiement</strong> → Type : <strong>Application Web</strong>.</li>
+        <li>Description : <em>"Commercial Daji Bisi"</em> · Exécuter en tant que : <strong>Moi</strong> · Accès : <strong>Tout le monde</strong> → Déployer.</li>
+        <li>Autorise le script quand demandé (avec le compte Google qui possède le Sheet).</li>
+        <li>Copie l'<strong>URL de l'application Web</strong> (se termine par <code>/exec</code>).</li>
+        <li>Colle l'URL dans le champ ci-dessus + <strong>Enregistrer</strong>. Idem sur le PC de Bisi (même URL).</li>
+      </ol>
+      <button class="btn btn-secondary" id="copyScriptBtn" style="margin-top:12px;">📋 Copier le code Apps Script</button>
+      <pre id="appsScriptCode" style="background:#0f172a;color:#e2e8f0;padding:14px;border-radius:8px;margin-top:10px;font-size:11px;overflow-x:auto;font-family:Consolas,monospace;line-height:1.5;"></pre>
+    </details>
+  </div>
+
   <!-- ACTIONS -->
   <div class="actions">
     <button class="btn btn-primary" id="exportBtn">💾 Exporter (JSON)</button>
@@ -179,8 +211,8 @@
   </div>
 
   <p style="font-size:12px;color:#5b6679;margin-bottom:36px;">
-    💡 Données enregistrées localement dans le navigateur (localStorage). Pour partager entre Daji et Bisi,
-    exportez puis importez le fichier JSON, ou demandez une intégration Google Sheets / Firebase.
+    💡 Sans Apps Script configuré, les données restent locales au navigateur. Une fois la sync configurée,
+    les saisies de Daji et Bisi convergent automatiquement vers le même Google Sheet (sync à chaque changement).
   </p>
 
 </main>
@@ -517,6 +549,217 @@
     renderSummary();
     renderWeekTable();
     renderCharts();
+  }
+
+  // ============ CLOUD SYNC ============
+  const SYNC_URL_KEY = 'commercial_sync_url_v1';
+  const syncUrlInput = document.getElementById('syncUrl');
+  const syncStatusEl = document.getElementById('syncStatus');
+  let syncTimer = null;
+  let isApplyingRemote = false;
+
+  // Load saved URL
+  const savedUrl = localStorage.getItem(SYNC_URL_KEY) || '';
+  if (savedUrl) {
+    syncUrlInput.value = savedUrl;
+    setStatus('🔗 URL enregistrée — prêt à synchroniser', '#16a34a');
+  } else {
+    setStatus('⚪ Mode local (pas de cloud configuré)', '#5b6679');
+  }
+
+  function setStatus(text, color) {
+    syncStatusEl.textContent = text;
+    syncStatusEl.style.color = color || '#5b6679';
+  }
+
+  function getSyncUrl() {
+    return (localStorage.getItem(SYNC_URL_KEY) || '').trim();
+  }
+
+  document.getElementById('saveSyncUrl').addEventListener('click', () => {
+    const url = syncUrlInput.value.trim();
+    if (!url) {
+      setStatus('⚠️ URL vide', '#dc2626');
+      return;
+    }
+    if (!/^https:\/\/script\.google\.com\/macros\/.*\/exec\/?$/.test(url)) {
+      if (!confirm("L'URL ne ressemble pas à une URL Apps Script (.../exec). L'enregistrer quand même ?")) return;
+    }
+    localStorage.setItem(SYNC_URL_KEY, url);
+    setStatus('✅ URL enregistrée — récupération…', '#16a34a');
+    pullFromCloud(true);
+  });
+
+  document.getElementById('pullBtn').addEventListener('click', () => pullFromCloud(false));
+  document.getElementById('pushBtn').addEventListener('click', () => pushToCloud(true));
+
+  async function pullFromCloud(silent) {
+    const url = getSyncUrl();
+    if (!url) { setStatus('⚠️ Configure d\'abord l\'URL', '#dc2626'); return; }
+    try {
+      setStatus('⏳ Récupération en cours…', '#0B3D91');
+      const res = await fetch(url + '?action=get&t=' + Date.now(), { method:'GET' });
+      const remote = await res.json();
+      if (remote && typeof remote === 'object' && remote.data) {
+        // merge: keep entries from both, prefer remote when both exist
+        const merged = Object.assign({}, data, remote.data);
+        // Filter empty
+        for (const k in merged) {
+          const v = merged[k];
+          if (!v || !v.daji || !v.bisi ||
+              (v.daji.flyers===0 && v.daji.prospects===0 && v.bisi.flyers===0 && v.bisi.prospects===0)) {
+            delete merged[k];
+          }
+        }
+        isApplyingRemote = true;
+        data = merged;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        renderAll();
+        isApplyingRemote = false;
+        setStatus(`✅ Récupéré ${Object.keys(data).length} jour(s) · ${new Date().toLocaleTimeString('fr-FR')}`, '#16a34a');
+      } else {
+        setStatus('ℹ️ Réponse vide du cloud', '#5b6679');
+      }
+    } catch (err) {
+      setStatus('⚠️ Erreur récupération : ' + err.message, '#dc2626');
+    }
+  }
+
+  async function pushToCloud(silent) {
+    const url = getSyncUrl();
+    if (!url) {
+      if (!silent) setStatus('⚠️ Configure d\'abord l\'URL', '#dc2626');
+      return;
+    }
+    try {
+      if (!silent) setStatus('⏳ Envoi en cours…', '#0B3D91');
+      // Apps Script doPost may not handle CORS preflight well — use text/plain
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({ action:'set', data: data }),
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+      });
+      const result = await res.json();
+      if (result && result.ok) {
+        setStatus(`✅ Synchronisé · ${new Date().toLocaleTimeString('fr-FR')}`, '#16a34a');
+      } else {
+        setStatus('⚠️ Réponse inattendue : ' + JSON.stringify(result).slice(0,80), '#dc2626');
+      }
+    } catch (err) {
+      setStatus('⚠️ Erreur envoi : ' + err.message, '#dc2626');
+    }
+  }
+
+  // Debounced auto-push on data change
+  const originalSetDay = setDay;
+  setDay = function(key, person, field, value) {
+    originalSetDay(key, person, field, value);
+    if (isApplyingRemote) return;
+    if (!getSyncUrl()) return;
+    clearTimeout(syncTimer);
+    setStatus('✏️ Modification — sync dans 1s…', '#F5A623');
+    syncTimer = setTimeout(() => pushToCloud(false), 1000);
+  };
+
+  // Copy Apps Script code to clipboard
+  const APPS_SCRIPT_CODE = `// === COMMERCIAL DAJI BISI — Apps Script ===
+// Ouvre un Google Sheet → Extensions → Apps Script → colle ce code → Déployer (Application Web, Tout le monde) → copie l'URL .../exec
+
+const SHEET_NAME = 'data';
+
+function getSheet_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sh = ss.getSheetByName(SHEET_NAME);
+  if (!sh) {
+    sh = ss.insertSheet(SHEET_NAME);
+    sh.appendRow(['date', 'daji_flyers', 'daji_prospects', 'bisi_flyers', 'bisi_prospects', 'updated_at']);
+  }
+  return sh;
+}
+
+function doGet(e) {
+  const sh = getSheet_();
+  const values = sh.getDataRange().getValues();
+  const data = {};
+  for (let i = 1; i < values.length; i++) {
+    const row = values[i];
+    const key = row[0];
+    if (!key) continue;
+    data[key] = {
+      daji: { flyers: Number(row[1]) || 0, prospects: Number(row[2]) || 0 },
+      bisi: { flyers: Number(row[3]) || 0, prospects: Number(row[4]) || 0 }
+    };
+  }
+  return ContentService.createTextOutput(JSON.stringify({ ok: true, data: data }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  try {
+    const body = JSON.parse(e.postData.contents);
+    if (body.action !== 'set' || !body.data) {
+      return jsonOut_({ ok: false, error: 'invalid payload' });
+    }
+    const sh = getSheet_();
+    // Build map of existing rows
+    const values = sh.getDataRange().getValues();
+    const rowMap = {};
+    for (let i = 1; i < values.length; i++) {
+      if (values[i][0]) rowMap[values[i][0]] = i + 1; // 1-indexed row number
+    }
+    const now = new Date().toISOString();
+    const incoming = body.data;
+    for (const key in incoming) {
+      const v = incoming[key];
+      const row = [
+        key,
+        (v.daji && v.daji.flyers) || 0,
+        (v.daji && v.daji.prospects) || 0,
+        (v.bisi && v.bisi.flyers) || 0,
+        (v.bisi && v.bisi.prospects) || 0,
+        now
+      ];
+      if (rowMap[key]) {
+        sh.getRange(rowMap[key], 1, 1, 6).setValues([row]);
+      } else {
+        sh.appendRow(row);
+      }
+    }
+    // Remove rows whose key is no longer in incoming (so resets propagate)
+    const keysIncoming = new Set(Object.keys(incoming));
+    const toDelete = [];
+    for (const k in rowMap) {
+      if (!keysIncoming.has(k)) toDelete.push(rowMap[k]);
+    }
+    toDelete.sort((a, b) => b - a).forEach(r => sh.deleteRow(r));
+    return jsonOut_({ ok: true, count: Object.keys(incoming).length });
+  } catch (err) {
+    return jsonOut_({ ok: false, error: String(err) });
+  }
+}
+
+function jsonOut_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}`;
+
+  document.getElementById('appsScriptCode').textContent = APPS_SCRIPT_CODE;
+
+  document.getElementById('copyScriptBtn').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(APPS_SCRIPT_CODE);
+      const btn = document.getElementById('copyScriptBtn');
+      const original = btn.textContent;
+      btn.textContent = '✅ Copié !';
+      setTimeout(() => btn.textContent = original, 1800);
+    } catch (err) {
+      alert('Impossible de copier automatiquement — sélectionne le code manuellement.\n' + err.message);
+    }
+  });
+
+  // Auto-pull on load if URL configured
+  if (getSyncUrl()) {
+    setTimeout(() => pullFromCloud(true), 500);
   }
 
   renderAll();
