@@ -762,6 +762,57 @@ function jsonOut_(obj) {
     setTimeout(() => pullFromCloud(true), 500);
   }
 
+  // ============ AUTO-PULL TOUTES LES 30 s ============
+  const AUTO_PULL_INTERVAL_MS = 30000;
+  let lastUserEditAt = 0;
+  let autoPullTimer = null;
+
+  // Marquer une activité utilisateur quand il saisit (pour éviter pull en plein milieu d'une saisie)
+  document.addEventListener('input', e => {
+    if (e.target && e.target.matches('#calBody input')) {
+      lastUserEditAt = Date.now();
+    }
+  });
+
+  async function autoPullTick() {
+    if (!getSyncUrl()) return;
+    // Ne pas pull si l'utilisateur a tapé dans les 3 dernières secondes
+    if (Date.now() - lastUserEditAt < 3000) return;
+    // Ne pas pull si une case d'input du calendrier a le focus (sinon ça écrase ce qu'il tape)
+    const active = document.activeElement;
+    if (active && active.matches && active.matches('#calBody input')) return;
+    // Ne pas pull si une sync (push) est en cours d'attente
+    if (syncTimer) return;
+    await pullFromCloud(true);
+  }
+
+  function startAutoPull() {
+    if (autoPullTimer) return;
+    autoPullTimer = setInterval(autoPullTick, AUTO_PULL_INTERVAL_MS);
+  }
+
+  // Démarre l'auto-pull si URL configurée
+  if (getSyncUrl()) startAutoPull();
+
+  // Si l'utilisateur enregistre/modifie l'URL après coup, démarrer aussi
+  const _origSaveBtn = document.getElementById('saveSyncUrl');
+  _origSaveBtn.addEventListener('click', () => {
+    if (getSyncUrl()) startAutoPull();
+  });
+
+  // Pause l'auto-pull quand l'onglet n'est pas visible (économie de quota Apps Script)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (autoPullTimer) { clearInterval(autoPullTimer); autoPullTimer = null; }
+    } else {
+      if (getSyncUrl()) {
+        // Pull immédiat en revenant sur l'onglet, puis reprend l'intervalle
+        pullFromCloud(true);
+        startAutoPull();
+      }
+    }
+  });
+
   renderAll();
 </script>
 
