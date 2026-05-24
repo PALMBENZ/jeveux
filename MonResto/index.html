@@ -355,71 +355,8 @@
       </p>
     </div>
 
-    <div class="form-container">
-
-      <form onsubmit="event.preventDefault(); alert('Merci ! Vos restaurants favoris ont bien été enregistrés. Nous vous recontacterons dès que la remise sera négociée.');">
-
-        <label for="nom">Votre nom complet</label>
-        <input id="nom" name="nom" type="text" placeholder="Nom et prénom" required />
-
-        <label for="email">Votre email</label>
-        <input id="email" name="email" type="email" placeholder="email@exemple.fr" required />
-
-        <label for="tel">Votre téléphone</label>
-        <input id="tel" name="tel" type="tel" placeholder="06 12 34 56 78" />
-
-        <label for="ville">Votre ville</label>
-        <input id="ville" name="ville" type="text" placeholder="ex. Reims, Paris, Lyon…" required />
-
-        <div class="resto-group">
-          <span class="resto-label">🥇 Restaurant favori n°1</span>
-          <div class="resto-row">
-            <input id="resto1_nom" name="resto1_nom" type="text" placeholder="Nom du restaurant" required />
-            <input id="resto1_ville" name="resto1_ville" type="text" placeholder="Ville" />
-          </div>
-        </div>
-
-        <div class="resto-group">
-          <span class="resto-label">🥈 Restaurant favori n°2</span>
-          <div class="resto-row">
-            <input id="resto2_nom" name="resto2_nom" type="text" placeholder="Nom du restaurant" required />
-            <input id="resto2_ville" name="resto2_ville" type="text" placeholder="Ville" />
-          </div>
-        </div>
-
-        <div class="resto-group">
-          <span class="resto-label">🥉 Restaurant favori n°3</span>
-          <div class="resto-row">
-            <input id="resto3_nom" name="resto3_nom" type="text" placeholder="Nom du restaurant" required />
-            <input id="resto3_ville" name="resto3_ville" type="text" placeholder="Ville" />
-          </div>
-        </div>
-
-        <label for="budget">Budget moyen par personne</label>
-        <select id="budget" name="budget">
-          <option value="0-20">Moins de 20 €</option>
-          <option value="20-40">20 € à 40 €</option>
-          <option value="40-70">40 € à 70 €</option>
-          <option value="70-120">70 € à 120 €</option>
-          <option value="120+">Plus de 120 €</option>
-        </select>
-
-        <label for="frequence">À quelle fréquence allez-vous au restaurant ?</label>
-        <select id="frequence" name="frequence">
-          <option value="hebdo">Au moins une fois par semaine</option>
-          <option value="bimensuel">2 à 3 fois par mois</option>
-          <option value="mensuel">Une fois par mois</option>
-          <option value="occasionnel">Quelques fois par an</option>
-        </select>
-
-        <label for="commentaire">Précisions / autres restaurants (optionnel)</label>
-        <textarea id="commentaire" name="commentaire" rows="4" placeholder="Type de cuisine préférée, contraintes (végétarien, allergies…), autres restaurants à ajouter, etc."></textarea>
-
-        <button type="submit">Je rejoins l'action de groupe ✓</button>
-
-      </form>
-
-    </div>
+    <iframe data-tally-src="https://tally.so/embed/81RJzk?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0" title="MonResto — Action de groupe restaurants"></iframe>
+    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 
   </section>
 
