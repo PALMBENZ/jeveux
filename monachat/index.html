@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MonAchat — Discounts &amp; ristournes sur votre article préféré</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#fdf2f8;
+      color:#222;
+      line-height:1.6;
+    }
+
+    header{
+      background:linear-gradient(135deg,#831843,#db2777);
+      color:white;
+      padding:80px 20px;
+      text-align:center;
+    }
+
+    header h1{
+      font-size:3rem;
+      margin-bottom:20px;
+    }
+
+    header p{
+      max-width:900px;
+      margin:auto;
+      font-size:1.2rem;
+    }
+
+    .cta{
+      margin-top:30px;
+    }
+
+    .cta a{
+      background:#facc15;
+      color:#0f172a;
+      text-decoration:none;
+      padding:15px 30px;
+      border-radius:8px;
+      font-weight:bold;
+      display:inline-block;
+      transition:0.3s;
+    }
+
+    .cta a:hover{
+      background:#eab308;
+      transform:scale(1.05);
+    }
+
+    section{
+      padding:70px 20px;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .section-title h2{
+      font-size:2.2rem;
+      color:#831843;
+      margin-bottom:15px;
+    }
+
+    .section-title p{
+      color:#555;
+      max-width:800px;
+      margin:auto;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .card{
+      background:white;
+      border-radius:15px;
+      padding:30px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+    }
+
+    .card h3{
+      margin-bottom:15px;
+      color:#db2777;
+    }
+
+    .card p{
+      color:#555;
+    }
+
+    .product-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:15px;
+      margin-top:30px;
+    }
+
+    .product-tile{
+      background:white;
+      border:2px solid #fbcfe8;
+      border-radius:12px;
+      padding:18px 10px;
+      text-align:center;
+      font-weight:bold;
+      color:#831843;
+      transition:0.25s;
+    }
+
+    .product-tile:hover{
+      background:#fdf2f8;
+      border-color:#db2777;
+      transform:translateY(-3px);
+    }
+
+    .product-tile .emoji{
+      display:block;
+      font-size:2rem;
+      margin-bottom:6px;
+    }
+
+    .form-container{
+      background:white;
+      border-radius:20px;
+      padding:40px;
+      box-shadow:0 5px 25px rgba(0,0,0,0.08);
+      max-width:800px;
+      margin:auto;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    label{
+      font-weight:bold;
+      color:#0f172a;
+      margin-bottom:-12px;
+    }
+
+    input, textarea, select{
+      padding:15px;
+      border:1px solid #d1d5db;
+      border-radius:10px;
+      font-size:1rem;
+      background:white;
+    }
+
+    button{
+      background:#db2777;
+      color:white;
+      border:none;
+      padding:16px;
+      border-radius:10px;
+      font-size:1rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#9d174d;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .stat-box{
+      background:#0f172a;
+      color:white;
+      padding:35px;
+      border-radius:15px;
+      text-align:center;
+    }
+
+    .stat-box h3{
+      font-size:2rem;
+      margin-bottom:10px;
+      color:#facc15;
+    }
+
+    footer{
+      background:#0f172a;
+      color:white;
+      text-align:center;
+      padding:40px 20px;
+      margin-top:60px;
+    }
+
+    footer a{
+      color:#facc15;
+      text-decoration:none;
+    }
+
+    @media(max-width:768px){
+      header h1{
+        font-size:2.2rem;
+      }
+
+      .section-title h2{
+        font-size:1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎯 L'Union Fait La Force <span style="color:#facc15;">— DISCOUNTS &amp; RISTOURNES SUR VOTRE ARTICLE PRÉFÉRÉ</span></h1>
+
+    <p>
+      iPhone 16 Pro, AirPods Pro, PS5, sac Longchamp, sneakers Nike Air Force 1, Dyson V15, machine Nespresso, parfum Sauvage Dior, console Nintendo Switch, Thermomix…
+      Dites-nous quel article ou produit précis vous voulez acheter.
+      Plus nous sommes nombreux à vouloir le même produit,
+      plus nous pouvons négocier ensemble des ristournes et discounts directement auprès des marques et revendeurs.
+    </p>
+
+    <div class="cta">
+      <a href="#formulaire">Je vote pour mon article préféré</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-title">
+      <h2>💡 Comment ça fonctionne ?</h2>
+      <p>
+        Nous regroupons les acheteurs intéressés par <strong>un même article précis</strong>
+        pour négocier des <strong>discounts collectifs</strong> auprès des marques et distributeurs.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>1️⃣ Vous votez pour votre article</h3>
+        <p>
+          Indiquez l'article ou produit précis que vous souhaitez acheter
+          — modèle, marque, référence si possible.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>2️⃣ Nous regroupons les votes</h3>
+        <p>
+          Plus un article reçoit de votes, plus notre groupe
+          d'acheteurs devient attractif pour la marque et les revendeurs.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>3️⃣ Nous négocions des discounts</h3>
+        <p>
+          Nous contactons le fabricant et les distributeurs agréés pour obtenir
+          des ristournes collectives sur ce produit précis.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>4️⃣ Vous économisez sur votre achat</h3>
+        <p>
+          Vous recevez une offre groupée avec un prix négocié,
+          parfois jusqu'à -40% sous le tarif public.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="formulaire">
+
+    <div class="section-title">
+      <h2>📝 Quel article ou produit voulez-vous acheter ?</h2>
+      <p>
+        Indiquez le produit précis que vous voulez acquérir —
+        plus nous sommes nombreux sur le même article,
+        plus la ristourne négociée sera importante.
+      </p>
+    </div>
+
+    <div class="form-container">
+
+      <iframe data-tally-src="https://tally.so/embed/NpRR1j?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0" title="MonAchat — Votre article préféré"></iframe>
+      <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+    </div>
+
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>🛒 Exemples d'articles que nous pouvons négocier</h2>
+      <p>High-tech, mode, beauté, électroménager, jeux, sport… Tous les produits précis sont concernés.</p>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-tile"><span class="emoji">📱</span>iPhone 16 Pro</div>
+      <div class="product-tile"><span class="emoji">🎧</span>AirPods Pro 2</div>
+      <div class="product-tile"><span class="emoji">⌚</span>Apple Watch</div>
+      <div class="product-tile"><span class="emoji">💻</span>MacBook Air M3</div>
+      <div class="product-tile"><span class="emoji">📲</span>Galaxy S24</div>
+      <div class="product-tile"><span class="emoji">🎮</span>PS5 Pro</div>
+      <div class="product-tile"><span class="emoji">🕹️</span>Nintendo Switch</div>
+      <div class="product-tile"><span class="emoji">🎮</span>Xbox Series X</div>
+      <div class="product-tile"><span class="emoji">👟</span>Nike Air Force 1</div>
+      <div class="product-tile"><span class="emoji">👟</span>Adidas Samba</div>
+      <div class="product-tile"><span class="emoji">👜</span>Sac Longchamp</div>
+      <div class="product-tile"><span class="emoji">🎒</span>Eastpak Padded</div>
+      <div class="product-tile"><span class="emoji">💄</span>Parfum Sauvage Dior</div>
+      <div class="product-tile"><span class="emoji">🌸</span>Chanel N°5</div>
+      <div class="product-tile"><span class="emoji">🧴</span>Crème La Mer</div>
+      <div class="product-tile"><span class="emoji">🌬️</span>Dyson V15</div>
+      <div class="product-tile"><span class="emoji">💨</span>Dyson Airwrap</div>
+      <div class="product-tile"><span class="emoji">☕</span>Nespresso Vertuo</div>
+      <div class="product-tile"><span class="emoji">🍳</span>Thermomix TM6</div>
+      <div class="product-tile"><span class="emoji">🧑‍🍳</span>KitchenAid</div>
+      <div class="product-tile"><span class="emoji">📺</span>TV LG OLED</div>
+      <div class="product-tile"><span class="emoji">📺</span>TV Samsung QLED</div>
+      <div class="product-tile"><span class="emoji">🎵</span>Sonos Beam</div>
+      <div class="product-tile"><span class="emoji">🚲</span>Vélo Decathlon</div>
+      <div class="product-tile"><span class="emoji">🛴</span>Trottinette Xiaomi</div>
+      <div class="product-tile"><span class="emoji">📷</span>Sony Alpha 7 IV</div>
+      <div class="product-tile"><span class="emoji">📸</span>Canon EOS R</div>
+      <div class="product-tile"><span class="emoji">🎂</span>Robot Magimix</div>
+      <div class="product-tile"><span class="emoji">🧸</span>LEGO Star Wars</div>
+      <div class="product-tile"><span class="emoji">🎁</span>Et beaucoup d'autres…</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>📈 Pourquoi rejoindre l'action de groupe ?</h2>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat-box">
+        <h3>-10% à -40%</h3>
+        <p>Discounts négociés</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>100%</h3>
+        <p>Gratuit pour les membres</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>+ de pouvoir</h3>
+        <p>Grâce au collectif d'acheteurs</p>
+      </div>
+
+      <div class="stat-box">
+        <h3>0 engagement</h3>
+        <p>Vous décidez si vous achetez</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+
+    <div class="section-title">
+      <h2>🔥 Ce que nous pouvons négocier pour vous</h2>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>💰 Discounts immédiats</h3>
+        <p>
+          Réductions de -10% à -40% appliquées dès la commande
+          de groupe validée auprès du fabricant ou revendeur.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🎁 Accessoires offerts</h3>
+        <p>
+          Coque, étui, chargeur, garantie étendue, extension RAM/stockage…
+          Options offertes en bonus selon le produit.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🚚 Livraison &amp; pose offertes</h3>
+        <p>
+          Livraison gratuite à domicile, pose ou installation incluse
+          quand c'est applicable (TV, électroménager…).
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>♻️ Reprise de l'ancien</h3>
+        <p>
+          Reprise de votre ancien appareil au meilleur prix
+          quand le produit s'y prête (téléphone, console, électroménager…).
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="section-title">
+      <h2>🔗 Nos autres actions de groupe</h2>
+      <p>
+        Découvrez nos autres actions de groupe par catégorie.
+        Cliquez sur la carte qui vous intéresse.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <a href="/bo/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>🛍️ Boutiques &amp; magasins</h3>
+        <p>Votez pour votre enseigne préférée — ristournes négociées.</p>
+      </a>
+
+      <a href="/voit/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>🚗 Voitures</h3>
+        <p>Achat groupé de véhicules — remise 10% à 40%.</p>
+      </a>
+
+      <a href="/iph/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>📱 iPhone</h3>
+        <p>Achat groupé d'iPhone — du 15 Pro Max à l'iPhone X.</p>
+      </a>
+
+      <a href="/clim/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>❄️ Climatisation</h3>
+        <p>Climatisation pose incluse — Daikin, Mitsubishi, LG, Samsung…</p>
+      </a>
+
+      <a href="/montr/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>⌚ Montres de luxe</h3>
+        <p>Horlogerie négociée — Rolex, Patek Philippe, Omega, AP…</p>
+      </a>
+
+      <a href="/bij/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>💎 Bijoux de luxe</h3>
+        <p>Joaillerie négociée — Cartier, Van Cleef, Bulgari, Tiffany…</p>
+      </a>
+
+      <a href="/maroq/" class="card" style="text-decoration:none; color:inherit; display:block;">
+        <h3>👜 Maroquinerie de luxe</h3>
+        <p>Sacs iconiques — Hermès Birkin, Chanel, Louis Vuitton, Dior…</p>
+      </a>
+
+      <div class="card" style="opacity:0.65; border:2px dashed #db2777;">
+        <h3>🎯 Article / produit préféré</h3>
+        <p><em>Vous êtes ici — votez pour l'article que vous voulez acheter.</em></p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer>
+
+    <h3>🤝 Ensemble, nous achetons mieux.</h3>
+
+    <p style="margin-top:15px;">
+      L'union fait la force.
+      Plus nous sommes nombreux à vouloir le même article,
+      plus le discount négocié sera important.
+    </p>
+
+    <p style="margin-top:20px;">
+      EMAIL : <a href="mailto:monachat@jeveux.net">monachat@jeveux.net</a>
+    </p>
+
+  </footer>
+
+</body>
+</html>
