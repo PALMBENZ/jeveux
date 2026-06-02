@@ -31,6 +31,8 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 70px;
+      flex-wrap: wrap;
+      gap: 14px;
     }
 
     .logo {
@@ -39,11 +41,43 @@
       color: #064e3b;
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
     .nav-links a {
       margin-left: 24px;
       text-decoration: none;
       color: #064e3b;
       font-weight: 700;
+    }
+
+    .lang-switch {
+      margin-left: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 32px;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(6, 78, 59, 0.18);
+      border: 2px solid #064e3b;
+      text-decoration: none;
+      overflow: hidden;
+      transition: transform 0.15s ease;
+    }
+
+    .lang-switch:hover {
+      transform: scale(1.08);
+    }
+
+    .lang-switch svg {
+      display: block;
+      width: 40px;
+      height: 28px;
     }
 
     .hero {
@@ -68,253 +102,61 @@
       color: #17463b;
     }
 
-    .buttons {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+    .buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn { padding: 15px 26px; border-radius: 999px; text-decoration: none; font-weight: 800; display: inline-block; }
+    .btn-primary { background: #064e3b; color: white; }
+    .btn-secondary { background: white; color: #064e3b; border: 2px solid #064e3b; }
 
-    .btn {
-      padding: 15px 26px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 800;
-      display: inline-block;
-    }
+    .hero-card { background: rgba(255, 255, 255, 0.75); border-radius: 32px; padding: 28px; box-shadow: 0 20px 60px rgba(6, 78, 59, 0.18); }
+    .hero-card img { width: 100%; border-radius: 26px; margin-bottom: 20px; }
+    .hero-card h3 { color: #064e3b; font-size: 24px; margin-bottom: 10px; }
 
-    .btn-primary {
-      background: #064e3b;
-      color: white;
-    }
+    section { padding: 80px 8%; }
+    .section-title { text-align: center; max-width: 760px; margin: 0 auto 48px; }
+    .section-title h2 { font-size: 42px; color: #064e3b; margin-bottom: 14px; }
+    .section-title p { font-size: 18px; color: #52616b; }
 
-    .btn-secondary {
-      background: white;
-      color: #064e3b;
-      border: 2px solid #064e3b;
-    }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: white; padding: 30px; border-radius: 28px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); border: 1px solid #ecfdf5; }
+    .card .icon { font-size: 42px; margin-bottom: 16px; }
+    .card h3 { color: #064e3b; font-size: 24px; margin-bottom: 12px; }
 
-    .hero-card {
-      background: rgba(255, 255, 255, 0.75);
-      border-radius: 32px;
-      padding: 28px;
-      box-shadow: 0 20px 60px rgba(6, 78, 59, 0.18);
-    }
+    .about { background: #ecfdf5; }
+    .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: center; }
+    .about img { width: 100%; border-radius: 32px; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12); }
+    .about h2 { font-size: 42px; color: #064e3b; margin-bottom: 18px; }
+    .about ul { margin-top: 22px; list-style: none; }
+    .about li { margin-bottom: 12px; font-weight: 700; }
 
-    .hero-card img {
-      width: 100%;
-      border-radius: 26px;
-      margin-bottom: 20px;
-    }
+    .program { background: #fff7ed; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .step { background: white; padding: 24px; border-radius: 24px; border-left: 6px solid #22c55e; }
+    .step span { font-size: 34px; font-weight: 900; color: #22c55e; }
 
-    .hero-card h3 {
-      color: #064e3b;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+    .pricing { background: #f8fafc; }
+    .price { font-size: 38px; color: #064e3b; font-weight: 900; margin: 18px 0; }
+    .card ul { list-style: none; margin: 18px 0 24px; }
+    .card li { margin-bottom: 10px; }
+    .highlight { transform: translateY(-10px); border: 2px solid #22c55e; }
 
-    section {
-      padding: 80px 8%;
-    }
+    .testimonials { background: white; }
+    blockquote { font-style: italic; color: #334155; margin-bottom: 16px; }
 
-    .section-title {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto 48px;
-    }
+    .contact { background: linear-gradient(135deg, #064e3b, #047857); color: white; }
+    .contact .section-title h2, .contact .section-title p { color: white; }
 
-    .section-title h2 {
-      font-size: 42px;
-      color: #064e3b;
-      margin-bottom: 14px;
-    }
-
-    .section-title p {
-      font-size: 18px;
-      color: #52616b;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 28px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-      border: 1px solid #ecfdf5;
-    }
-
-    .card .icon {
-      font-size: 42px;
-      margin-bottom: 16px;
-    }
-
-    .card h3 {
-      color: #064e3b;
-      font-size: 24px;
-      margin-bottom: 12px;
-    }
-
-    .about {
-      background: #ecfdf5;
-    }
-
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 42px;
-      align-items: center;
-    }
-
-    .about img {
-      width: 100%;
-      border-radius: 32px;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
-    }
-
-    .about h2 {
-      font-size: 42px;
-      color: #064e3b;
-      margin-bottom: 18px;
-    }
-
-    .about ul {
-      margin-top: 22px;
-      list-style: none;
-    }
-
-    .about li {
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    .program {
-      background: #fff7ed;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .step {
-      background: white;
-      padding: 24px;
-      border-radius: 24px;
-      border-left: 6px solid #22c55e;
-    }
-
-    .step span {
-      font-size: 34px;
-      font-weight: 900;
-      color: #22c55e;
-    }
-
-    .pricing {
-      background: #f8fafc;
-    }
-
-    .price {
-      font-size: 38px;
-      color: #064e3b;
-      font-weight: 900;
-      margin: 18px 0;
-    }
-
-    .card ul {
-      list-style: none;
-      margin: 18px 0 24px;
-    }
-
-    .card li {
-      margin-bottom: 10px;
-    }
-
-    .highlight {
-      transform: translateY(-10px);
-      border: 2px solid #22c55e;
-    }
-
-    .testimonials {
-      background: white;
-    }
-
-    blockquote {
-      font-style: italic;
-      color: #334155;
-      margin-bottom: 16px;
-    }
-
-    .contact {
-      background: linear-gradient(135deg, #064e3b, #047857);
-      color: white;
-    }
-
-    .contact .section-title h2,
-    .contact .section-title p {
-      color: white;
-    }
-
-    form {
-      max-width: 760px;
-      margin: auto;
-      display: grid;
-      gap: 16px;
-      background: white;
-      padding: 32px;
-      border-radius: 30px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid #cbd5e1;
-      font-size: 16px;
-    }
-
-    textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 28px;
-      background: #022c22;
-      color: white;
-    }
+    form { max-width: 760px; margin: auto; display: grid; gap: 16px; background: white; padding: 32px; border-radius: 30px; }
+    input, select, textarea { width: 100%; padding: 16px; border-radius: 14px; border: 1px solid #cbd5e1; font-size: 16px; }
+    textarea { min-height: 130px; resize: vertical; }
+    button { border: none; cursor: pointer; font-size: 16px; }
+    footer { text-align: center; padding: 28px; background: #022c22; color: white; }
 
     @media (max-width: 900px) {
-      .hero,
-      .about-content,
-      .grid,
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      nav {
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .nav-links a {
-        margin: 0 8px;
-      }
-
-      header {
-        min-height: auto;
-      }
+      .hero, .about-content, .grid, .steps { grid-template-columns: 1fr; }
+      nav { flex-direction: column; gap: 18px; }
+      .nav-links a { margin: 0 8px; }
+      .lang-switch { margin: 0 8px; }
+      header { min-height: auto; }
     }
   </style>
 </head>
@@ -327,6 +169,9 @@
         <a href="#programme">Programme</a>
         <a href="#tarifs">Tarifs</a>
         <a href="#contact">Contact</a>
+        <a href="index-en.html" class="lang-switch" title="View in English" aria-label="View in English">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30"><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>
+        </a>
       </div>
     </nav>
 
@@ -353,21 +198,9 @@
       <p>Des solutions concrètes pour transformer vos habitudes sans frustration ni régime extrême.</p>
     </div>
     <div class="grid">
-      <div class="card">
-        <div class="icon">🥗</div>
-        <h3>Coaching nutrition</h3>
-        <p>Bilan personnalisé, menus équilibrés, conseils adaptés à votre rythme de vie et à vos objectifs minceur.</p>
-      </div>
-      <div class="card">
-        <div class="icon">👩‍🍳</div>
-        <h3>Cuisine healthy</h3>
-        <p>Préparation de repas ensemble, recettes simples, gourmandes et saines pour retrouver le plaisir de cuisiner.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🏃‍♀️</div>
-        <h3>Sport & motivation</h3>
-        <p>Programme d'activité progressif : marche, renforcement, mobilité et routines faciles à tenir.</p>
-      </div>
+      <div class="card"><div class="icon">🥗</div><h3>Coaching nutrition</h3><p>Bilan personnalisé, menus équilibrés, conseils adaptés à votre rythme de vie et à vos objectifs minceur.</p></div>
+      <div class="card"><div class="icon">👩‍🍳</div><h3>Cuisine healthy</h3><p>Préparation de repas ensemble, recettes simples, gourmandes et saines pour retrouver le plaisir de cuisiner.</p></div>
+      <div class="card"><div class="icon">🏃‍♀️</div><h3>Sport & motivation</h3><p>Programme d'activité progressif : marche, renforcement, mobilité et routines faciles à tenir.</p></div>
     </div>
   </section>
 
@@ -393,26 +226,10 @@
       <p>Un parcours simple en 4 étapes pour reprendre le contrôle de votre santé.</p>
     </div>
     <div class="steps">
-      <div class="step">
-        <span>1</span>
-        <h3>Bilan</h3>
-        <p>Nous analysons vos habitudes, vos objectifs et vos blocages.</p>
-      </div>
-      <div class="step">
-        <span>2</span>
-        <h3>Plan d'action</h3>
-        <p>Vous recevez une stratégie nutrition, sport et organisation.</p>
-      </div>
-      <div class="step">
-        <span>3</span>
-        <h3>Ateliers cuisine</h3>
-        <p>Nous préparons des repas healthy ensemble, à distance ou sur place.</p>
-      </div>
-      <div class="step">
-        <span>4</span>
-        <h3>Suivi</h3>
-        <p>On ajuste, on mesure les progrès et on garde la motivation.</p>
-      </div>
+      <div class="step"><span>1</span><h3>Bilan</h3><p>Nous analysons vos habitudes, vos objectifs et vos blocages.</p></div>
+      <div class="step"><span>2</span><h3>Plan d'action</h3><p>Vous recevez une stratégie nutrition, sport et organisation.</p></div>
+      <div class="step"><span>3</span><h3>Ateliers cuisine</h3><p>Nous préparons des repas healthy ensemble, à distance ou sur place.</p></div>
+      <div class="step"><span>4</span><h3>Suivi</h3><p>On ajuste, on mesure les progrès et on garde la motivation.</p></div>
     </div>
   </section>
 
@@ -467,18 +284,9 @@
       <p>Des résultats obtenus avec une méthode progressive et agréable.</p>
     </div>
     <div class="grid">
-      <div class="card">
-        <blockquote>"J'ai appris à manger mieux sans me priver. Les ateliers cuisine m'ont beaucoup aidée."</blockquote>
-        <strong>— Sarah, 34 ans</strong>
-      </div>
-      <div class="card">
-        <blockquote>"Le programme sport était simple et adapté à mon niveau. J'ai enfin tenu dans la durée."</blockquote>
-        <strong>— Marc, 42 ans</strong>
-      </div>
-      <div class="card">
-        <blockquote>"J'ai perdu du poids, mais surtout j'ai retrouvé de l'énergie et une meilleure organisation."</blockquote>
-        <strong>— Lina, 29 ans</strong>
-      </div>
+      <div class="card"><blockquote>"J'ai appris à manger mieux sans me priver. Les ateliers cuisine m'ont beaucoup aidée."</blockquote><strong>— Sarah, 34 ans</strong></div>
+      <div class="card"><blockquote>"Le programme sport était simple et adapté à mon niveau. J'ai enfin tenu dans la durée."</blockquote><strong>— Marc, 42 ans</strong></div>
+      <div class="card"><blockquote>"J'ai perdu du poids, mais surtout j'ai retrouvé de l'énergie et une meilleure organisation."</blockquote><strong>— Lina, 29 ans</strong></div>
     </div>
   </section>
 
