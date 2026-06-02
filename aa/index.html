@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apprendre l'Allemand — 3 mots par jour</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(180deg, #fefefe 0%, #f4f4f5 100%);
+      color: #1f2937;
+      line-height: 1.5;
+      padding: 24px;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+      padding: 32px;
+      background: linear-gradient(135deg, #000000 0%, #DD0000 50%, #FFCE00 100%);
+      border-radius: 24px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    header h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    header p {
+      font-size: 17px;
+      opacity: 0.95;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .controls {
+      max-width: 1100px;
+      margin: 0 auto 24px;
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .stats {
+      background: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .stats strong { color: #DD0000; }
+
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn {
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary { background: #000000; color: #FFCE00; }
+    .btn-warn { background: #DD0000; color: white; }
+    .btn-ghost { background: white; color: #1f2937; border: 1px solid #e5e7eb; }
+
+    .calendar {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    .calendar-header {
+      display: grid;
+      grid-template-columns: 280px 1fr 1fr 1fr;
+      gap: 12px;
+      padding: 14px 20px;
+      background: #1f2937;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 280px 1fr 1fr 1fr;
+      gap: 12px;
+      padding: 12px 20px;
+      align-items: center;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.12s;
+    }
+
+    .row:hover { background: #fefce8; }
+    .row.today { background: linear-gradient(90deg, #fef3c7 0%, transparent 60%); border-left: 4px solid #DD0000; }
+    .row.weekend { background: #fafafa; }
+    .row.weekend:hover { background: #fef3c7; }
+
+    .date-label {
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+
+    .date-label .day-name {
+      display: inline;
+      font-size: 15px;
+      color: #6b7280;
+      font-weight: 500;
+      text-transform: capitalize;
+      margin-right: 4px;
+    }
+
+    .row.today .day-name { color: #DD0000; font-weight: 700; }
+
+    input.word {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input.word:focus {
+      outline: none;
+      border-color: #DD0000;
+      box-shadow: 0 0 0 3px rgba(221, 0, 0, 0.12);
+    }
+
+    input.word:not(:placeholder-shown) {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 24px auto 0;
+      text-align: center;
+      color: #6b7280;
+      font-size: 13px;
+      padding: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .calendar-header { display: none; }
+      .row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 16px;
+      }
+      .date-label { font-size: 17px; padding-bottom: 4px; border-bottom: 1px solid #f1f5f9; }
+      input.word::placeholder { font-size: 13px; }
+    }
+
+    /* Print */
+    @media print {
+      @page { size: A4 landscape; margin: 10mm; }
+      body { background: white; padding: 0; font-size: 11px; }
+      header {
+        background: white !important;
+        color: #1f2937 !important;
+        box-shadow: none;
+        padding: 8px 0;
+        text-align: left;
+        border-bottom: 2px solid #1f2937;
+        margin-bottom: 8px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      header h1 { font-size: 16px; text-shadow: none; color: #1f2937 !important; }
+      header p { font-size: 10px; color: #4b5563 !important; }
+      .controls, .stats, .actions, footer { display: none !important; }
+      .calendar { box-shadow: none; max-width: 100%; border-radius: 0; }
+      .calendar-header {
+        display: grid !important;
+        grid-template-columns: 220px 1fr 1fr 1fr !important;
+        gap: 8px;
+        padding: 6px 8px;
+        background: #1f2937 !important;
+        color: white !important;
+        font-size: 10px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .row {
+        display: grid !important;
+        grid-template-columns: 220px 1fr 1fr 1fr !important;
+        gap: 8px;
+        padding: 4px 8px;
+        page-break-inside: avoid;
+        font-size: 11px;
+        background: white !important;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .row.today { background: white !important; border-left: 2px solid #DD0000; }
+      .row.weekend { background: white !important; }
+      .date-label { white-space: nowrap; font-size: 11px; padding: 0; border: none; }
+      .date-label .day-name { color: #6b7280 !important; font-size: 11px; }
+      input.word {
+        padding: 3px 6px;
+        font-size: 11px;
+        border: 1px solid #cbd5e1 !important;
+        background: white !important;
+        border-radius: 4px;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🇩🇪 Apprendre l'Allemand — 3 mots par jour</h1>
+    <p>Du 2 juin 2026 au 31 décembre 2026 — Notez 3 nouveaux mots allemands chaque jour. Vos saisies sont sauvegardées automatiquement dans votre navigateur.</p>
+  </header>
+
+  <div class="controls">
+    <div class="stats" id="stats">📊 Chargement…</div>
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-export">⬇ Exporter (CSV)</button>
+      <button class="btn btn-ghost" id="btn-print">🖨 Imprimer</button>
+      <button class="btn btn-warn" id="btn-reset">🗑 Tout effacer</button>
+    </div>
+  </div>
+
+  <div class="calendar">
+    <div class="calendar-header">
+      <div>Date</div>
+      <div>Mot 1</div>
+      <div>Mot 2</div>
+      <div>Mot 3</div>
+    </div>
+    <div id="rows"></div>
+  </div>
+
+  <footer>
+    💾 Sauvegarde locale automatique (votre navigateur uniquement). Pour conserver vos données, utilisez le bouton « Exporter ».
+  </footer>
+
+  <script>
+    const START_DATE = new Date(2026, 5, 2); // 2 juin 2026 (mois 0-indexé)
+    const END_DATE = new Date(2026, 11, 31); // 31 décembre 2026
+    const STORAGE_KEY = "allemand_3mots_par_jour_v1";
+    const DAYS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
+    const MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+
+    function dateKey(d) {
+      return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    }
+
+    function loadData() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+      catch { return {}; }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function isToday(d) {
+      const t = new Date();
+      return d.getFullYear() === t.getFullYear() && d.getMonth() === t.getMonth() && d.getDate() === t.getDate();
+    }
+
+    function isWeekend(d) {
+      return d.getDay() === 0 || d.getDay() === 6;
+    }
+
+    function updateStats() {
+      const data = loadData();
+      let filledDays = 0;
+      let totalWords = 0;
+      let totalDays = 0;
+      for (let d = new Date(START_DATE); d <= END_DATE; d.setDate(d.getDate() + 1)) {
+        totalDays++;
+        const k = dateKey(d);
+        const entry = data[k] || ["", "", ""];
+        const filled = entry.filter(w => w && w.trim()).length;
+        if (filled === 3) filledDays++;
+        totalWords += filled;
+      }
+      const pct = Math.round((totalWords / (totalDays * 3)) * 100);
+      document.getElementById("stats").innerHTML =
+        `📊 <strong>${totalWords}</strong> mots saisis · <strong>${filledDays}</strong> jours complets · <strong>${pct}%</strong> de progression`;
+    }
+
+    function render() {
+      const data = loadData();
+      const container = document.getElementById("rows");
+      container.innerHTML = "";
+
+      let currentMonth = -1;
+
+      for (let d = new Date(START_DATE); d <= END_DATE; d.setDate(d.getDate() + 1)) {
+        const k = dateKey(d);
+        const entry = data[k] || ["", "", ""];
+
+        const row = document.createElement("div");
+        row.className = "row";
+        if (isToday(d)) row.classList.add("today");
+        if (isWeekend(d)) row.classList.add("weekend");
+
+        const dayName = DAYS[d.getDay()];
+        const monthName = MONTHS[d.getMonth()];
+        const dateLabel = document.createElement("div");
+        dateLabel.className = "date-label";
+        dateLabel.innerHTML = `<span class="day-name">${dayName}</span>${d.getDate()} ${monthName} ${d.getFullYear()}`;
+        // tout sur la même ligne (jour + date + 3 mots)
+        row.appendChild(dateLabel);
+
+        for (let i = 0; i < 3; i++) {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.className = "word";
+          input.placeholder = `Mot allemand n°${i + 1}`;
+          input.value = entry[i] || "";
+          input.dataset.date = k;
+          input.dataset.index = i;
+          input.addEventListener("input", onWordChange);
+          row.appendChild(input);
+        }
+
+        container.appendChild(row);
+      }
+
+      updateStats();
+    }
+
+    let saveTimeout;
+    function onWordChange(e) {
+      const data = loadData();
+      const k = e.target.dataset.date;
+      const i = parseInt(e.target.dataset.index);
+      if (!data[k]) data[k] = ["", "", ""];
+      data[k][i] = e.target.value;
+      saveData(data);
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(updateStats, 300);
+    }
+
+    document.getElementById("btn-reset").addEventListener("click", () => {
+      if (confirm("Êtes-vous sûr de vouloir effacer tous les mots saisis ? Cette action est irréversible.")) {
+        localStorage.removeItem(STORAGE_KEY);
+        render();
+      }
+    });
+
+    document.getElementById("btn-export").addEventListener("click", () => {
+      const data = loadData();
+      let csv = "Date;Jour;Mot 1;Mot 2;Mot 3\n";
+      for (let d = new Date(START_DATE); d <= END_DATE; d.setDate(d.getDate() + 1)) {
+        const k = dateKey(d);
+        const entry = data[k] || ["", "", ""];
+        const dayName = DAYS[d.getDay()];
+        const display = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
+        csv += `${display};${dayName};"${(entry[0] || "").replace(/"/g, '""')}";"${(entry[1] || "").replace(/"/g, '""')}";"${(entry[2] || "").replace(/"/g, '""')}"\n`;
+      }
+      const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `allemand_3mots_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById("btn-print").addEventListener("click", () => window.print());
+
+    // Scroll to today on load if visible
+    window.addEventListener("load", () => {
+      render();
+      setTimeout(() => {
+        const todayRow = document.querySelector(".row.today");
+        if (todayRow) todayRow.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 200);
+    });
+  </script>
+</body>
+</html>
