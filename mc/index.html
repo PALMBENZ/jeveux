@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ma Caravane — Location de caravanes et camping-cars</title>
+<meta name="description" content="Louez une caravane ou un camping-car tout équipé pour vos vacances : vans aménagés, profilés, capucines et caravanes familiales. Réservation simple, kilométrage généreux, assistance 24/7."/>
+<meta name="theme-color" content="#0f766e"/>
+<meta property="og:title" content="Ma Caravane — Location de caravanes et camping-cars"/>
+<meta property="og:description" content="Partez à l'aventure avec un véhicule de loisirs tout équipé. Réservation en ligne, prise en main facile, assistance 24/7."/>
+<meta property="og:type" content="website"/>
+<style>
+:root{
+  --teal:#0f766e; --teal-dark:#0c5d56; --sand:#f59e0b; --ink:#1f2937; --muted:#5b6470;
+  --bg:#f6faf9; --card:#ffffff; --line:#e2e8e6;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,Helvetica,sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);line-height:1.6;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.container{max-width:1140px;margin:0 auto;padding:0 20px;}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px;color:var(--teal);}
+.brand .pin{font-size:24px;}
+.nav ul{display:flex;gap:26px;list-style:none;}
+.nav ul a{font-weight:600;color:var(--muted);transition:.2s;}
+.nav ul a:hover{color:var(--teal);}
+.btn{display:inline-block;background:var(--teal);color:#fff;padding:12px 22px;border-radius:10px;font-weight:700;transition:.2s;border:none;cursor:pointer;}
+.btn:hover{background:var(--teal-dark);}
+.btn.sand{background:var(--sand);color:#3b2c08;}
+.btn.sand:hover{filter:brightness(.95);}
+.btn.ghost{background:transparent;color:var(--teal);border:2px solid var(--teal);}
+.menu-toggle{display:none;font-size:26px;background:none;border:none;color:var(--teal);cursor:pointer;}
+
+/* HERO */
+.hero{position:relative;color:#fff;background:linear-gradient(120deg,#0f766e 0%,#0b8f86 60%,#13a89d 100%);overflow:hidden;}
+.hero::after{content:"";position:absolute;right:-80px;bottom:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(245,158,11,.35),transparent 70%);border-radius:50%;}
+.hero .container{position:relative;z-index:2;padding:84px 20px;}
+.hero h1{font-size:46px;line-height:1.1;margin-bottom:18px;max-width:760px;}
+.hero p{font-size:20px;max-width:620px;opacity:.95;margin-bottom:28px;}
+.hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+.hero .stats{display:flex;gap:34px;margin-top:42px;flex-wrap:wrap;}
+.hero .stats div{font-size:14px;opacity:.9;}
+.hero .stats b{display:block;font-size:28px;}
+
+/* SECTIONS */
+section.block{padding:72px 0;}
+.eyebrow{color:var(--sand);font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:13px;}
+h2{font-size:34px;margin:8px 0 14px;}
+.lead{color:var(--muted);font-size:18px;max-width:680px;}
+.grid{display:grid;gap:24px;margin-top:38px;}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+.g4{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 6px 24px rgba(15,118,110,.06);transition:.2s;}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(15,118,110,.12);}
+.card .ico{font-size:34px;margin-bottom:12px;}
+.card h3{font-size:21px;margin-bottom:8px;}
+.card p{color:var(--muted);}
+
+/* VEHICLES */
+.veh{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;}
+.veh .top{height:140px;display:flex;align-items:center;justify-content:center;font-size:64px;background:linear-gradient(135deg,#e7f4f2,#d2ebe7);}
+.veh .body{padding:22px;flex:1;display:flex;flex-direction:column;}
+.veh h3{font-size:20px;margin-bottom:6px;}
+.veh ul{list-style:none;margin:10px 0 16px;color:var(--muted);font-size:15px;}
+.veh ul li{padding:3px 0;}
+.veh .price{margin-top:auto;font-weight:800;color:var(--teal);font-size:18px;}
+.veh .price span{font-weight:500;color:var(--muted);font-size:14px;}
+
+/* STEPS */
+.steps{counter-reset:s;}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;position:relative;}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:-16px;left:24px;width:38px;height:38px;background:var(--sand);color:#3b2c08;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;}
+
+/* INCLUDED */
+.included{background:#0f766e;color:#fff;border-radius:20px;padding:40px;}
+.included h2{color:#fff;}
+.included .grid{margin-top:24px;}
+.inc-item{display:flex;gap:10px;align-items:flex-start;}
+.inc-item .c{color:#bbf7d0;font-weight:800;}
+
+/* TESTIMONIALS */
+.quote{background:var(--card);border-left:5px solid var(--sand);border-radius:12px;padding:22px;}
+.quote p{font-style:italic;color:var(--ink);}
+.quote .who{margin-top:10px;font-weight:700;color:var(--teal);font-style:normal;}
+
+/* FAQ */
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:12px;}
+.faq summary{font-weight:700;cursor:pointer;list-style:none;}
+.faq summary::after{content:"+";float:right;color:var(--teal);font-weight:800;}
+.faq details[open] summary::after{content:"–";}
+.faq p{color:var(--muted);margin-top:10px;}
+
+/* CONTACT */
+.contact{background:linear-gradient(120deg,#0c5d56,#13a89d);color:#fff;border-radius:20px;padding:44px;text-align:center;}
+.contact h2{color:#fff;}
+.contact .ways{display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin-top:22px;font-size:18px;}
+.contact a.btn{margin-top:26px;}
+.note{font-size:13px;color:var(--muted);}
+
+/* FOOTER */
+footer{background:#0b2e2a;color:#cde7e2;padding:36px 0;margin-top:60px;}
+footer .row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center;}
+footer a{color:#9fe3d8;}
+
+@media(max-width:820px){
+  .nav ul{display:none;position:absolute;top:68px;left:0;right:0;background:#fff;flex-direction:column;padding:16px 20px;border-bottom:1px solid var(--line);}
+  .nav ul.open{display:flex;}
+  .menu-toggle{display:block;}
+  .hero h1{font-size:34px;}
+  .hero p{font-size:17px;}
+  h2{font-size:27px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="brand"><span class="pin">🚐</span> Ma Caravane</a>
+    <ul id="menu">
+      <li><a href="#vehicules">Nos véhicules</a></li>
+      <li><a href="#fonctionnement">Comment ça marche</a></li>
+      <li><a href="#inclus">Ce qui est inclus</a></li>
+      <li><a href="#avis">Avis</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn">Réserver</a>
+    <button class="menu-toggle" id="toggle" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>Partez à l'aventure en caravane ou en camping-car</h1>
+    <p>Des véhicules de loisirs tout équipés, prêts à rouler. Réservez en quelques clics, prenez la route, profitez. La liberté commence ici.</p>
+    <div class="cta-row">
+      <a href="#vehicules" class="btn sand">Voir les véhicules</a>
+      <a href="#contact" class="btn ghost" style="color:#fff;border-color:#fff;">Demander un devis</a>
+    </div>
+    <div class="stats">
+      <div><b>+120</b> départs / an</div>
+      <div><b>4,8/5</b> satisfaction clients</div>
+      <div><b>24/7</b> assistance route</div>
+      <div><b>200 km</b> inclus / jour</div>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section class="block">
+  <div class="container">
+    <span class="eyebrow">Pourquoi nous choisir</span>
+    <h2>La location de van et camping-car, simple et sereine</h2>
+    <p class="lead">Une flotte récente et entretenue, des tarifs transparents et un accompagnement de A à Z pour que vous n'ayez qu'à penser à votre itinéraire.</p>
+    <div class="grid g4">
+      <div class="card"><div class="ico">🛏️</div><h3>Tout équipé</h3><p>Cuisine, couchage, eau, électricité, vaisselle : il ne manque que vos affaires.</p></div>
+      <div class="card"><div class="ico">🛣️</div><h3>Kilométrage généreux</h3><p>200 km inclus par jour, idéal pour les road-trips sans compter.</p></div>
+      <div class="card"><div class="ico">🛡️</div><h3>Assurance & assistance</h3><p>Assurance tous risques et assistance 24/7 partout en Europe.</p></div>
+      <div class="card"><div class="ico">✅</div><h3>Prise en main facile</h3><p>Briefing complet au départ et guide d'utilisation à bord.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- VEHICULES -->
+<section class="block" id="vehicules" style="background:#eef6f4;">
+  <div class="container">
+    <span class="eyebrow">Notre flotte</span>
+    <h2>Choisissez votre véhicule</h2>
+    <p class="lead">Du van compact pour deux à la grande caravane familiale, trouvez le véhicule adapté à votre voyage.</p>
+    <div class="grid g4">
+
+      <div class="veh">
+        <div class="top">🚐</div>
+        <div class="body">
+          <h3>Van aménagé</h3>
+          <ul>
+            <li>👥 2 personnes</li>
+            <li>🅿️ Compact, facile à conduire</li>
+            <li>🍳 Coin cuisine &amp; couchage</li>
+          </ul>
+          <div class="price">dès 89 € <span>/ jour</span></div>
+        </div>
+      </div>
+
+      <div class="veh">
+        <div class="top">🚌</div>
+        <div class="body">
+          <h3>Camping-car profilé</h3>
+          <ul>
+            <li>👥 3 à 4 personnes</li>
+            <li>🚿 Douche &amp; WC</li>
+            <li>❄️ Chauffage &amp; frigo</li>
+          </ul>
+          <div class="price">dès 129 € <span>/ jour</span></div>
+        </div>
+      </div>
+
+      <div class="veh">
+        <div class="top">🚍</div>
+        <div class="body">
+          <h3>Camping-car capucine</h3>
+          <ul>
+            <li>👥 5 à 6 personnes</li>
+            <li>🛏️ Grand couchage capucine</li>
+            <li>🧳 Beaucoup de rangement</li>
+          </ul>
+          <div class="price">dès 149 € <span>/ jour</span></div>
+        </div>
+      </div>
+
+      <div class="veh">
+        <div class="top">🏕️</div>
+        <div class="body">
+          <h3>Caravane familiale</h3>
+          <ul>
+            <li>👥 4 à 6 personnes</li>
+            <li>🚗 À tracter avec votre voiture</li>
+            <li>💶 Le meilleur rapport qualité-prix</li>
+          </ul>
+          <div class="price">dès 59 € <span>/ jour</span></div>
+        </div>
+      </div>
+
+    </div>
+    <p class="note" style="margin-top:18px;">Tarifs indicatifs, variables selon la saison et la durée. Demandez votre devis personnalisé.</p>
+  </div>
+</section>
+
+<!-- FONCTIONNEMENT -->
+<section class="block" id="fonctionnement">
+  <div class="container">
+    <span class="eyebrow">En 3 étapes</span>
+    <h2>Comment ça marche</h2>
+    <div class="grid g3 steps" style="margin-top:48px;">
+      <div class="step"><h3>Choisissez vos dates</h3><p>Sélectionnez le véhicule et la période. On vous confirme la disponibilité rapidement.</p></div>
+      <div class="step"><h3>Réservez en ligne</h3><p>Validez votre devis et versez un acompte sécurisé. Votre départ est garanti.</p></div>
+      <div class="step"><h3>Prenez la route</h3><p>Briefing au départ, clés en main, et c'est parti pour l'aventure !</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUS -->
+<section class="block" id="inclus">
+  <div class="container">
+    <div class="included">
+      <span class="eyebrow" style="color:#fde68a;">Sans surprise</span>
+      <h2>Ce qui est inclus dans chaque location</h2>
+      <div class="grid g3">
+        <div class="inc-item"><span class="c">✓</span><div><b>Assurance tous risques</b><br>Conduite sereine partout en Europe.</div></div>
+        <div class="inc-item"><span class="c">✓</span><div><b>200 km / jour</b><br>Kilométrage généreux inclus.</div></div>
+        <div class="inc-item"><span class="c">✓</span><div><b>Assistance 24/7</b><br>Un dépannage à tout moment.</div></div>
+        <div class="inc-item"><span class="c">✓</span><div><b>Équipement complet</b><br>Vaisselle, linge de lit en option, mobilier.</div></div>
+        <div class="inc-item"><span class="c">✓</span><div><b>Briefing au départ</b><br>Prise en main pas à pas.</div></div>
+        <div class="inc-item"><span class="c">✓</span><div><b>Kit de départ</b><br>Conseils d'itinéraire et bons plans.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="block" id="avis" style="background:#eef6f4;">
+  <div class="container">
+    <span class="eyebrow">Ils ont voyagé avec nous</span>
+    <h2>Avis de nos voyageurs</h2>
+    <p class="note">Exemples illustratifs — à remplacer par de vrais avis clients (avec leur accord).</p>
+    <div class="grid g3" style="margin-top:28px;">
+      <div class="quote"><p>« Van impeccable, prise en main super claire. On a fait la côte atlantique en toute liberté. On recommande ! »</p><div class="who">— Julie &amp; Marc, 10 jours</div></div>
+      <div class="quote"><p>« Camping-car parfait pour notre famille de 5. Assistance réactive quand on a eu une question. Que du bonheur. »</p><div class="who">— Famille Bernard, 2 semaines</div></div>
+      <div class="quote"><p>« Tarifs clairs, aucun frais caché, véhicule récent. Notre premier road-trip réussi grâce à eux. »</p><div class="who">— Sophie, week-end prolongé</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="block">
+  <div class="container">
+    <span class="eyebrow">Bon à savoir</span>
+    <h2>Questions fréquentes</h2>
+    <div class="faq" style="margin-top:24px;max-width:820px;">
+      <details open><summary>Quel permis faut-il pour louer ?</summary><p>Le permis B suffit pour la plupart de nos véhicules (jusqu'à 3,5 tonnes). Pour la caravane, vérifiez le PTAC selon votre voiture et votre permis.</p></details>
+      <details><summary>Quel est l'âge minimum du conducteur ?</summary><p>Le conducteur doit avoir au moins 21 ans et 2 ans de permis. Une caution est demandée au départ.</p></details>
+      <details><summary>Les animaux sont-ils acceptés ?</summary><p>Oui, les animaux sont les bienvenus dans la plupart de nos véhicules. Merci de le préciser lors de la réservation.</p></details>
+      <details><summary>Puis-je voyager à l'étranger ?</summary><p>Oui, nos véhicules sont assurés pour voyager partout en Europe. Indiquez votre itinéraire prévu.</p></details>
+      <details><summary>Que se passe-t-il en cas de panne ?</summary><p>Une assistance 24/7 est incluse. Un seul numéro à appeler, où que vous soyez.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="block" id="contact">
+  <div class="container">
+    <div class="contact">
+      <span class="eyebrow" style="color:#fde68a;">Réservation &amp; devis</span>
+      <h2>Prêt à prendre la route ?</h2>
+      <p>Contactez-nous pour vérifier les disponibilités et recevoir votre devis personnalisé sous 24 h.</p>
+      <div class="ways">
+        <div>📞 <a href="tel:+33000000000">+33 (0)0 00 00 00 00</a></div>
+        <div>📧 <a href="mailto:contact@macaravane.fr">contact@macaravane.fr</a></div>
+      </div>
+      <a class="btn sand" href="mailto:contact@macaravane.fr?subject=Demande%20de%20devis%20-%20Location%20camping-car">Demander mon devis</a>
+    </div>
+    <p class="note" style="text-align:center;margin-top:14px;">Coordonnées à personnaliser (téléphone et e-mail) avant la mise en ligne.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="container row">
+    <div><strong style="color:#fff;">🚐 Ma Caravane</strong> — Location de caravanes &amp; camping-cars</div>
+    <div>© <span id="y"></span> Ma Caravane. Tous droits réservés.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('toggle').addEventListener('click',function(){
+    document.getElementById('menu').classList.toggle('open');
+  });
+  document.querySelectorAll('#menu a').forEach(function(a){
+    a.addEventListener('click',function(){document.getElementById('menu').classList.remove('open');});
+  });
+  document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+
+</body>
+</html>
