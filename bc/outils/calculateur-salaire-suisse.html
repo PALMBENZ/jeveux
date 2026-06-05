@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculateur salaire brut/net Suisse (gratuit) | Booste Ma Carrière</title>
+  <meta name="description" content="Calculez gratuitement votre salaire net mensuel en Suisse à partir du brut annuel. Outil simple et instantané pour préparer vos négociations."/>
+  <link rel="canonical" href="https://www.jeveux.net/bc/outils/calculateur-salaire-suisse.html"/>
+  <meta property="og:title" content="Calculateur salaire brut/net Suisse (gratuit) | Booste Ma Carrière"/>
+  <meta property="og:description" content="Calculez gratuitement votre salaire net mensuel en Suisse à partir du brut annuel. Outil simple et instantané pour préparer vos négociations."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.jeveux.net/bc/outils/calculateur-salaire-suisse.html"/>
+  <link rel="stylesheet" href="../assets/style.css"/>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo"><a href="../index.html" style="color:#fff;text-decoration:none;">BOOSTE<br>MA CARRIÈRE</a></div>
+    <ul>
+        <li><a href="../index.html">Accueil &amp; offres</a></li>
+        <li><a href="../optimisation-ats-cv.html">Optimisation ATS</a></li>
+        <li><a href="../cv-product-owner.html">CV Product Owner</a></li>
+        <li><a href="../cv-business-analyst.html">CV Business Analyst</a></li>
+        <li><a href="../cv-chef-de-projet-it.html">CV Chef de projet IT</a></li>
+        <li><a href="../cv-sap.html">CV SAP</a></li>
+        <li><a href="../cv-scrum-master.html">CV Scrum Master</a></li>
+        <li><a href="../cv-suisse-geneve.html">CV Suisse / Genève</a></li>
+        <li><a href="../cv-luxembourg.html">CV Luxembourg</a></li>
+        <li><a href="../cv-paris.html">CV Paris</a></li>
+        <li><a href="../outils/calculateur-salaire-suisse.html" style="background:#2563eb;">Outil : salaire Suisse</a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../temoignages.html">Témoignages</a></li>
+    </ul>
+    <div class="side-contact">
+      <p>📞 <a href="tel:+33743323948">07 43 32 39 48</a></p>
+      <p>📧 <a href="mailto:boostemacarriere@gmail.com">boostemacarriere@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="content">
+    <nav class="crumb"><a href="../index.html">Accueil</a> › Outils gratuits</nav>
+    <section>
+      <h1>Calculateur salaire brut → net Suisse</h1>
+
+<p class="lead">Estimez rapidement votre salaire net mensuel en Suisse à partir du brut annuel. Les cotisations sociales suisses (AVS/AI/APG, AC, LPP, LAA) représentent en moyenne 12 à 18 % du salaire brut selon l'âge, le canton et la caisse de pension.</p>
+<p class="note">Estimation indicative — le taux exact dépend du canton, de la caisse LPP, de l'âge et de votre situation. Ceci n'est pas un conseil fiscal.</p>
+
+<div class="calc">
+  <label for="brut">Salaire brut annuel (CHF)</label>
+  <input id="brut" type="number" value="120000" min="0" step="1000"/>
+  <label for="taux">Taux de cotisations estimé</label>
+  <select id="taux">
+    <option value="0.13">≈ 13 % (jeune actif, LPP faible)</option>
+    <option value="0.15" selected>≈ 15 % (moyenne)</option>
+    <option value="0.18">≈ 18 % (LPP élevée, senior)</option>
+  </select>
+  <label for="mois">Nombre de versements / an</label>
+  <select id="mois">
+    <option value="12" selected>12 mois</option>
+    <option value="13">13 mois</option>
+  </select>
+  <div class="result" id="res">Net mensuel estimé : —</div>
+  <p class="note" id="det"></p>
+</div>
+
+<h2>Comment ça marche</h2>
+<p>Le calcul applique le taux de cotisations sociales salariales au brut annuel, puis divise par le nombre de versements. Il n'inclut pas l'impôt à la source, qui varie selon le canton, l'état civil et le revenu. Pour un chiffre officiel, utilisez le calculateur d'impôt à la source de votre canton.</p>
+
+<h2>Pourquoi c'est utile pour votre recherche</h2>
+<p>Connaître votre net cible vous aide à négocier et à comparer des offres entre la France, la Suisse et le Luxembourg. Voyez aussi nos pages <a href="../cv-suisse-geneve.html">CV Suisse / Genève</a> et <a href="../blog/trouver-emploi-suisse-2026.html">Trouver un emploi en Suisse en 2026</a>.</p>
+
+<script>
+(function(){
+  var brut=document.getElementById('brut'),taux=document.getElementById('taux'),mois=document.getElementById('mois'),res=document.getElementById('res'),det=document.getElementById('det');
+  function fmt(n){return new Intl.NumberFormat('fr-CH',{maximumFractionDigits:0}).format(Math.round(n));}
+  function calc(){
+    var b=parseFloat(brut.value)||0,t=parseFloat(taux.value),m=parseInt(mois.value,10);
+    var netAn=b*(1-t);var netMois=netAn/m;
+    res.textContent='Net mensuel estimé : '+fmt(netMois)+' CHF';
+    det.textContent='Net annuel ≈ '+fmt(netAn)+' CHF (avant impôt à la source) · cotisations ≈ '+fmt(b*t)+' CHF/an';
+  }
+  [brut,taux,mois].forEach(function(el){el.addEventListener('input',calc);el.addEventListener('change',calc);});
+  calc();
+})();
+</script>
+
+
+      <div class="cta">
+        <h3>Obtenez un audit gratuit de votre CV</h3>
+        <p>Vérifiez que votre CV contient votre prénom, votre e-mail et votre numéro, puis envoyez-le. Réponse personnalisée.</p>
+        <a class="btn" href="https://tally.so/r/5BqLAQ" target="_blank" rel="noopener">Je veux mon audit CV gratuit →</a>
+        <div class="price-row">
+          <a class="price-box" href="https://buy.stripe.com/6oU8wP7C22e38cy7FZ18c0a" target="_blank" rel="noopener">STARTER — 29€/mois <span class="badge">-81%</span></a>
+          <a class="price-box" href="https://buy.stripe.com/5kQeVd09AbOD9gCd0j18c09" target="_blank" rel="noopener">PREMIUM — 79€/mois <span class="badge">-96%</span></a>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</body>
+</html>
