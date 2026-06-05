@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Générateur de lettre de motivation gratuit | Booste Ma Carrière</title>
+  <meta name="description" content="Générez gratuitement une lettre de motivation en français, structurée et personnalisable, directement dans votre navigateur. Simple, rapide, à éditer."/>
+  <link rel="canonical" href="https://www.jeveux.net/bc/outils/generateur-lettre-motivation.html"/>
+  <meta property="og:title" content="Générateur de lettre de motivation gratuit | Booste Ma Carrière"/>
+  <meta property="og:description" content="Générez gratuitement une lettre de motivation en français, structurée et personnalisable, directement dans votre navigateur. Simple, rapide, à éditer."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.jeveux.net/bc/outils/generateur-lettre-motivation.html"/>
+  <link rel="stylesheet" href="../assets/style.css"/>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo"><a href="../index.html" style="color:#fff;text-decoration:none;">BOOSTE<br>MA CARRIÈRE</a></div>
+    <ul>
+        <li><a href="../index.html">Accueil &amp; offres</a></li>
+        <li><a href="../optimisation-ats-cv.html">Optimisation ATS</a></li>
+        <li><a href="../cv-product-owner.html">CV Product Owner</a></li>
+        <li><a href="../cv-business-analyst.html">CV Business Analyst</a></li>
+        <li><a href="../cv-chef-de-projet-it.html">CV Chef de projet IT</a></li>
+        <li><a href="../cv-sap.html">CV SAP</a></li>
+        <li><a href="../cv-scrum-master.html">CV Scrum Master</a></li>
+        <li><a href="../cv-suisse-geneve.html">CV Suisse / Genève</a></li>
+        <li><a href="../cv-lausanne.html">CV Lausanne</a></li>
+        <li><a href="../cv-zurich.html">CV Zurich</a></li>
+        <li><a href="../cv-bale.html">CV Bâle</a></li>
+        <li><a href="../cv-luxembourg.html">CV Luxembourg</a></li>
+        <li><a href="../cv-paris.html">CV Paris</a></li>
+        <li><a href="../cv-lyon.html">CV Lyon</a></li>
+        <li><a href="../outils/verificateur-ats.html">Vérificateur ATS</a></li>
+        <li><a href="../outils/generateur-lettre-motivation.html" style="background:#2563eb;">Générateur lettre</a></li>
+        <li><a href="../outils/calculateur-salaire-suisse.html">Calculateur salaire CH</a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../temoignages.html">Témoignages</a></li>
+    </ul>
+    <div class="side-contact">
+      <p>📞 <a href="tel:+33743323948">07 43 32 39 48</a></p>
+      <p>📧 <a href="mailto:boostemacarriere@gmail.com">boostemacarriere@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="content">
+    <nav class="crumb"><a href="../index.html">Accueil</a> › Outils gratuits</nav>
+    <section>
+      <h1>Générateur de lettre de motivation</h1>
+
+<p class="lead">Renseignez quelques informations et obtenez une lettre de motivation structurée en français, prête à personnaliser. Tout est généré dans votre navigateur ; relisez et adaptez toujours le texte avant l'envoi.</p>
+
+<div class="calc" style="max-width:none;">
+  <label for="prenom">Prénom et nom</label>
+  <input id="prenom" type="text" placeholder="Marie Dupont"/>
+  <label for="poste">Poste visé</label>
+  <input id="poste" type="text" placeholder="Product Owner Senior"/>
+  <label for="entreprise">Entreprise</label>
+  <input id="entreprise" type="text" placeholder="Nom de l'entreprise"/>
+  <label for="ville">Ville</label>
+  <input id="ville" type="text" placeholder="Genève"/>
+  <label for="exp">Années d'expérience</label>
+  <input id="exp" type="text" placeholder="8"/>
+  <label for="real">Vos 1 à 3 réalisations clés (séparées par des points-virgules)</label>
+  <textarea id="real" rows="3" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;" placeholder="augmenté l'adoption de +22 %; réduit le time-to-market de 30 %"></textarea>
+  <label for="motiv">Pourquoi cette entreprise ? (1 phrase)</label>
+  <input id="motiv" type="text" placeholder="votre positionnement sur les paiements innovants"/>
+  <label for="ton">Ton</label>
+  <select id="ton">
+    <option value="formel">Formel</option>
+    <option value="dynamique" selected>Dynamique</option>
+  </select>
+  <button class="btn" id="gen" style="border:none;cursor:pointer;margin-top:14px;">Générer ma lettre</button>
+  <button class="btn" id="copy" style="border:none;cursor:pointer;margin-top:14px;background:#0f172a;display:none;">Copier le texte</button>
+  <textarea id="lettre" rows="18" style="width:100%;margin-top:16px;padding:14px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;display:none;"></textarea>
+</div>
+
+<h2>Conseils d'utilisation</h2>
+<p>Cette lettre est un point de départ : personnalisez l'accroche, citez un élément précis de l'entreprise et reprenez les mots-clés de l'offre. Une lettre efficace reste courte (une page) et complète le CV sans le répéter. Pensez aussi à notre <a href="verificateur-ats.html">vérificateur ATS</a> pour votre CV.</p>
+
+<script>
+(function(){
+  function v(id){return (document.getElementById(id).value||'').trim();}
+  document.getElementById('gen').addEventListener('click',function(){
+    var nom=v('prenom')||'[Votre nom]', poste=v('poste')||'[poste visé]', ent=v('entreprise')||'[entreprise]';
+    var ville=v('ville')||'[ville]', exp=v('exp'), motiv=v('motiv'), ton=document.getElementById('ton').value;
+    var reals=v('real').split(';').map(function(s){return s.trim();}).filter(Boolean);
+    var date=new Date().toLocaleDateString('fr-FR',{year:'numeric',month:'long',day:'numeric'});
+    var accroche = ton==='formel'
+      ? "Madame, Monsieur,\n\nActuellement à la recherche d'un nouveau défi professionnel, je me permets de vous adresser ma candidature au poste de "+poste+" au sein de "+ent+"."
+      : "Madame, Monsieur,\n\nLe poste de "+poste+" chez "+ent+" a immédiatement retenu mon attention : il correspond précisément à ce que je recherche et à ce que je sais faire.";
+    var expPhrase = exp? "Fort(e) de "+exp+" ans d'expérience, " : "";
+    var corps = "\n\n"+expPhrase+"j'ai développé une expertise solide directement applicable à ce poste.";
+    if(reals.length){
+      corps += " Parmi mes réalisations marquantes :\n";
+      reals.forEach(function(r){ corps += "\n• "+r.charAt(0).toUpperCase()+r.slice(1)+(/[.!]$/.test(r)?'':'.'); });
+    }
+    var motivPhrase = motiv? "\n\nCe qui m'attire particulièrement chez "+ent+", c'est "+motiv+". " : "\n\n";
+    motivPhrase += "Je suis convaincu(e) que mon profil apporterait une réelle valeur à vos équipes.";
+    var fin = "\n\nJe serais ravi(e) d'échanger avec vous lors d'un entretien afin de vous exposer ma motivation plus en détail. Je vous remercie de l'attention portée à ma candidature et vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.";
+    var entete = nom+"\n"+ville+"\n\n"+ville+", le "+date+"\n\nObjet : candidature au poste de "+poste+"\n\n";
+    var full = entete+accroche+corps+motivPhrase+fin+"\n\n"+nom;
+    var ta=document.getElementById('lettre'); ta.value=full; ta.style.display='block';
+    document.getElementById('copy').style.display='inline-block';
+  });
+  document.getElementById('copy').addEventListener('click',function(){
+    var ta=document.getElementById('lettre'); ta.select();
+    try{ navigator.clipboard.writeText(ta.value); this.textContent='Copié ✓'; var b=this; setTimeout(function(){b.textContent='Copier le texte';},1800); }
+    catch(e){ document.execCommand('copy'); }
+  });
+})();
+</script>
+
+
+      <div class="cta">
+        <h3>Obtenez un audit gratuit de votre CV</h3>
+        <p>Vérifiez que votre CV contient votre prénom, votre e-mail et votre numéro, puis envoyez-le. Réponse personnalisée.</p>
+        <a class="btn" href="https://tally.so/r/5BqLAQ" target="_blank" rel="noopener">Je veux mon audit CV gratuit →</a>
+        <div class="price-row">
+          <a class="price-box" href="https://buy.stripe.com/6oU8wP7C22e38cy7FZ18c0a" target="_blank" rel="noopener">STARTER — 29€/mois <span class="badge">-81%</span></a>
+          <a class="price-box" href="https://buy.stripe.com/5kQeVd09AbOD9gCd0j18c09" target="_blank" rel="noopener">PREMIUM — 79€/mois <span class="badge">-96%</span></a>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</body>
+</html>

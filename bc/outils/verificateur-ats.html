@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vérificateur ATS gratuit : testez votre CV en ligne | Booste Ma Carrière</title>
+  <meta name="description" content="Testez gratuitement la compatibilité ATS de votre CV : score de mots-clés face à une offre, termes manquants et vérifs de format. 100% dans votre navigateur."/>
+  <link rel="canonical" href="https://www.jeveux.net/bc/outils/verificateur-ats.html"/>
+  <meta property="og:title" content="Vérificateur ATS gratuit : testez votre CV en ligne | Booste Ma Carrière"/>
+  <meta property="og:description" content="Testez gratuitement la compatibilité ATS de votre CV : score de mots-clés face à une offre, termes manquants et vérifs de format. 100% dans votre navigateur."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.jeveux.net/bc/outils/verificateur-ats.html"/>
+  <link rel="stylesheet" href="../assets/style.css"/>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo"><a href="../index.html" style="color:#fff;text-decoration:none;">BOOSTE<br>MA CARRIÈRE</a></div>
+    <ul>
+        <li><a href="../index.html">Accueil &amp; offres</a></li>
+        <li><a href="../optimisation-ats-cv.html">Optimisation ATS</a></li>
+        <li><a href="../cv-product-owner.html">CV Product Owner</a></li>
+        <li><a href="../cv-business-analyst.html">CV Business Analyst</a></li>
+        <li><a href="../cv-chef-de-projet-it.html">CV Chef de projet IT</a></li>
+        <li><a href="../cv-sap.html">CV SAP</a></li>
+        <li><a href="../cv-scrum-master.html">CV Scrum Master</a></li>
+        <li><a href="../cv-suisse-geneve.html">CV Suisse / Genève</a></li>
+        <li><a href="../cv-lausanne.html">CV Lausanne</a></li>
+        <li><a href="../cv-zurich.html">CV Zurich</a></li>
+        <li><a href="../cv-bale.html">CV Bâle</a></li>
+        <li><a href="../cv-luxembourg.html">CV Luxembourg</a></li>
+        <li><a href="../cv-paris.html">CV Paris</a></li>
+        <li><a href="../cv-lyon.html">CV Lyon</a></li>
+        <li><a href="../outils/verificateur-ats.html" style="background:#2563eb;">Vérificateur ATS</a></li>
+        <li><a href="../outils/generateur-lettre-motivation.html">Générateur lettre</a></li>
+        <li><a href="../outils/calculateur-salaire-suisse.html">Calculateur salaire CH</a></li>
+        <li><a href="../blog/index.html">Blog</a></li>
+        <li><a href="../temoignages.html">Témoignages</a></li>
+    </ul>
+    <div class="side-contact">
+      <p>📞 <a href="tel:+33743323948">07 43 32 39 48</a></p>
+      <p>📧 <a href="mailto:boostemacarriere@gmail.com">boostemacarriere@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="content">
+    <nav class="crumb"><a href="../index.html">Accueil</a> › Outils gratuits</nav>
+    <section>
+      <h1>Vérificateur ATS de votre CV</h1>
+
+<p class="lead">Collez le texte de votre CV et celui de l'offre d'emploi : l'outil estime votre taux de correspondance de mots-clés, liste les termes importants manquants et signale les points de format qui gênent les ATS. Tout se passe dans votre navigateur — rien n'est envoyé ni stocké.</p>
+
+<div class="calc" style="max-width:none;">
+  <label for="cv">Votre CV (copier-coller le texte)</label>
+  <textarea id="cv" rows="8" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;"></textarea>
+  <label for="offre">L'offre d'emploi (copier-coller le texte)</label>
+  <textarea id="offre" rows="8" style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;"></textarea>
+  <button class="btn" id="run" style="border:none;cursor:pointer;margin-top:14px;">Analyser mon CV</button>
+  <div id="out"></div>
+</div>
+
+<h2>Comment lire le résultat</h2>
+<p>Le score reflète la proportion de mots-clés importants de l'offre présents dans votre CV. Visez un recouvrement élevé sur les compétences et outils cités, en intégrant ces termes dans des phrases de résultats — sans bourrage. Complétez avec notre <a href="../optimisation-ats-cv.html">méthode d'optimisation ATS</a>.</p>
+
+<script>
+(function(){
+  var STOP = "au aux avec ce ces dans de des du elle en et eux il je la le les leur lui ma mais me meme mes moi mon ne nos notre nous on ou par pas pour qu que qui sa se ses son sur ta te tes toi ton tu un une vos votre vous c d j l m n s t y a ans afin ainsi alors apres avant avoir etre fait faire plus tres bien etc vers chez sans sous entre dont est sont ete tout tous toute toutes cette cet son leurs nos vos quel quelle aussi comme plusieurs notamment via the and or to of in for with your you our".split(/\s+/);
+  var stop={}; STOP.forEach(function(w){stop[w]=1;});
+  function norm(s){return (s||"").toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+  function tokens(s){return norm(s).split(/[^a-z0-9+#\.]+/).filter(function(w){return w.length>=3 && !stop[w] && !/^\d+$/.test(w);});}
+  function topKeywords(s,n){
+    var t=tokens(s),f={};
+    t.forEach(function(w){f[w]=(f[w]||0)+1;});
+    var arr=Object.keys(f).map(function(k){return [k,f[k]];});
+    arr.sort(function(a,b){return b[1]-a[1];});
+    return arr.slice(0,n).map(function(x){return x[0];});
+  }
+  function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+  document.getElementById('run').addEventListener('click',function(){
+    var cv=document.getElementById('cv').value, offre=document.getElementById('offre').value;
+    var out=document.getElementById('out');
+    if(cv.trim().length<50||offre.trim().length<50){out.innerHTML='<div class="result">Collez au moins quelques lignes de CV et d\'offre pour lancer l\'analyse.</div>';return;}
+    var kws=topKeywords(offre,25);
+    var cvset={}; tokens(cv).forEach(function(w){cvset[w]=1;});
+    var present=[],missing=[];
+    kws.forEach(function(k){ (cvset[k]?present:missing).push(k); });
+    var score=kws.length?Math.round(present.length/kws.length*100):0;
+    var color=score>=70?'#16a34a':(score>=45?'#d97706':'#dc2626');
+    // format checks
+    var words=cv.trim().split(/\s+/).length;
+    var hasMail=/[\w.+-]+@[\w-]+\.[\w.-]+/.test(cv);
+    var hasTel=/(\+?\d[\s.\-]?){8,}/.test(cv);
+    var nlow=norm(cv);
+    var hasComp=/competences|skills/.test(nlow);
+    var hasExp=/experience|experiences|parcours/.test(nlow);
+    var checks=[
+      [words>=200&&words<=1200, 'Longueur du CV : '+words+' mots '+((words>=200&&words<=1200)?'(bon)':'(visez ~250 à 900 mots)')],
+      [hasMail,'Adresse e-mail détectée'],
+      [hasTel,'Numéro de téléphone détecté'],
+      [hasComp,'Rubrique « Compétences » détectée'],
+      [hasExp,'Rubrique « Expérience » détectée']
+    ];
+    var html='';
+    html+='<div class="result" style="background:'+color+';">Score de correspondance : '+score+'% ('+present.length+'/'+kws.length+' mots-clés de l\'offre présents)</div>';
+    html+='<p style="margin-top:16px;"><strong>Mots-clés importants manquants dans votre CV :</strong></p>';
+    html+= missing.length? '<p>'+missing.map(function(k){return '<span style="display:inline-block;background:#fee2e2;color:#991b1b;padding:4px 9px;border-radius:6px;margin:3px;">'+esc(k)+'</span>';}).join(' ')+'</p>' : '<p>Aucun — excellent recouvrement.</p>';
+    html+='<p style="margin-top:10px;"><strong>Déjà présents :</strong></p>';
+    html+= present.length? '<p>'+present.map(function(k){return '<span style="display:inline-block;background:#dcfce7;color:#166534;padding:4px 9px;border-radius:6px;margin:3px;">'+esc(k)+'</span>';}).join(' ')+'</p>':'<p>—</p>';
+    html+='<p style="margin-top:16px;"><strong>Vérifications de format :</strong></p><ul class="bullets">';
+    checks.forEach(function(c){ html+='<li>'+(c[0]?'✅ ':'⚠️ ')+c[1]+'</li>'; });
+    html+='</ul><p class="note">Estimation indicative : un vrai ATS pondère différemment. Intégrez les mots-clés manquants pertinents dans des phrases de résultats.</p>';
+    out.innerHTML=html;
+  });
+})();
+</script>
+
+
+      <div class="cta">
+        <h3>Obtenez un audit gratuit de votre CV</h3>
+        <p>Vérifiez que votre CV contient votre prénom, votre e-mail et votre numéro, puis envoyez-le. Réponse personnalisée.</p>
+        <a class="btn" href="https://tally.so/r/5BqLAQ" target="_blank" rel="noopener">Je veux mon audit CV gratuit →</a>
+        <div class="price-row">
+          <a class="price-box" href="https://buy.stripe.com/6oU8wP7C22e38cy7FZ18c0a" target="_blank" rel="noopener">STARTER — 29€/mois <span class="badge">-81%</span></a>
+          <a class="price-box" href="https://buy.stripe.com/5kQeVd09AbOD9gCd0j18c09" target="_blank" rel="noopener">PREMIUM — 79€/mois <span class="badge">-96%</span></a>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</body>
+</html>
