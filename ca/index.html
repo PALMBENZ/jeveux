@@ -3,8 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EnglishPro Academy - Cours d'anglais en ligne</title>
-  <meta name="description" content="Apprenez l'anglais à distance avec des cours personnalisés, en visio, pour débutants, professionnels et étudiants." />
+  <title>Cours d'anglais à Reims &amp; en ligne – Professeure dédiée | EnglishPro Academy</title>
+  <meta name="description" content="Cours d'anglais à Reims et en ligne avec une professeure dédiée : débutant, business English, conversation, préparation entretien. En visio ou en présentiel, éligible CPF. Cours d'essai à 19€." />
+  <meta name="keywords" content="cours d'anglais Reims, professeur d'anglais Reims, cours d'anglais en ligne, cours d'anglais visio, anglais CPF Reims, business English Reims, conversation anglaise Reims" />
+  <meta name="author" content="EnglishPro Academy - Darejan" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.jeveux.net/ca/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cours d'anglais à Reims & en ligne – Professeure dédiée | EnglishPro Academy" />
+  <meta property="og:description" content="Cours d'anglais à Reims et en ligne avec une professeure dédiée : débutant, business English, conversation, préparation entretien. En visio ou en présentiel, éligible CPF." />
+  <meta property="og:url" content="https://www.jeveux.net/ca/" />
+  <meta property="og:image" content="https://www.jeveux.net/ca/PhotoDaji.png" />
+  <meta property="og:locale" content="fr_FR" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -69,14 +82,14 @@
     }
 
     .hero h1 {
-      font-size: 48px;
-      line-height: 1.1;
+      font-size: 44px;
+      line-height: 1.12;
       margin-bottom: 22px;
     }
 
     .hero p {
       font-size: 19px;
-      margin-bottom: 30px;
+      margin-bottom: 18px;
       color: #e0e7ff;
     }
 
@@ -140,6 +153,23 @@
       margin-top: 10px;
     }
 
+    .prose {
+      max-width: 880px;
+      margin: 0 auto;
+      color: #334155;
+      font-size: 17px;
+    }
+
+    .prose p {
+      margin-bottom: 18px;
+    }
+
+    .prose h3 {
+      color: #0f172a;
+      margin: 26px 0 10px;
+      font-size: 22px;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -200,6 +230,83 @@
       margin-bottom: 8px;
     }
 
+    .local {
+      background: #eff6ff;
+    }
+
+    .zones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .zones span {
+      background: white;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .testimonials .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonial {
+      background: white;
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+      border-top: 4px solid #facc15;
+    }
+
+    .testimonial p {
+      font-style: italic;
+      color: #334155;
+      margin-bottom: 14px;
+    }
+
+    .testimonial .who {
+      font-weight: bold;
+      color: #0f172a;
+      font-style: normal;
+    }
+
+    .testimonial .stars {
+      color: #f59e0b;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .faq {
+      max-width: 880px;
+      margin: auto;
+    }
+
+    .faq details {
+      background: white;
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+    }
+
+    .faq summary {
+      font-weight: bold;
+      color: #0f172a;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .faq details p {
+      margin-top: 12px;
+      color: #475569;
+    }
+
     .form-section {
       background: #0f172a;
       color: white;
@@ -241,7 +348,22 @@
       background: #020617;
       color: #cbd5e1;
       text-align: center;
-      padding: 30px 24px;
+      padding: 36px 24px;
+    }
+
+    footer a {
+      color: #facc15;
+      text-decoration: none;
+    }
+
+    .footer-links {
+      margin: 14px 0 6px;
+      font-size: 14px;
+    }
+
+    .footer-links a {
+      color: #93c5fd;
+      margin: 0 8px;
     }
 
     .whatsapp {
@@ -312,12 +434,13 @@
       }
 
       .grid,
-      .method {
+      .method,
+      .testimonials .grid {
         grid-template-columns: 1fr;
       }
 
       .hero h1 {
-        font-size: 36px;
+        font-size: 32px;
       }
 
       nav {
@@ -325,6 +448,46 @@
       }
     }
   </style>
+
+  <!-- Données structurées : établissement local + professeure -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://www.jeveux.net/ca/#business",
+    "name": "EnglishPro Academy – Cours d'anglais à Reims",
+    "description": "Cours d'anglais à Reims et en ligne avec une professeure dédiée : débutant, business English, conversation et préparation aux entretiens. En visio ou en présentiel, éligible CPF.",
+    "url": "https://www.jeveux.net/ca/",
+    "image": "https://www.jeveux.net/ca/PhotoDaji.png",
+    "telephone": "+33651478171",
+    "priceRange": "19€ - 1499€",
+    "areaServed": [
+      { "@type": "City", "name": "Reims" },
+      { "@type": "City", "name": "Tinqueux" },
+      { "@type": "City", "name": "Bezannes" },
+      { "@type": "City", "name": "Cormontreuil" },
+      { "@type": "City", "name": "Bétheny" },
+      { "@type": "City", "name": "Witry-lès-Reims" }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Reims",
+      "postalCode": "51100",
+      "addressCountry": "FR"
+    },
+    "employee": {
+      "@type": "Person",
+      "name": "Darejan",
+      "jobTitle": "Professeure d'anglais"
+    },
+    "makesOffer": {
+      "@type": "Offer",
+      "name": "Cours d'essai d'anglais",
+      "price": "19",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
 </head>
 <body>
   <header>
@@ -332,8 +495,11 @@
       <div class="logo">EnglishPro Academy</div>
       <nav>
         <a href="#cours">Cours</a>
+        <a href="#reims">À Reims</a>
         <a href="#offres">Offres</a>
         <a href="#methode">Méthode</a>
+        <a href="#avis">Avis</a>
+        <a href="#faq">FAQ</a>
         <a href="#inscription">Inscription</a>
       </nav>
     </div>
@@ -343,11 +509,11 @@
     <section class="hero">
       <div class="hero-content">
         <div>
-          <h1>Apprenez l'anglais en ligne avec un professeur dédié, super sympa et fun !</h1>
-          <p>Des cours d'anglais à distance, en visioconférence, adaptés à votre niveau : conversation, business English, préparation entretien, voyage ou soutien scolaire.</p>
-          <p style="margin-top:14px; font-style:italic; color:#facc15;">Apprenez l'anglais en présentiel ou à distance quand vous voulez, en faisant vos courses, en faisant du sport, en cuisinant, en vous promenant le long de la Vesle...</p>
-          <p style="margin-top:14px; font-style:italic; color:#facc15;">mais aussi <strong>EN JOUANT</strong> :-) ... au Monopoly, aux échecs, au poker, au bridge, au bowling, à la pétanque ou à votre jeu favori.</p>
-          <p style="margin-top:14px; font-style:italic; color:#facc15;"><strong>Darejan est à votre disposition !</strong></p>
+          <h1>Cours d'anglais à Reims et en ligne avec une professeure dédiée</h1>
+          <p>Apprenez l'anglais à Reims, en visioconférence ou en présentiel, avec des cours personnalisés adaptés à votre niveau : conversation, business English, préparation aux entretiens, voyage ou soutien scolaire.</p>
+          <p style="margin-top:6px; font-style:italic; color:#facc15;">Apprenez l'anglais où vous voulez, quand vous voulez — en faisant vos courses, en faisant du sport, en cuisinant, ou en vous promenant le long de la Vesle à Reims...</p>
+          <p style="margin-top:10px; font-style:italic; color:#facc15;">mais aussi <strong>EN JOUANT</strong> :-) ... au Monopoly, aux échecs, au poker, au bridge, au bowling, à la pétanque ou à votre jeu favori.</p>
+          <p style="margin-top:10px; font-style:italic; color:#facc15;"><strong>Darejan, votre professeure d'anglais à Reims, est à votre disposition !</strong></p>
           <a href="#inscription" class="btn">Réserver un cours d'essai</a>
           <a href="#offres" class="btn secondary">Voir les tarifs</a>
         </div>
@@ -356,7 +522,7 @@
             <span class="cpf-icon">💼</span>
             <span>✓ <strong>Formations éligibles au CPF</strong> — financez vos cours avec votre Compte Personnel de Formation</span>
           </div>
-          <img src="PhotoDaji.png" alt="Darejan - Professeure d'anglais" style="width:180px; height:180px; border-radius:50%; object-fit:cover; margin:0 auto 18px; display:block; box-shadow:0 8px 24px rgba(0,0,0,0.15); border:4px solid #facc15;" />
+          <img src="PhotoDaji.png" alt="Darejan, professeure d'anglais à Reims et en ligne" width="180" height="180" style="width:180px; height:180px; border-radius:50%; object-fit:cover; margin:0 auto 18px; display:block; box-shadow:0 8px 24px rgba(0,0,0,0.15); border:4px solid #facc15;" />
           <h3 style="margin-bottom:14px;">Votre professeure : Darejan</h3>
           <ul style="text-align:left;">
             <li>✅ Parler anglais avec plus de confiance</li>
@@ -369,23 +535,54 @@
       </div>
     </section>
 
+    <section id="intro">
+      <div class="prose">
+        <h2 style="color:#0f172a; font-size:30px; margin-bottom:16px;">Apprenez l'anglais à Reims, à votre rythme et selon vos objectifs</h2>
+        <p>Vous cherchez un <strong>cours d'anglais à Reims</strong> qui s'adapte vraiment à votre emploi du temps et à votre niveau&nbsp;? EnglishPro Academy vous propose un accompagnement personnalisé avec Darejan, votre <strong>professeure d'anglais à Reims</strong>, disponible en présentiel dans la région rémoise comme en visioconférence partout en France. Que vous soyez débutant complet, salarié qui souhaite progresser en <strong>business English</strong>, étudiant à préparer pour un examen ou voyageur qui veut gagner en aisance, vous avancez avec un programme construit autour de vos objectifs réels.</p>
+        <p>Contrairement aux applications impersonnelles, chaque séance est animée par une vraie professeure qui vous corrige, vous encourage et adapte le contenu d'une fois sur l'autre. Vous parlez dès le premier cours, vous progressez plus vite, et vous gardez la motivation grâce à un suivi régulier. Et parce qu'apprendre doit rester un plaisir, les cours peuvent prendre des formes variées — discussion autour d'un café, jeux de société en anglais, mise en situation professionnelle — tout en restant rigoureux sur la grammaire et la prononciation.</p>
+        <p>Tous nos programmes sont <strong>éligibles au CPF</strong> : vous pouvez financer vos <strong>cours d'anglais</strong> avec votre Compte Personnel de Formation, sans avancer les frais.</p>
+      </div>
+    </section>
+
     <section id="cours">
       <div class="section-title">
         <h2>Nos cours d'anglais</h2>
-        <p>Choisissez le programme qui correspond à votre objectif.</p>
+        <p>Choisissez le programme qui correspond à votre objectif, à Reims ou en ligne.</p>
       </div>
       <div class="grid">
         <div class="card">
           <h3>Anglais débutant</h3>
-          <p>Pour apprendre les bases, se présenter, poser des questions simples et progresser rapidement.</p>
+          <p>Pour apprendre les bases, vous présenter, poser des questions simples et progresser rapidement, avec une professeure patiente qui s'adapte à votre rythme.</p>
         </div>
         <div class="card">
-          <h3>Anglais professionnel</h3>
-          <p>Pour les réunions, emails, présentations, entretiens, appels clients et missions internationales.</p>
+          <h3>Anglais professionnel (Business English)</h3>
+          <p>Pour les réunions, emails, présentations, entretiens, appels clients et missions internationales. Idéal pour les salariés et entrepreneurs de Reims et de la Marne.</p>
         </div>
         <div class="card">
           <h3>Conversation</h3>
-          <p>Pour parler plus naturellement, enrichir votre vocabulaire et gagner en fluidité.</p>
+          <p>Pour parler plus naturellement, enrichir votre vocabulaire et gagner en fluidité grâce à des échanges réguliers et bienveillants.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="reims" class="local">
+      <div class="section-title">
+        <h2>Cours d'anglais à Reims et dans les environs</h2>
+        <p>En présentiel près de chez vous, ou en visio où que vous soyez.</p>
+      </div>
+      <div class="prose">
+        <p>Basée à <strong>Reims</strong>, Darejan propose ses <strong>cours d'anglais en présentiel</strong> dans la ville et ses communes voisines, ainsi qu'en <strong>visioconférence</strong> pour celles et ceux qui préfèrent apprendre depuis chez eux ou au bureau. Vous choisissez le format qui vous convient — et vous pouvez alterner les deux selon votre semaine.</p>
+        <p>Les habitants de Reims et des alentours profitent d'un <strong>accompagnement local</strong> : horaires flexibles, possibilité de se retrouver dans un lieu pratique, et une professeure qui connaît bien le tissu professionnel rémois (entreprises, étudiants, candidats en recherche d'emploi qui doivent passer un entretien en anglais).</p>
+        <h3>Zones desservies autour de Reims</h3>
+        <div class="zones">
+          <span>Reims</span>
+          <span>Tinqueux</span>
+          <span>Bezannes</span>
+          <span>Cormontreuil</span>
+          <span>Bétheny</span>
+          <span>Witry-lès-Reims</span>
+          <span>Saint-Brice-Courcelles</span>
+          <span>Cernay-lès-Reims</span>
         </div>
       </div>
     </section>
@@ -393,7 +590,7 @@
     <section id="offres">
       <div class="section-title">
         <h2>Formules simples</h2>
-        <p>Des offres flexibles pour apprendre à votre rythme.</p>
+        <p>Des offres flexibles pour apprendre l'anglais à votre rythme — éligibles CPF.</p>
       </div>
       <div class="grid">
         <div class="card">
@@ -440,16 +637,74 @@
       <div class="method">
         <div class="step"><strong>1</strong>Test de niveau</div>
         <div class="step"><strong>2</strong>Objectif personnalisé</div>
-        <div class="step"><strong>3</strong>Cours en visio</div>
+        <div class="step"><strong>3</strong>Cours en visio ou à Reims</div>
         <div class="step"><strong>4</strong>Suivi des progrès</div>
+      </div>
+    </section>
+
+    <section id="avis" class="testimonials">
+      <div class="section-title">
+        <h2>Ils ont progressé en anglais avec Darejan</h2>
+        <p>Quelques retours d'élèves de Reims et d'ailleurs.</p>
+      </div>
+      <div class="grid">
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>« En quelques mois, j'ai enfin osé parler anglais en réunion. Les cours sont vivants et adaptés à mon travail. »</p>
+          <span class="who">— [Exemple à remplacer], Reims</span>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>« J'ai préparé mon entretien d'embauche en anglais avec Darejan. Résultat : poste décroché ! »</p>
+          <span class="who">— [Exemple à remplacer], Tinqueux</span>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>« Des cours en visio super flexibles, parfaits avec mon emploi du temps chargé. Je recommande vivement. »</p>
+          <span class="who">— [Exemple à remplacer], Cormontreuil</span>
+        </div>
+      </div>
+      <p style="text-align:center; color:#94a3b8; font-size:13px; margin-top:18px;">Témoignages d'exemple — à remplacer par de vrais avis d'élèves.</p>
+    </section>
+
+    <section id="faq">
+      <div class="section-title">
+        <h2>Questions fréquentes</h2>
+        <p>Tout ce qu'il faut savoir sur les cours d'anglais à Reims et en ligne.</p>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Combien coûte un cours d'anglais à Reims&nbsp;?</summary>
+          <p>Le cours d'essai est à 19€. Ensuite, la formule Standard (15h) est à 689€ et la formule Intensif (45h) à 1499€. Toutes les formules sont éligibles au CPF, ce qui permet souvent de financer la totalité de vos cours.</p>
+        </details>
+        <details>
+          <summary>Les cours peuvent-ils se faire à distance, en visio&nbsp;?</summary>
+          <p>Oui. Vous pouvez suivre vos cours d'anglais entièrement en visioconférence, en présentiel à Reims et alentours, ou en alternant les deux selon votre semaine.</p>
+        </details>
+        <details>
+          <summary>Mes cours d'anglais sont-ils finançables par le CPF&nbsp;?</summary>
+          <p>Oui, toutes nos formations sont éligibles au CPF. Vous pouvez financer vos cours avec votre Compte Personnel de Formation, sans avancer les frais.</p>
+        </details>
+        <details>
+          <summary>Intervenez-vous à Tinqueux, Bezannes ou Cormontreuil&nbsp;?</summary>
+          <p>Oui. Darejan se déplace à Reims et dans les communes voisines (Tinqueux, Bezannes, Cormontreuil, Bétheny, Witry-lès-Reims…). La visio reste disponible partout en France.</p>
+        </details>
+        <details>
+          <summary>Je suis débutant complet, est-ce adapté&nbsp;?</summary>
+          <p>Absolument. Le parcours commence par un test de niveau, puis un programme sur mesure. Les débutants progressent vite grâce à un accompagnement bienveillant et des objectifs clairs.</p>
+        </details>
+        <details>
+          <summary>Pouvez-vous m'aider à préparer un entretien d'embauche en anglais&nbsp;?</summary>
+          <p>Oui, c'est l'une des spécialités. Nous travaillons les questions types, le vocabulaire de votre secteur et la confiance à l'oral pour réussir votre entretien ou votre réunion professionnelle.</p>
+        </details>
       </div>
     </section>
 
     <section id="inscription">
       <div class="form-section">
         <div>
-          <h2>Réservez votre cours d'essai</h2>
-          <p>Remplissez le formulaire et nous vous recontacterons pour fixer un créneau en visioconférence.</p>
+          <h2>Réservez votre cours d'essai d'anglais à Reims</h2>
+          <p>Remplissez le formulaire et nous vous recontacterons pour fixer un créneau, en visio ou en présentiel à Reims.</p>
           <p style="margin-top:16px; color:#cbd5e1;">Vous pouvez aussi nous contacter directement par WhatsApp ou par téléphone au <a href="tel:+33651478171" style="color:#facc15; font-weight:bold; text-decoration:none;">06 51 47 81 71</a>.</p>
         </div>
         <iframe data-tally-src="https://tally.so/embed/NpMLv0?alignLeft=1&hideTitle=1&transparentBackground=0&dynamicHeight=1" loading="lazy" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0" title="Réservez votre cours d'essai" style="background:#ffffff; border-radius:20px;"></iframe>
@@ -459,10 +714,74 @@
   </main>
 
   <footer>
-    <p>© 2026 EnglishPro Academy - Cours d'anglais en ligne</p>
-    <p>Téléphone : <a href="tel:+33651478171" style="color:#facc15; text-decoration:none;">+33 6 51478171</a></p>
+    <p>© 2026 EnglishPro Academy — Cours d'anglais à Reims et en ligne</p>
+    <p>Téléphone : <a href="tel:+33651478171">+33 6 51 47 81 71</a></p>
+    <p class="footer-links">
+      <a href="/">Accueil jeveux.net</a> ·
+      <a href="/bc/">Booste ma carrière</a> ·
+      <a href="#reims">Cours à Reims</a> ·
+      <a href="#faq">FAQ</a>
+    </p>
   </footer>
 
-  <a class="whatsapp" href="https://wa.me/33651478171" target="_blank">WhatsApp</a>
+  <a class="whatsapp" href="https://wa.me/33651478171" target="_blank" rel="noopener">WhatsApp</a>
+
+  <!-- FAQ structurée pour Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Combien coûte un cours d'anglais à Reims ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Le cours d'essai est à 19€. La formule Standard (15h) est à 689€ et la formule Intensif (45h) à 1499€. Toutes les formules sont éligibles au CPF."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Les cours peuvent-ils se faire à distance, en visio ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui. Vous pouvez suivre vos cours d'anglais en visioconférence, en présentiel à Reims et alentours, ou en alternant les deux."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Mes cours d'anglais sont-ils finançables par le CPF ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, toutes nos formations sont éligibles au CPF et finançables avec votre Compte Personnel de Formation, sans avancer les frais."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Intervenez-vous à Tinqueux, Bezannes ou Cormontreuil ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, Darejan se déplace à Reims et dans les communes voisines comme Tinqueux, Bezannes, Cormontreuil, Bétheny et Witry-lès-Reims. La visio est disponible partout en France."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Je suis débutant complet, est-ce adapté ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui. Le parcours débute par un test de niveau puis un programme sur mesure adapté aux débutants."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pouvez-vous m'aider à préparer un entretien d'embauche en anglais ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, nous préparons les entretiens et réunions en anglais : questions types, vocabulaire de votre secteur et confiance à l'oral."
+        }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
