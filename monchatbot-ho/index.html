@@ -3,267 +3,380 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HotelsChatbots — Chatbot règlements intérieurs hôtels 24/7</title>
-  <meta name="description" content="Chatbot IA pour hôteliers : répond automatiquement aux questions des clients sur le règlement intérieur, les horaires, les conditions d'annulation, les animaux, etc. 24h/24, multilingue, basé sur le règlement intérieur de votre hôtel." />
+  <title>HotelsChatbots — Chatbot IA hôtelier : réservation, WhatsApp, multilingue 24/7</title>
+  <meta name="description" content="Chatbot IA pour hôteliers : réservation directe, vérification de disponibilité, devis PDF, capture de prospects, WhatsApp, multilingue et tableau de bord ROI. Répond 24h/24 sur votre site et vos messageries." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.jeveux.net/monchatbot-ho/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="HotelsChatbots — Chatbot règlements intérieurs hôtels 24/7" />
-  <meta property="og:description" content="Chatbot IA pour hôteliers : répond aux questions des clients sur le règlement intérieur, les horaires, l'annulation, les animaux… 24h/24 et multilingue." />
+  <meta property="og:title" content="HotelsChatbots — Chatbot IA hôtelier : réservation, WhatsApp, multilingue 24/7" />
+  <meta property="og:description" content="Réservation directe, devis PDF, capture de prospects, WhatsApp intégré, multilingue et tableau de bord ROI pour votre hôtel. 24h/24." />
   <meta property="og:url" content="https://www.jeveux.net/monchatbot-ho/" />
   <meta property="og:locale" content="fr_FR" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif; }
-
     body { background: #f8fafc; color: #0f172a; line-height: 1.6; }
 
+    /* TOPBAR */
+    .topbar { background: #0f172a; color: #e2e8f0; display: flex; justify-content: space-between; align-items: center; padding: 10px 24px; flex-wrap: wrap; gap: 8px; }
+    .topbar .brand { font-weight: 800; color: #fff; }
+    .topbar .brand span { color: #fbbf24; }
+    .lang-switch { display: flex; gap: 4px; flex-wrap: wrap; }
+    .lang-switch button { background: transparent; border: 1px solid #334155; color: #cbd5e1; width: 34px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+    .lang-switch button.active { background: #6366f1; border-color: #6366f1; color: #fff; font-weight: 700; }
+
     /* HEADER */
-    header { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #6366f1 100%); color: white; padding: 80px 24px 100px; text-align: center; position: relative; overflow: hidden; }
+    header { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #6366f1 100%); color: white; padding: 70px 24px 90px; text-align: center; position: relative; overflow: hidden; }
     header::before { content: "💬"; position: absolute; top: 30px; right: 5%; font-size: 100px; opacity: 0.08; }
     header::after  { content: "🏨"; position: absolute; bottom: 30px; left: 5%; font-size: 110px; opacity: 0.08; }
     .badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fbbf24; padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; margin-bottom: 22px; }
-    header h1 { font-size: 52px; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; max-width: 900px; margin-left: auto; margin-right: auto; }
+    header h1 { font-size: 48px; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; max-width: 900px; margin-left: auto; margin-right: auto; }
     header h1 span { background: linear-gradient(135deg, #fbbf24, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    header p.subtitle { font-size: 21px; max-width: 760px; margin: 0 auto 32px; color: #e0e7ff; }
+    header p.subtitle { font-size: 20px; max-width: 760px; margin: 0 auto 32px; color: #e0e7ff; }
     .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font-weight: 700; text-decoration: none; transition: all 0.25s; font-size: 16px; border: none; cursor: pointer; }
     .btn-primary { background: #fbbf24; color: #1e293b; }
     .btn-primary:hover { background: #f59e0b; transform: scale(1.04); }
     .btn-ghost { background: rgba(255,255,255,0.1); color: white; border: 1.5px solid rgba(255,255,255,0.4); }
     .btn-ghost:hover { background: rgba(255,255,255,0.2); }
+    .btn-wa { background: #22c55e; color: #fff; }
+    .btn-wa:hover { background: #16a34a; }
+
+    /* HERO STATS */
+    .hero-stats { display: flex; justify-content: center; gap: 34px; flex-wrap: wrap; margin-top: 34px; }
+    .hero-stats div { color: #e0e7ff; }
+    .hero-stats strong { display: block; font-size: 28px; color: #fff; }
+    .hero-stats small { font-size: 13px; }
 
     /* SECTIONS */
-    section { max-width: 1180px; margin: 0 auto; padding: 70px 24px; }
-    .section-title { text-align: center; margin-bottom: 50px; }
-    .section-title h2 { font-size: 36px; color: #0f172a; margin-bottom: 12px; letter-spacing: -0.5px; }
-    .section-title p { color: #64748b; font-size: 17px; max-width: 640px; margin: 0 auto; }
+    section { max-width: 1180px; margin: 0 auto; padding: 64px 24px; }
+    .section-title { text-align: center; margin-bottom: 44px; }
+    .section-title h2 { font-size: 34px; color: #0f172a; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .section-title p { color: #64748b; font-size: 17px; max-width: 680px; margin: 0 auto; }
 
     /* CHAT DEMO */
-    .chat-wrap { max-width: 720px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 20px 60px rgba(15,23,42,0.12); overflow: hidden; border: 1px solid #e2e8f0; }
-    .chat-header { background: linear-gradient(135deg, #1e3a8a, #6366f1); color: white; padding: 18px 22px; display: flex; align-items: center; gap: 14px; }
+    .chat-wrap { max-width: 740px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 20px 60px rgba(15,23,42,0.12); overflow: hidden; border: 1px solid #e2e8f0; }
+    .chat-header { background: linear-gradient(135deg, #1e3a8a, #6366f1); color: white; padding: 16px 22px; display: flex; align-items: center; gap: 14px; }
     .chat-header .avatar { width: 42px; height: 42px; border-radius: 50%; background: #fbbf24; display: flex; align-items: center; justify-content: center; font-size: 22px; }
     .chat-header .info h3 { font-size: 16px; margin-bottom: 2px; }
     .chat-header .info p { font-size: 12px; color: #c7d2fe; }
     .chat-header .status { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12px; color: #86efac; }
     .chat-header .status::before { content: ""; width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; }
-    .chat-body { min-height: 360px; max-height: 480px; overflow-y: auto; padding: 22px; background: #f8fafc; display: flex; flex-direction: column; gap: 12px; }
-    .msg { max-width: 80%; padding: 12px 16px; border-radius: 18px; font-size: 14.5px; line-height: 1.5; word-wrap: break-word; }
+    .chat-body { min-height: 380px; max-height: 520px; overflow-y: auto; padding: 22px; background: #f8fafc; display: flex; flex-direction: column; gap: 12px; }
+    .msg { max-width: 84%; padding: 12px 16px; border-radius: 18px; font-size: 14.5px; line-height: 1.5; word-wrap: break-word; }
     .msg-bot { background: white; align-self: flex-start; border-top-left-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }
     .msg-bot strong { color: #1e3a8a; }
     .msg-bot em { color: #64748b; display: block; margin-top: 6px; font-size: 12.5px; font-style: normal; }
     .msg-user { background: linear-gradient(135deg, #6366f1, #4338ca); color: white; align-self: flex-end; border-top-right-radius: 6px; }
+    .typing { align-self: flex-start; color: #94a3b8; font-size: 13px; font-style: italic; padding: 4px 8px; }
+
+    /* ROOM CARDS IN CHAT */
+    .rooms { align-self: stretch; display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .room { display: flex; gap: 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 10px; align-items: center; }
+    .room .photo { width: 74px; height: 60px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #fff; }
+    .room .r1 { background: linear-gradient(135deg,#6366f1,#4338ca); }
+    .room .r2 { background: linear-gradient(135deg,#0ea5e9,#1e3a8a); }
+    .room .r3 { background: linear-gradient(135deg,#f59e0b,#b45309); }
+    .room .rinfo { flex: 1; }
+    .room .rinfo h4 { font-size: 14.5px; color: #0f172a; }
+    .room .rinfo small { color: #64748b; font-size: 12.5px; }
+    .room .rprice { font-weight: 800; color: #1e3a8a; font-size: 15px; white-space: nowrap; }
+    .room button { background: #6366f1; color: #fff; border: none; padding: 7px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+    .room button:hover { background: #4338ca; }
+
+    .chip-row { align-self: stretch; display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip-row button { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; cursor: pointer; }
+    .chip-row button:hover { background: #c7d2fe; }
+
     .quick-suggestions { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 22px 12px; background: #f8fafc; border-top: 1px solid #e2e8f0; }
     .quick-suggestions button { background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 6px 12px; border-radius: 999px; font-size: 12.5px; cursor: pointer; transition: 0.2s; }
     .quick-suggestions button:hover { background: #c7d2fe; transform: translateY(-1px); }
     .chat-input { display: flex; gap: 8px; padding: 14px 18px 18px; background: white; border-top: 1px solid #e2e8f0; }
     .chat-input input { flex: 1; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 999px; font-size: 14.5px; outline: none; transition: border 0.2s; }
     .chat-input input:focus { border-color: #6366f1; }
-    .chat-input button { background: #6366f1; color: white; border: none; padding: 12px 22px; border-radius: 999px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .chat-input button { background: #6366f1; color: white; border: none; padding: 12px 22px; border-radius: 999px; font-weight: 700; cursor: pointer; }
     .chat-input button:hover { background: #4338ca; }
+    .demo-note { max-width: 740px; margin: 14px auto 0; font-size: 12.5px; color: #94a3b8; text-align: center; }
 
-    /* BENEFITS GRID */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .card { background: white; border-radius: 18px; padding: 28px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); border-top: 4px solid #6366f1; transition: transform 0.25s; }
+    /* GRID CARDS */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: white; border-radius: 18px; padding: 26px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); border-top: 4px solid #6366f1; transition: transform 0.25s; }
     .card:nth-child(2) { border-top-color: #f59e0b; }
     .card:nth-child(3) { border-top-color: #16a34a; }
     .card:nth-child(4) { border-top-color: #ec4899; }
+    .card:nth-child(5) { border-top-color: #0ea5e9; }
     .card:hover { transform: translateY(-4px); }
-    .card .icon { font-size: 36px; margin-bottom: 14px; display: inline-block; }
-    .card h3 { font-size: 18px; color: #0f172a; margin-bottom: 8px; }
+    .card .icon { font-size: 34px; margin-bottom: 12px; display: inline-block; }
+    .card h3 { font-size: 17px; color: #0f172a; margin-bottom: 8px; }
     .card p { color: #64748b; font-size: 14.5px; }
 
-    /* CORPUS PREVIEW */
-    .corpus-box { background: white; border-radius: 20px; padding: 28px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); margin-top: 20px; }
-    .corpus-box h3 { color: #1e3a8a; margin-bottom: 14px; }
-    .hotels-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
-    .hotel-tag { background: #eef2ff; color: #4338ca; padding: 8px 12px; border-radius: 12px; font-size: 13px; border: 1px solid #e0e7ff; }
+    .alt { background: #fff; }
+
+    /* PRIORITIES */
+    .prio { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .prio div { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 22px; text-align: center; }
+    .prio .num { width: 38px; height: 38px; border-radius: 50%; background: #6366f1; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto 12px; }
+    .prio h4 { font-size: 15px; color: #0f172a; margin-bottom: 6px; }
+    .prio p { font-size: 13px; color: #64748b; }
+
+    /* DASHBOARD */
+    .dash { background: #0f172a; border-radius: 24px; padding: 32px; color: #e2e8f0; }
+    .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .kpi { background: #1e293b; border-radius: 16px; padding: 18px; }
+    .kpi strong { display: block; font-size: 28px; color: #fff; }
+    .kpi small { color: #94a3b8; font-size: 12.5px; }
+    .kpi .up { color: #4ade80; font-size: 12px; font-weight: 700; }
+    .dash-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .dash-box { background: #1e293b; border-radius: 16px; padding: 18px; }
+    .dash-box h4 { color: #fff; font-size: 14px; margin-bottom: 12px; }
+    .bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+    .bar .track { flex: 1; height: 8px; background: #334155; border-radius: 99px; overflow: hidden; }
+    .bar .fill { height: 100%; background: linear-gradient(90deg,#6366f1,#22d3ee); }
+    .bar .v { color: #94a3b8; width: 38px; text-align: right; }
+    @media (max-width: 680px){ .dash-cols { grid-template-columns: 1fr; } }
+
+    /* CHANNELS / INTEGRATIONS */
+    .chan { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .chan span { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 16px; font-size: 14px; box-shadow: 0 4px 12px rgba(15,23,42,0.04); }
+    .roadmap { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 10px; margin-top: 8px; }
+    .roadmap span { background: #eef2ff; color: #3730a3; border: 1px solid #e0e7ff; border-radius: 10px; padding: 8px 12px; font-size: 13px; }
 
     /* PRICING */
     .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
     .price-card { background: white; border-radius: 22px; padding: 36px 28px; box-shadow: 0 8px 24px rgba(15,23,42,0.06); text-align: center; position: relative; }
-    .price-card.featured { border: 3px solid #6366f1; transform: scale(1.03); }
+    .price-card.featured { border: 3px solid #6366f1; }
     .price-card.featured::before { content: "⭐ Le plus populaire"; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #6366f1; color: white; padding: 6px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 700; }
     .price-card h3 { font-size: 22px; color: #1e3a8a; margin-bottom: 8px; }
-    .price-card .price { font-size: 42px; font-weight: 800; color: #0f172a; margin: 16px 0; }
+    .price-card .price { font-size: 40px; font-weight: 800; color: #0f172a; margin: 16px 0; }
     .price-card .price small { font-size: 14px; color: #64748b; font-weight: 400; }
     .price-card ul { list-style: none; text-align: left; margin: 20px 0 26px; }
     .price-card li { padding: 6px 0; font-size: 14.5px; }
     .price-card li::before { content: "✓ "; color: #16a34a; font-weight: 700; }
 
-    /* CTA SECTION */
-    .cta-box { background: linear-gradient(135deg, #1e3a8a, #6366f1); color: white; border-radius: 28px; padding: 56px 36px; text-align: center; }
-    .cta-box h2 { color: white; font-size: 32px; margin-bottom: 14px; }
+    /* CTA */
+    .cta-box { background: linear-gradient(135deg, #1e3a8a, #6366f1); color: white; border-radius: 28px; padding: 52px 36px; text-align: center; }
+    .cta-box h2 { color: white; font-size: 30px; margin-bottom: 14px; }
     .cta-box p { color: #c7d2fe; font-size: 17px; max-width: 580px; margin: 0 auto 28px; }
 
-    /* FOOTER */
     footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 36px 24px; }
     footer a { color: #fbbf24; text-decoration: none; }
     footer p { margin-bottom: 8px; font-size: 14px; }
 
+    /* FLOATING WHATSAPP */
+    .wa-float { position: fixed; right: 20px; bottom: 20px; background: #22c55e; color: #fff; padding: 13px 18px; border-radius: 999px; text-decoration: none; font-weight: 800; box-shadow: 0 10px 28px rgba(0,0,0,.25); z-index: 50; }
+
     @media (max-width: 760px) {
-      header h1 { font-size: 34px; }
+      header h1 { font-size: 32px; }
       header p.subtitle { font-size: 16px; }
-      .section-title h2 { font-size: 26px; }
-      .price-card.featured { transform: none; }
+      .section-title h2 { font-size: 25px; }
     }
   </style>
 </head>
 <body>
 
+  <div class="topbar">
+    <div class="brand">Hotels<span>Chatbots</span></div>
+    <div class="lang-switch" id="langSwitch">
+      <button data-lang="fr" class="active" onclick="setLang('fr')">FR</button>
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+      <button data-lang="es" onclick="setLang('es')">ES</button>
+      <button data-lang="de" onclick="setLang('de')">DE</button>
+      <button data-lang="it" onclick="setLang('it')">IT</button>
+      <button data-lang="nl" onclick="setLang('nl')">NL</button>
+    </div>
+  </div>
+
   <header>
-    <span class="badge">🤖 Chatbot IA pour hôtels indépendants</span>
-    <h1>Vos clients posent toujours <span>les mêmes questions ?</span></h1>
-    <p class="subtitle">HotelsChatbots répond 24h/24, dans toutes les langues, en se basant exclusivement sur le règlement intérieur que vous nous transmettez. Plus de questions répétées à la réception : votre équipe se concentre sur l'essentiel.</p>
+    <span class="badge" data-i18n="badge">🤖 Chatbot IA pour hôtels indépendants</span>
+    <h1 data-i18n="h1">Le chatbot qui <span>réserve, vend et répond</span> à votre place</h1>
+    <p class="subtitle" data-i18n="subtitle">Réservation directe, devis instantané, capture de prospects, WhatsApp intégré et multilingue. HotelsChatbots travaille 24h/24 pour remplir votre hôtel pendant que votre équipe se concentre sur l'accueil.</p>
     <div class="cta-row">
-      <a href="#demo" class="btn btn-primary">Essayer la démo →</a>
-      <a href="#tarifs" class="btn btn-ghost">Voir les tarifs</a>
+      <a href="#demo" class="btn btn-primary" data-i18n="cta1">Essayer la démo →</a>
+      <a href="https://wa.me/33745542008" class="btn btn-wa" target="_blank" rel="noopener" data-i18n="cta2">💬 WhatsApp</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>&lt; 5 s</strong><small data-i18n="stat1">temps de réponse</small></div>
+      <div><strong>24/7</strong><small data-i18n="stat2">disponibilité</small></div>
+      <div><strong>70 %</strong><small data-i18n="stat3">de demandes automatisées</small></div>
+      <div><strong>+30 %</strong><small data-i18n="stat4">de réservations directes*</small></div>
     </div>
   </header>
 
-  <!-- DEMO CHATBOT -->
+  <!-- DEMO -->
   <section id="demo">
     <div class="section-title">
-      <h2>Démo en direct du chatbot</h2>
-      <p>Cette démo s'appuie sur un règlement intérieur consolidé : une réponse canonique par sujet. Le chatbot ne répond qu'à partir de ce texte — il ne devine pas.</p>
+      <h2 data-i18n="demoTitle">Démo en direct : réservez en 30 secondes</h2>
+      <p data-i18n="demoSub">Testez le parcours complet — disponibilité, tarifs, réservation, services additionnels et devis PDF. Tout se passe dans la conversation.</p>
     </div>
 
     <div class="chat-wrap">
       <div class="chat-header">
         <div class="avatar">🏨</div>
         <div class="info">
-          <h3>HotelsChatbots — Assistant 24/7</h3>
-          <p>Réponses fondées sur votre règlement intérieur</p>
+          <h3>HotelsChatbots — <span data-i18n="assistant">Assistant 24/7</span></h3>
+          <p data-i18n="poweredBy">Réservation • Infos • WhatsApp • Multilingue</p>
         </div>
-        <div class="status">En ligne</div>
+        <div class="status" data-i18n="online">En ligne</div>
       </div>
 
-      <div class="chat-body" id="chat-body">
-        <div class="msg msg-bot">
-          Bonjour 👋 Je suis l'assistant virtuel de votre hôtel. Je peux répondre à toutes vos questions sur le règlement intérieur : horaires, animaux, fumer, annulation, etc. Posez-moi une question !
-        </div>
-      </div>
+      <div class="chat-body" id="chat-body"></div>
 
-      <div class="quick-suggestions">
-        <button onclick="askQuestion('À quelle heure puis-je arriver dans ma chambre ?')">À quelle heure check-in ?</button>
-        <button onclick="askQuestion('Les animaux sont-ils acceptés ?')">Animaux acceptés ?</button>
-        <button onclick="askQuestion('Puis-je fumer dans la chambre ?')">Puis-je fumer ?</button>
-        <button onclick="askQuestion('Quelles sont les conditions d’annulation ?')">Annulation ?</button>
-        <button onclick="askQuestion('À quelle heure dois-je quitter la chambre ?')">Heure du départ ?</button>
-        <button onclick="askQuestion('Y a-t-il un parking ?')">Parking ?</button>
-      </div>
+      <div class="quick-suggestions" id="quickRow"></div>
 
-      <form class="chat-input" onsubmit="event.preventDefault(); const i=document.getElementById('chat-input'); if(i.value.trim()){askQuestion(i.value); i.value='';}">
-        <input id="chat-input" type="text" placeholder="Tapez votre question…" autocomplete="off" />
-        <button type="submit">Envoyer</button>
+      <form class="chat-input" onsubmit="event.preventDefault(); const i=document.getElementById('chat-input'); if(i.value.trim()){handleInput(i.value); i.value='';}">
+        <input id="chat-input" type="text" autocomplete="off" />
+        <button type="submit" data-i18n="send">Envoyer</button>
       </form>
     </div>
+    <p class="demo-note" data-i18n="demoNote">Démo front-end : la réservation, le paiement et l'envoi WhatsApp/e-mail réels nécessitent la connexion à votre moteur de réservation / PMS (inclus dans l'offre Groupe). Le devis PDF est généré dans votre navigateur.</p>
   </section>
 
-  <!-- BENEFITS -->
-  <section>
+  <!-- WHAT IT DOES -->
+  <section class="alt">
     <div class="section-title">
-      <h2>Pourquoi un chatbot dédié à votre hôtel ?</h2>
-      <p>Une IA conversationnelle pré-entraînée sur votre règlement intérieur — pas de réponses inventées, uniquement votre politique.</p>
+      <h2 data-i18n="featTitle">Bien plus qu'un répondeur de FAQ</h2>
+      <p data-i18n="featSub">Un assistant commercial qui vend des chambres et des services, capte les prospects et soulage votre réception.</p>
     </div>
     <div class="grid">
-      <div class="card">
-        <span class="icon">⏰</span>
-        <h3>24h/24, 7j/7</h3>
-        <p>Vos clients obtiennent une réponse immédiate, même à 3h du matin ou pendant que votre réceptionniste gère un check-in.</p>
+      <div class="card"><span class="icon">🛏️</span><h3 data-i18n="f1t">Réservation directe</h3><p data-i18n="f1p">Vérifie la disponibilité, propose des dates alternatives, affiche les chambres avec photo, prix et capacité, puis enclenche la réservation directe — sans commission OTA.</p></div>
+      <div class="card"><span class="icon">💬</span><h3 data-i18n="f2t">WhatsApp & omnicanal</h3><p data-i18n="f2p">Site web, WhatsApp, Instagram et Messenger : une seule conversation continue. Confirmations et assistance pendant le séjour via WhatsApp.</p></div>
+      <div class="card"><span class="icon">🎯</span><h3 data-i18n="f3t">Capture de prospects</h3><p data-i18n="f3p">Recueille nom, e-mail, téléphone et dates, enregistre le lead et relance automatiquement. Votre chatbot devient une machine à leads.</p></div>
+      <div class="card"><span class="icon">🌍</span><h3 data-i18n="f4t">Multilingue automatique</h3><p data-i18n="f4p">FR, EN, ES, DE, IT, NL et des dizaines d'autres langues. Le chatbot détecte la langue du visiteur et y répond.</p></div>
+      <div class="card"><span class="icon">🤝</span><h3 data-i18n="f5t">Transfert vers un humain</h3><p data-i18n="f5p">Quand une réponse est impossible, escalade vers WhatsApp, la réception, un appel direct ou un formulaire de rappel.</p></div>
+      <div class="card"><span class="icon">⬆️</span><h3 data-i18n="f6t">Upselling</h3><p data-i18n="f6p">Petit-déjeuner, parking, spa, massages, excursions, surclassement, départ tardif : le chatbot augmente le panier moyen.</p></div>
+    </div>
+  </section>
+
+  <!-- PRIORITIES -->
+  <section>
+    <div class="section-title">
+      <h2 data-i18n="prioTitle">Les 5 priorités qui font le ROI</h2>
+      <p data-i18n="prioSub">On commence par ce qui rapporte, pas par la technologie.</p>
+    </div>
+    <div class="prio">
+      <div><div class="num">1</div><h4 data-i18n="p1t">Réservation directe</h4><p data-i18n="p1p">Priorité n°1 : récupérer les réservations sans commission.</p></div>
+      <div><div class="num">2</div><h4 data-i18n="p2t">WhatsApp intégré</h4><p data-i18n="p2p">Le canal préféré des voyageurs, continuité garantie.</p></div>
+      <div><div class="num">3</div><h4 data-i18n="p3t">Capture automatique</h4><p data-i18n="p3p">Chaque visiteur devient un prospect qualifié.</p></div>
+      <div><div class="num">4</div><h4 data-i18n="p4t">Multilingue</h4><p data-i18n="p4p">Convertir les clients internationaux.</p></div>
+      <div><div class="num">5</div><h4 data-i18n="p5t">Tableau de bord ROI</h4><p data-i18n="p5p">Mesurer réservations, conversion et chiffre d'affaires.</p></div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD DEMO -->
+  <section class="alt">
+    <div class="section-title">
+      <h2 data-i18n="dashTitle">Tableau de bord ROI (aperçu)</h2>
+      <p data-i18n="dashSub">Données d'exemple. Sur votre compte, ces indicateurs sont alimentés en temps réel par les conversations de votre chatbot.</p>
+    </div>
+    <div class="dash">
+      <div class="dash-grid">
+        <div class="kpi"><strong>1 248</strong><small data-i18n="k1">Conversations / mois</small> <span class="up">+18%</span></div>
+        <div class="kpi"><strong>96</strong><small data-i18n="k2">Réservations</small> <span class="up">+24%</span></div>
+        <div class="kpi"><strong>7,7 %</strong><small data-i18n="k3">Taux de conversion</small> <span class="up">+2,1 pts</span></div>
+        <div class="kpi"><strong>32 400 €</strong><small data-i18n="k4">CA généré</small> <span class="up">+29%</span></div>
       </div>
-      <div class="card">
-        <span class="icon">🌍</span>
-        <h3>Multilingue natif</h3>
-        <p>Français, anglais, espagnol, allemand, italien, néerlandais, chinois, arabe — le chatbot détecte la langue et y répond.</p>
-      </div>
-      <div class="card">
-        <span class="icon">📜</span>
-        <h3>Fondé sur VOTRE règlement</h3>
-        <p>Aucune hallucination : le chatbot ne répond qu'à partir du document que vous nous fournissez. Source citée à chaque réponse.</p>
-      </div>
-      <div class="card">
-        <span class="icon">💸</span>
-        <h3>Économies de temps</h3>
-        <p>Jusqu'à 60 % de questions répétitives en moins à la réception. Votre équipe se concentre sur la valeur ajoutée.</p>
+      <div class="dash-cols">
+        <div class="dash-box">
+          <h4 data-i18n="dq">Questions les plus fréquentes</h4>
+          <div class="bar"><span style="width:90px">Check-in</span><div class="track"><div class="fill" style="width:82%"></div></div><span class="v">22%</span></div>
+          <div class="bar"><span style="width:90px">Parking</span><div class="track"><div class="fill" style="width:64%"></div></div><span class="v">16%</span></div>
+          <div class="bar"><span style="width:90px">Wi-Fi</span><div class="track"><div class="fill" style="width:52%"></div></div><span class="v">13%</span></div>
+          <div class="bar"><span style="width:90px">Animaux</span><div class="track"><div class="fill" style="width:44%"></div></div><span class="v">11%</span></div>
+          <div class="bar"><span style="width:90px" data-i18n="bk">Réserver</span><div class="track"><div class="fill" style="width:38%"></div></div><span class="v">9%</span></div>
+        </div>
+        <div class="dash-box">
+          <h4 data-i18n="dl">Langues utilisées</h4>
+          <div class="bar"><span style="width:90px">Français</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="v">58%</span></div>
+          <div class="bar"><span style="width:90px">English</span><div class="track"><div class="fill" style="width:22%"></div></div><span class="v">22%</span></div>
+          <div class="bar"><span style="width:90px">Español</span><div class="track"><div class="fill" style="width:9%"></div></div><span class="v">9%</span></div>
+          <div class="bar"><span style="width:90px">Deutsch</span><div class="track"><div class="fill" style="width:7%"></div></div><span class="v">7%</span></div>
+          <div class="bar"><span style="width:90px" data-i18n="other">Autres</span><div class="track"><div class="fill" style="width:4%"></div></div><span class="v">4%</span></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CORPUS PREVIEW -->
+  <!-- OMNICHANNEL + INTEGRATIONS -->
   <section>
     <div class="section-title">
-      <h2>Le règlement de référence</h2>
-      <p>Notre démonstration s'appuie sur un règlement intérieur consolidé : une seule réponse canonique par sujet, fondée sur les pratiques observées du marché hôtelier français.</p>
+      <h2 data-i18n="chanTitle">Un chatbot omnicanal, intégré à vos outils</h2>
+      <p data-i18n="chanSub">Présent là où sont vos clients, connecté à votre écosystème hôtelier.</p>
     </div>
-    <div class="corpus-box">
-      <h3>📄 Document de référence — règlement intérieur</h3>
-      <div class="hotels-list">
-        <div class="hotel-tag">Arrivée & départ</div>
-        <div class="hotel-tag">Identité & accueil</div>
-        <div class="hotel-tag">Occupation des chambres</div>
-        <div class="hotel-tag">Paiement & taxes</div>
-        <div class="hotel-tag">Conditions d'annulation</div>
-        <div class="hotel-tag">Interdictions & sécurité</div>
-        <div class="hotel-tag">Tabac & alarme incendie</div>
-        <div class="hotel-tag">Nuisances sonores</div>
-        <div class="hotel-tag">Petit-déjeuner</div>
-        <div class="hotel-tag">Ménage</div>
-        <div class="hotel-tag">WiFi & internet</div>
-        <div class="hotel-tag">Parking</div>
-        <div class="hotel-tag">Animaux</div>
-        <div class="hotel-tag">Clés & accès</div>
-        <div class="hotel-tag">Coffre & objets de valeur</div>
-        <div class="hotel-tag">Dégradations</div>
-        <div class="hotel-tag">Effets oubliés</div>
-        <div class="hotel-tag">Vidéosurveillance</div>
-        <div class="hotel-tag">RGPD</div>
-        <div class="hotel-tag">Médiation & litiges</div>
-      </div>
-      <p style="margin-top: 20px; color: #64748b; font-size: 14px;">📥 <a href="ReglementsInterieursHotels.docx" style="color:#6366f1; text-decoration:none; font-weight:700;">Télécharger le document source (.docx)</a></p>
+    <div class="chan">
+      <span>🌐 Site web</span><span>💬 WhatsApp</span><span>📷 Instagram</span><span>💌 Messenger</span>
+    </div>
+    <div class="roadmap">
+      <span>🏨 PMS hôtelier</span><span>🔗 Moteur de réservation</span><span>🅱️ Booking.com</span><span>✈️ Expedia</span>
+      <span>🏠 Airbnb</span><span>🟢 TripAdvisor</span><span>📊 Google Hotel Ads</span><span>📈 HubSpot / Salesforce</span>
+      <span>🌀 Zoho / Dynamics</span><span>⚙️ n8n / Make / Zapier</span><span>📄 Google Sheets</span><span>✉️ E-mail / SMS</span>
+    </div>
+    <p class="demo-note" data-i18n="chanNote">Les intégrations marquées ci-dessus sont disponibles sur l'offre Pro/Groupe via connecteurs et automatisations. Elles nécessitent vos accès et une configuration dédiée.</p>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="alt">
+    <div class="section-title">
+      <h2 data-i18n="resTitle">Des résultats concrets, pas du jargon</h2>
+    </div>
+    <div class="grid">
+      <div class="card"><span class="icon">⚡</span><h3 data-i18n="r1t">Réponse &lt; 5 secondes</h3><p data-i18n="r1p">Vos clients n'attendent plus. Chaque question trouve sa réponse instantanément.</p></div>
+      <div class="card"><span class="icon">🕐</span><h3 data-i18n="r2t">Disponible 24h/24</h3><p data-i18n="r2p">Même la nuit, même en haute saison, votre hôtel répond et vend.</p></div>
+      <div class="card"><span class="icon">📉</span><h3 data-i18n="r3t">Moins d'appels & d'e-mails</h3><p data-i18n="r3p">Jusqu'à 70 % des demandes répétitives automatisées : la réception respire.</p></div>
+      <div class="card"><span class="icon">📈</span><h3 data-i18n="r4t">Plus de réservations directes</h3><p data-i18n="r4p">Moins de commissions OTA, plus de marge sur chaque nuitée.</p></div>
+    </div>
+  </section>
+
+  <!-- CORPUS -->
+  <section>
+    <div class="section-title">
+      <h2 data-i18n="corpTitle">Fondé sur VOTRE règlement intérieur</h2>
+      <p data-i18n="corpSub">Aucune hallucination : pour les questions de politique d'hôtel, le chatbot répond à partir du document que vous fournissez. La démo s'appuie sur un règlement consolidé.</p>
+    </div>
+    <div style="background:#fff;border-radius:20px;padding:26px;box-shadow:0 8px 24px rgba(15,23,42,.06)">
+      <p style="color:#64748b;font-size:14px">📥 <a href="ReglementsInterieursHotels.docx" style="color:#6366f1;text-decoration:none;font-weight:700">Télécharger le règlement intérieur de référence (.docx)</a> — couvre arrivée/départ, animaux, tabac, annulation, parking, Wi-Fi, petit-déjeuner, piscine, RGPD, et bien plus.</p>
     </div>
   </section>
 
   <!-- TARIFS -->
-  <section id="tarifs">
+  <section id="tarifs" class="alt">
     <div class="section-title">
-      <h2>Tarifs simples, sans abonnement caché</h2>
-      <p>Une installation, un règlement à fournir, votre chatbot est en ligne sous 48 h sur votre site web.</p>
+      <h2 data-i18n="priceTitle">Tarifs simples, sans abonnement caché</h2>
+      <p data-i18n="priceSub">Installation rapide. Votre chatbot en ligne sous 48 h sur votre site web.</p>
     </div>
     <div class="price-grid">
       <div class="price-card">
         <h3>Starter</h3>
         <div class="price">49€<small> / mois</small></div>
         <ul>
-          <li>Jusqu'à 500 questions/mois</li>
-          <li>1 langue (français)</li>
-          <li>Widget chat intégrable</li>
-          <li>Mises à jour règlement gratuites</li>
+          <li data-i18n="ps1">Jusqu'à 500 questions/mois</li>
+          <li data-i18n="ps2">Widget chat intégrable au site</li>
+          <li data-i18n="ps3">Base règlement intérieur</li>
+          <li data-i18n="ps4">1 langue</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Commencer</a>
+        <a href="#contact" class="btn btn-primary" data-i18n="psBtn">Commencer</a>
       </div>
       <div class="price-card featured">
         <h3>Pro</h3>
         <div class="price">129€<small> / mois</small></div>
         <ul>
-          <li>Questions illimitées</li>
-          <li>8 langues principales</li>
-          <li>Statistiques détaillées</li>
-          <li>Personnalisation visuelle</li>
-          <li>Support prioritaire</li>
+          <li data-i18n="pp1">Questions illimitées</li>
+          <li data-i18n="pp2">Réservation directe + upselling</li>
+          <li data-i18n="pp3">WhatsApp + multilingue</li>
+          <li data-i18n="pp4">Capture de prospects + tableau de bord</li>
+          <li data-i18n="pp5">Support prioritaire</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Choisir Pro</a>
+        <a href="#contact" class="btn btn-primary" data-i18n="ppBtn">Choisir Pro</a>
       </div>
       <div class="price-card">
         <h3>Groupe</h3>
-        <div class="price">Sur devis<small></small></div>
+        <div class="price" data-i18n="pgPrice">Sur devis</div>
         <ul>
-          <li>Plusieurs établissements</li>
-          <li>Toutes langues</li>
-          <li>Intégration PMS</li>
-          <li>SLA dédié</li>
-          <li>Account manager</li>
+          <li data-i18n="pg1">Plusieurs établissements</li>
+          <li data-i18n="pg2">Intégration PMS / OTA / CRM</li>
+          <li data-i18n="pg3">Automatisations n8n/Make/Zapier</li>
+          <li data-i18n="pg4">SLA dédié + account manager</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Nous contacter</a>
+        <a href="#contact" class="btn btn-primary" data-i18n="pgBtn">Nous contacter</a>
       </div>
     </div>
   </section>
@@ -271,224 +384,235 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="cta-box">
-      <h2>Mettez votre règlement en ligne en 48 h</h2>
-      <p>Envoyez-nous votre règlement intérieur (PDF ou Word) et un lien vers votre site — votre chatbot est en ligne deux jours plus tard.</p>
-      <a href="mailto:contact@jeveux.net?subject=Demande%20HotelsChatbots" class="btn btn-primary">📩 contact@jeveux.net</a>
+      <h2 data-i18n="contactTitle">Votre chatbot en ligne en 48 h</h2>
+      <p data-i18n="contactSub">Envoyez-nous votre règlement intérieur et le lien de votre site. On s'occupe du reste.</p>
+      <div class="cta-row">
+        <a href="https://wa.me/33745542008" class="btn btn-wa" target="_blank" rel="noopener">💬 WhatsApp 07 45 54 20 08</a>
+        <a href="mailto:contact@jeveux.net?subject=Demande%20HotelsChatbots" class="btn btn-primary">📩 contact@jeveux.net</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 HotelsChatbots — un service jeveux.net</p>
+    <p>© 2026 HotelsChatbots — <span data-i18n="footService">un service</span> <a href="/">jeveux.net</a></p>
     <p>📞 <a href="tel:+33745542008">07 45 54 20 08</a> · <a href="mailto:contact@jeveux.net">contact@jeveux.net</a></p>
   </footer>
 
+  <a class="wa-float" href="https://wa.me/33745542008" target="_blank" rel="noopener">💬 WhatsApp</a>
+
   <script>
-    // ====================================================================
-    // Mini moteur de recherche sur les règlements intérieurs
-    // Chaque entrée = un thème + mots-clés + réponse synthétique + source
-    // ====================================================================
-    // Base de connaissances : UNE seule réponse canonique par sujet,
-    // alignée sur ReglementsInterieursHotels.docx
-    const knowledge = [
-      {
-        keywords: ["arrivee","arrivée","check-in","checkin","arriver","entrer","occuper","heure d'arrivée","accès chambre","chambre disponible","puis-je arriver","quand arriver"],
-        answer: "🕒 <strong>Heure d'arrivée (check-in)</strong> : les chambres sont disponibles à partir de <strong>14h00</strong>. Aucun accès n'est garanti avant cette heure. Un service de bagagerie est à votre disposition à la réception en cas d'arrivée anticipée."
-      },
-      {
-        keywords: ["depart","départ","check-out","checkout","quitter","liberer","libérer","heure de départ","jour du départ"],
-        answer: "🚪 <strong>Heure de départ (check-out)</strong> : les chambres doivent être libérées au plus tard à <strong>11h00</strong> le jour du départ. Au-delà, une nuit supplémentaire vous sera facturée."
-      },
-      {
-        keywords: ["late check-out","late checkout","partir plus tard","rester plus tard","tardif"],
-        answer: "⏰ <strong>Late check-out</strong> : départ tardif possible sous réserve de disponibilité. Supplément forfaitaire de <strong>30 €</strong> jusqu'à 14h00. Au-delà, une nuit complète supplémentaire est facturée."
-      },
-      {
-        keywords: ["animaux","chien","chat","animal","pet","compagnie","laisse"],
-        answer: "🐕 <strong>Animaux</strong> : acceptés sous réserve d'en informer l'hôtel à la réservation. Supplément de <strong>15 € par jour et par animal</strong>. Doivent être tenus en laisse dans les parties communes et ne pas être laissés seuls dans la chambre. Les chiens guides d'aveugles et chiens d'assistance sont acceptés gratuitement et partout."
-      },
-      {
-        keywords: ["fumer","cigarette","tabac","vapoter","vape","fumée","chicha","cigarette electronique","cigarette électronique"],
-        answer: "🚭 <strong>Fumer / Vapoter</strong> : strictement interdit dans toute l'enceinte de l'hôtel (chambres et parties communes, y compris fenêtres ouvertes), conformément au décret n°2006-1386. Toute infraction entraîne une pénalité forfaitaire de <strong>150 €</strong> prélevée sur l'empreinte bancaire."
-      },
-      {
-        keywords: ["annulation","annuler","retractation","rétractation","remboursement","annuler ma reservation"],
-        answer: "📅 <strong>Annulation</strong> : sans frais jusqu'à <strong>48 heures avant la date d'arrivée</strong>. Passé ce délai, le montant de la première nuit est prélevé. Pas de droit de rétractation sur les prestations d'hébergement (art. L.221-28 12° du Code de la consommation)."
-      },
-      {
-        keywords: ["no-show","no show","non-presentation","non-présentation","pas venu","absent"],
-        answer: "⚠️ <strong>Non-présentation (no-show)</strong> : la totalité du séjour est facturée à 100 %."
-      },
-      {
-        keywords: ["interruption","depart anticipe","départ anticipé","écourter","ecourter","partir avant"],
-        answer: "🛑 <strong>Interruption / départ anticipé</strong> : aucun remboursement n'est accordé. Le séjour reste dû dans sa totalité."
-      },
-      {
-        keywords: ["parking","voiture","stationnement","garage","vehicule","véhicule"],
-        answer: "🚗 <strong>Parking</strong> : gratuit, mis à disposition des clients. Il n'est pas surveillé. L'hôtel décline toute responsabilité en cas de vol, dégradation ou dommage causé aux véhicules et à leur contenu."
-      },
-      {
-        keywords: ["bruit","silence","calme","tapage","nuisance","sonore","tranquillité","tranquillite"],
-        answer: "🤫 <strong>Bruit / Nuisances</strong> : tout bruit doit cesser entre <strong>22h00 et 8h00</strong>. Le tapage, même diurne, est interdit. Tout bruit portant atteinte à la tranquillité des autres clients pourra entraîner l'éviction sans mesure acoustique (art. R.1334-30 et R.1334-31 du Code de la santé publique)."
-      },
-      {
-        keywords: ["petit dejeuner","petit-dejeuner","petit déjeuner","petit-déjeuner","breakfast","viennoiseries","matin"],
-        answer: "🥐 <strong>Petit-déjeuner</strong> : servi tous les jours de <strong>7h00 à 10h00</strong>. Tarif : <strong>15 € par personne</strong>. Service en chambre disponible sur demande la veille (supplément de 5 € par personne)."
-      },
-      {
-        keywords: ["wifi","wi-fi","internet","connexion","réseau"],
-        answer: "📶 <strong>WiFi</strong> : accès gratuit dans tout l'hôtel. L'utilisateur s'engage à un usage conforme à la loi (respect des droits d'auteur notamment). Les données de connexion sont conservées selon la durée légale et peuvent être communiquées aux autorités sur réquisition."
-      },
-      {
-        keywords: ["enfant","enfants","mineur","mineurs","bébé","bebe","famille","kid","ado"],
-        answer: "👶 <strong>Enfants / Mineurs</strong> : sous la responsabilité exclusive des parents ou de l'adulte accompagnant. Aucun mineur ne peut occuper une chambre seul. Course/cris interdits dans l'établissement."
-      },
-      {
-        keywords: ["berceau","lit bebe","lit bébé","lit appoint","lit d'appoint","cot","crib"],
-        answer: "🛏️ <strong>Berceau et lit d'appoint</strong> : berceau gratuit pour les enfants jusqu'à 3 ans, sous réserve de disponibilité. Lit d'appoint à <strong>25 €/jour</strong> sous réserve de disponibilité. Maximum 1 berceau + 1 lit d'appoint par chambre."
-      },
-      {
-        keywords: ["cle","clé","clés","clef","clefs","key","perdu clef","perdu cle"],
-        answer: "🔑 <strong>Clés</strong> : attribuées personnellement, ne doivent pas être confiées à un tiers et doivent être restituées à la réception le jour du départ. Perte ou non-restitution : <strong>50 €</strong> (clé et, le cas échéant, cylindre)."
-      },
-      {
-        keywords: ["degradation","dégradation","casser","casse","dommage","reparation","réparation","casser meuble"],
-        answer: "💥 <strong>Dégradations</strong> : toute dégradation engage la responsabilité civile du client et est facturée au coût de réparation ou de remplacement, sur constat photographique. Forfait ménage de 50 € si la chambre est laissée dans un état anormalement sale."
-      },
-      {
-        keywords: ["piscine","spa","hammam","sauna","jacuzzi","wellness","bien-etre","bien-être"],
-        answer: "🏊 <strong>Piscine / Spa</strong> : accès réservé aux clients de l'hôtel sur réservation. Maillot obligatoire. Pas de plongeon, pas de manger/boire/fumer. Interdit aux enfants de moins de 16 ans. Déconseillé en cas de grossesse, problèmes cardiovasculaires, HTA, diabète."
-      },
-      {
-        keywords: ["paiement","payer","carte","visa","mastercard","espèces","especes","cheque","chèque","amex","ancv","cheques vacances","chèques vacances"],
-        answer: "💳 <strong>Moyens de paiement</strong> : Visa, Mastercard, American Express, espèces (dans la limite légale), chèques vacances ANCV. Les chèques bancaires ne sont pas acceptés."
-      },
-      {
-        keywords: ["caution","empreinte","empreinte bancaire","garantie","deposit"],
-        answer: "💰 <strong>Empreinte bancaire / Caution</strong> : une empreinte de <strong>150 €</strong> est prise à l'arrivée à titre de garantie pour couvrir extras et éventuels dégâts. Le montant est restitué au départ si aucun désordre n'est constaté."
-      },
-      {
-        keywords: ["identité","identite","passeport","piece d'identite","pièce d'identité","passport","cni"],
-        answer: "🪪 <strong>Pièce d'identité</strong> : obligatoire à l'arrivée pour chaque occupant majeur. Sans pièce d'identité, l'hôtel se réserve le droit de refuser la location."
-      },
-      {
-        keywords: ["etranger","étranger","fiche police","fiche de police","police","cesseda","ceseda"],
-        answer: "🌍 <strong>Clients étrangers</strong> : toute personne de nationalité étrangère (y compris ressortissants UE) doit remplir et signer une fiche individuelle de police à l'arrivée (art. R.611-42 CESEDA). Fiche conservée 6 mois et transmissible aux autorités sur réquisition."
-      },
-      {
-        keywords: ["taxe","séjour","sejour","tourist tax"],
-        answer: "🏛️ <strong>Taxe de séjour</strong> : <strong>1,50 € par personne et par nuit</strong>. Payée sur place, non incluse dans le prix de la réservation."
-      },
-      {
-        keywords: ["filouterie","grivelerie","grivèlerie","partir sans payer","sans payer","fraude"],
-        answer: "⚖️ <strong>Filouterie</strong> : consommer un bien ou service en se sachant incapable ou délibérément résolu à ne pas payer est une infraction punie de <strong>6 mois d'emprisonnement et 7 500 € d'amende</strong>, en plus des dommages-intérêts (art. 313-5 du Code pénal)."
-      },
-      {
-        keywords: ["cuisiner","cuisine","manger en chambre","appareil gaz","réchaud","rechaud","aliment","nourriture","aliments"],
-        answer: "🍽️ <strong>Cuisiner / Manger en chambre</strong> : strictement interdit. Pas d'appareils à gaz, réchauds, plaques électriques, ni stockage d'aliments. Seuls les équipements fournis par l'hôtel peuvent être utilisés."
-      },
-      {
-        keywords: ["coffre","valeurs","bijoux","objet de valeur","safe"],
-        answer: "🔒 <strong>Coffre / Objets de valeur</strong> : un coffre est mis à disposition dans chaque chambre. L'hôtel décline toute responsabilité pour la perte, le vol ou la détérioration d'objets de valeur non déposés au coffre. En cas de vol, dommages-intérêts limités à l'équivalent du prix de location journalier (art. 1952-1954 Code civil)."
-      },
-      {
-        keywords: ["bagages","valise","luggage","bagagerie"],
-        answer: "🧳 <strong>Bagages</strong> : les bagages déposés dans les espaces publics restent sous la surveillance et l'entière responsabilité de leur propriétaire. Un service de bagagerie sur ticket est disponible à la réception."
-      },
-      {
-        keywords: ["oubli","oublié","oublie","forgot","laisse en chambre","laissé en chambre"],
-        answer: "📦 <strong>Effets oubliés</strong> : les effets oubliés peuvent être renvoyés sur demande, à vos frais, avec suivi et assurance pour les objets de valeur. Sans réclamation, ils sont vendus dans les conditions prévues par la loi du 31 mars 1896."
-      },
-      {
-        keywords: ["tenue","vestimentaire","s'habiller","habit","decent","décent","negligé","négligé","mœurs","moeurs","tenue vestimentaire"],
-        answer: "👔 <strong>Tenue vestimentaire</strong> : tenue correcte exigée dans tous les espaces publics. Refus possible si tenue indécente, négligée ou destinée à dissimuler le visage (Loi N°2010-1192 du 11 octobre 2010)."
-      },
-      {
-        keywords: ["mediateur","médiateur","litige","plainte","reclamation","réclamation","contentieux","mtv"],
-        answer: "⚖️ <strong>Médiation / Litige</strong> : si un litige n'est pas résolu à l'amiable dans un délai de 60 jours, le client consommateur peut saisir gratuitement le <strong>Médiateur du Tourisme et du Voyage</strong> : <a href='https://www.mtv.travel' target='_blank' style='color:#6366f1;'>www.mtv.travel</a> — BP 80303, 75823 Paris Cedex 17. Plateforme RLL UE : <a href='https://ec.europa.eu/consumers/odr' target='_blank' style='color:#6366f1;'>ec.europa.eu/consumers/odr</a>."
-      },
-      {
-        keywords: ["visiteur","tiers","invité","invite","ami","amis","visite"],
-        answer: "👥 <strong>Visiteurs</strong> : interdits dans les chambres sans accord préalable de la réception (Ordonnance du Préfet de Police du 28 octobre 1936). Les visiteurs sont accueillis à la réception et dans les espaces communs après enregistrement."
-      },
-      {
-        keywords: ["camera","caméra","videosurveillance","vidéosurveillance","cctv","surveillance"],
-        answer: "📹 <strong>Vidéosurveillance</strong> : les parties communes sont placées sous vidéosurveillance pour la sécurité des biens et personnes (art. L251-1 à L255-2 du Code de la sécurité intérieure). Images conservées <strong>1 mois maximum</strong> (durée fixée par la CNIL), accessibles uniquement aux personnes habilitées et aux autorités sur réquisition."
-      },
-      {
-        keywords: ["rgpd","données","donnees","donnees personnelles","données personnelles","privacy","cnil","vie privee","vie privée"],
-        answer: "🛡️ <strong>Protection des données (RGPD)</strong> : conformément au Règlement (UE) 2016/679 et à la loi n°78-17 modifiée. Finalités : gestion réservation, séjour, facturation, obligations légales. Conservations : 1 an WiFi, 1 mois vidéosurveillance, 6 mois fiches police, 3 ans données client, 10 ans factures. Droits d'accès, rectification, effacement, opposition. Réclamation possible auprès de la CNIL."
-      },
-      {
-        keywords: ["alarme","incendie","detecteur","détecteur","fire"],
-        answer: "🚨 <strong>Alarme incendie</strong> : tout déclenchement intempestif pour non-respect du règlement entraîne une facturation forfaitaire de <strong>150 €</strong> pour la remise en service du système de sécurité."
-      },
-      {
-        keywords: ["capacite","capacité","occupants","nombre de personnes","trop de personnes"],
-        answer: "👤 <strong>Capacité de la chambre</strong> : strictement limitée au nombre de personnes prévu lors de la réservation (sécurité incendie). Toute personne supplémentaire non déclarée est facturée <strong>50 € par personne et par nuit</strong>."
-      },
-      {
-        keywords: ["sanction","sanctions","non respect","non-respect","punition","expulsion","viré"],
-        answer: "⚠️ <strong>Sanctions</strong> : en cas de non-respect du règlement, l'hôtelier se trouve dans l'obligation d'inviter le client à quitter l'établissement immédiatement, sans aucune indemnité. Des pénalités financières peuvent être appliquées. L'hôtel se réserve également le droit de refuser toute réservation future."
-      },
-      {
-        keywords: ["reception","réception","heures reception","heures réception","ouverture"],
-        answer: "🛎️ <strong>Réception</strong> : ouverte 24h/24, 7j/7. Pour les arrivées tardives (après 22h00), merci de prévenir la réception à l'avance."
-      },
-      {
-        keywords: ["menage","ménage","cleaning","femme de chambre"],
-        answer: "🧹 <strong>Ménage</strong> : effectué quotidiennement entre 9h00 et 16h00. Un panneau « Ne pas déranger » est disponible sur la porte. Toute demande particulière doit être signalée à la réception."
-      },
-      {
-        keywords: ["activite commerciale","activité commerciale","commerce","travailler en chambre"],
-        answer: "🚫 <strong>Activité commerciale</strong> : interdite. Une chambre d'hôtel est un lieu de repos ; toute activité commerciale dans l'enceinte de l'hôtel est strictement prohibée."
-      }
-    ];
+  // ====================== i18n (UI + flux) ======================
+  const I18N = {
+    fr: { badge:"🤖 Chatbot IA pour hôtels indépendants", h1:'Le chatbot qui <span>réserve, vend et répond</span> à votre place', subtitle:"Réservation directe, devis instantané, capture de prospects, WhatsApp intégré et multilingue. HotelsChatbots travaille 24h/24 pour remplir votre hôtel pendant que votre équipe se concentre sur l'accueil.", cta1:"Essayer la démo →", cta2:"💬 WhatsApp", stat1:"temps de réponse", stat2:"disponibilité", stat3:"de demandes automatisées", stat4:"de réservations directes*", demoTitle:"Démo en direct : réservez en 30 secondes", demoSub:"Testez le parcours complet — disponibilité, tarifs, réservation, services additionnels et devis PDF. Tout se passe dans la conversation.", assistant:"Assistant 24/7", poweredBy:"Réservation • Infos • WhatsApp • Multilingue", online:"En ligne", send:"Envoyer", demoNote:"Démo front-end : la réservation, le paiement et l'envoi WhatsApp/e-mail réels nécessitent la connexion à votre moteur de réservation / PMS (offre Groupe). Le devis PDF est généré dans votre navigateur.",
+      greet:"Bonjour 👋 Je suis l'assistant de votre hôtel. Je peux <strong>réserver une chambre</strong>, afficher les <strong>tarifs</strong>, répondre à vos questions (parking, Wi-Fi, animaux…) ou vous <strong>mettre en relation</strong> avec la réception. Que puis-je faire ?",
+      quick:["🛏️ Réserver une chambre","💶 Voir les tarifs","🅿️ Parking","📶 Wi-Fi","🍳 Petit-déjeuner","🤝 Parler à un humain"],
+      askDates:"Avec plaisir ! Pour quelles <strong>dates</strong> ? (ex : 12–14 août, 2 personnes)", availOk:"✅ Bonne nouvelle, nous avons des disponibilités pour ces dates. Voici nos chambres :", availFew:"⚠️ Il ne reste que peu de chambres pour ces dates — voici ce qui est disponible :", altDates:"😔 Complet sur ces dates. Dates alternatives proposées : <strong>les 2 jours suivants</strong> ou <strong>la semaine précédente</strong>. Voici nos chambres disponibles à titre indicatif :", chosen:"Excellent choix : <strong>{room}</strong> à {price} €/nuit. Souhaitez-vous ajouter un service ?", upsell:["🥐 Petit-déjeuner +15€","🅿️ Parking +12€","💆 Spa & massage +49€","⬆️ Surclassement +30€","🕓 Départ tardif +30€","➡️ Continuer"], leadIntro:"Parfait. Pour finaliser votre réservation et vous envoyer la confirmation, j'ai besoin de quelques informations.", askName:"Quel est votre <strong>nom</strong> ?", askEmail:"Merci {name} ! Votre <strong>e-mail</strong> ?", askPhone:"Et votre <strong>téléphone</strong> (pour WhatsApp) ?", recap:"Voici votre récapitulatif :", leadDone:"🎉 Merci {name} ! Votre demande est enregistrée. Dans la vraie version, vous recevez immédiatement la confirmation par e-mail et WhatsApp, et la réception est notifiée.", genPdf:"📄 Télécharger le devis (PDF)", sendWa:"💬 Envoyer sur WhatsApp", human:"Je vous mets en relation 🤝 Choisissez :", humanOpts:["💬 WhatsApp réception","📞 Appeler l'hôtel","📝 Être rappelé"], callbackAsk:"Laissez votre numéro, la réception vous rappelle :", notFound:"🤔 Je n'ai pas cette information précise. Je peux vous mettre en relation avec la réception, ou essayez les boutons rapides.", roomNames:["Chambre Classique","Chambre Supérieure","Suite Familiale"], guests:"pers." },
+    en: { badge:"🤖 AI chatbot for independent hotels", h1:'The chatbot that <span>books, sells and answers</span> for you', subtitle:"Direct booking, instant quotes, lead capture, built-in WhatsApp and multilingual. HotelsChatbots works 24/7 to fill your hotel while your team focuses on hospitality.", cta1:"Try the demo →", cta2:"💬 WhatsApp", stat1:"response time", stat2:"availability", stat3:"of requests automated", stat4:"more direct bookings*", demoTitle:"Live demo: book in 30 seconds", demoSub:"Test the full journey — availability, rates, booking, add-ons and PDF quote. All inside the chat.", assistant:"24/7 Assistant", poweredBy:"Booking • Info • WhatsApp • Multilingual", online:"Online", send:"Send", demoNote:"Front-end demo: real booking, payment and WhatsApp/e-mail delivery require connection to your booking engine / PMS (Group plan). The PDF quote is generated in your browser.",
+      greet:"Hello 👋 I'm your hotel assistant. I can <strong>book a room</strong>, show <strong>rates</strong>, answer your questions (parking, Wi-Fi, pets…) or <strong>connect you</strong> to the front desk. How can I help?",
+      quick:["🛏️ Book a room","💶 See rates","🅿️ Parking","📶 Wi-Fi","🍳 Breakfast","🤝 Talk to a human"],
+      askDates:"Gladly! For which <strong>dates</strong>? (e.g. Aug 12–14, 2 guests)", availOk:"✅ Good news, we have availability for these dates. Here are our rooms:", availFew:"⚠️ Only a few rooms left for these dates — here's what's available:", altDates:"😔 Sold out on these dates. Suggested alternatives: <strong>the next 2 days</strong> or <strong>the previous week</strong>. Sample available rooms:", chosen:"Great choice: <strong>{room}</strong> at €{price}/night. Want to add a service?", upsell:["🥐 Breakfast +€15","🅿️ Parking +€12","💆 Spa & massage +€49","⬆️ Upgrade +€30","🕓 Late check-out +€30","➡️ Continue"], leadIntro:"Perfect. To finalize your booking and send the confirmation, I need a few details.", askName:"What's your <strong>name</strong>?", askEmail:"Thanks {name}! Your <strong>e-mail</strong>?", askPhone:"And your <strong>phone</strong> (for WhatsApp)?", recap:"Here's your summary:", leadDone:"🎉 Thanks {name}! Your request is saved. In the live version you instantly receive the confirmation by e-mail and WhatsApp, and the front desk is notified.", genPdf:"📄 Download quote (PDF)", sendWa:"💬 Send on WhatsApp", human:"Connecting you 🤝 Choose:", humanOpts:["💬 WhatsApp front desk","📞 Call the hotel","📝 Get a callback"], callbackAsk:"Leave your number, the front desk will call you back:", notFound:"🤔 I don't have that exact info. I can connect you to the front desk, or try the quick buttons.", roomNames:["Classic Room","Superior Room","Family Suite"], guests:"guests" },
+    es: { badge:"🤖 Chatbot IA para hoteles independientes", h1:'El chatbot que <span>reserva, vende y responde</span> por ti', subtitle:"Reserva directa, presupuesto instantáneo, captación de clientes, WhatsApp integrado y multilingüe. HotelsChatbots trabaja 24/7 para llenar tu hotel.", cta1:"Probar la demo →", cta2:"💬 WhatsApp", stat1:"tiempo de respuesta", stat2:"disponibilidad", stat3:"de solicitudes automatizadas", stat4:"más reservas directas*", demoTitle:"Demo en vivo: reserva en 30 segundos", demoSub:"Prueba el recorrido completo — disponibilidad, tarifas, reserva, extras y presupuesto PDF. Todo en el chat.", assistant:"Asistente 24/7", poweredBy:"Reservas • Info • WhatsApp • Multilingüe", online:"En línea", send:"Enviar", demoNote:"Demo front-end: la reserva, el pago y el envío real por WhatsApp/e-mail requieren conexión con tu motor de reservas / PMS (plan Grupo). El presupuesto PDF se genera en tu navegador.",
+      greet:"¡Hola 👋 Soy el asistente de tu hotel. Puedo <strong>reservar una habitación</strong>, mostrar <strong>tarifas</strong>, responder tus preguntas (parking, Wi-Fi, mascotas…) o <strong>ponerte en contacto</strong> con recepción. ¿En qué te ayudo?",
+      quick:["🛏️ Reservar","💶 Ver tarifas","🅿️ Parking","📶 Wi-Fi","🍳 Desayuno","🤝 Hablar con humano"],
+      askDates:"¡Con gusto! ¿Para qué <strong>fechas</strong>? (ej: 12–14 ago, 2 personas)", availOk:"✅ Buenas noticias, hay disponibilidad para esas fechas. Nuestras habitaciones:", availFew:"⚠️ Quedan pocas habitaciones para esas fechas — esto es lo disponible:", altDates:"😔 Completo en esas fechas. Alternativas: <strong>los 2 días siguientes</strong> o <strong>la semana anterior</strong>. Habitaciones de ejemplo:", chosen:"Buena elección: <strong>{room}</strong> a {price} €/noche. ¿Añadir un servicio?", upsell:["🥐 Desayuno +15€","🅿️ Parking +12€","💆 Spa y masaje +49€","⬆️ Mejora +30€","🕓 Salida tardía +30€","➡️ Continuar"], leadIntro:"Perfecto. Para finalizar tu reserva y enviarte la confirmación, necesito algunos datos.", askName:"¿Cuál es tu <strong>nombre</strong>?", askEmail:"¡Gracias {name}! ¿Tu <strong>e-mail</strong>?", askPhone:"¿Y tu <strong>teléfono</strong> (para WhatsApp)?", recap:"Tu resumen:", leadDone:"🎉 ¡Gracias {name}! Solicitud guardada. En la versión real recibes la confirmación al instante por e-mail y WhatsApp, y recepción es avisada.", genPdf:"📄 Descargar presupuesto (PDF)", sendWa:"💬 Enviar por WhatsApp", human:"Te pongo en contacto 🤝 Elige:", humanOpts:["💬 WhatsApp recepción","📞 Llamar al hotel","📝 Que me llamen"], callbackAsk:"Deja tu número, recepción te llamará:", notFound:"🤔 No tengo ese dato exacto. Puedo conectarte con recepción, o usa los botones rápidos.", roomNames:["Habitación Clásica","Habitación Superior","Suite Familiar"], guests:"pers." },
+    de: { badge:"🤖 KI-Chatbot für unabhängige Hotels", h1:'Der Chatbot, der für Sie <span>bucht, verkauft und antwortet</span>', subtitle:"Direktbuchung, Sofortangebot, Lead-Erfassung, integriertes WhatsApp und mehrsprachig. HotelsChatbots arbeitet rund um die Uhr.", cta1:"Demo testen →", cta2:"💬 WhatsApp", stat1:"Antwortzeit", stat2:"Verfügbarkeit", stat3:"der Anfragen automatisiert", stat4:"mehr Direktbuchungen*", demoTitle:"Live-Demo: in 30 Sekunden buchen", demoSub:"Testen Sie den kompletten Ablauf — Verfügbarkeit, Preise, Buchung, Extras und PDF-Angebot. Alles im Chat.", assistant:"24/7 Assistent", poweredBy:"Buchung • Info • WhatsApp • Mehrsprachig", online:"Online", send:"Senden", demoNote:"Front-End-Demo: echte Buchung, Zahlung und WhatsApp/E-Mail-Versand erfordern die Anbindung an Ihre Buchungsengine / PMS (Gruppen-Tarif). Das PDF-Angebot wird im Browser erstellt.",
+      greet:"Hallo 👋 Ich bin Ihr Hotel-Assistent. Ich kann <strong>ein Zimmer buchen</strong>, <strong>Preise</strong> zeigen, Fragen beantworten (Parken, WLAN, Haustiere…) oder Sie mit der <strong>Rezeption verbinden</strong>. Wie kann ich helfen?",
+      quick:["🛏️ Zimmer buchen","💶 Preise","🅿️ Parken","📶 WLAN","🍳 Frühstück","🤝 Mensch sprechen"],
+      askDates:"Gerne! Für welche <strong>Daten</strong>? (z.B. 12.–14. Aug, 2 Personen)", availOk:"✅ Gute Nachricht, für diese Daten verfügbar. Unsere Zimmer:", availFew:"⚠️ Nur noch wenige Zimmer für diese Daten — verfügbar:", altDates:"😔 Ausgebucht. Alternativen: <strong>die nächsten 2 Tage</strong> oder <strong>die Vorwoche</strong>. Beispielzimmer:", chosen:"Gute Wahl: <strong>{room}</strong> für {price} €/Nacht. Service hinzufügen?", upsell:["🥐 Frühstück +15€","🅿️ Parken +12€","💆 Spa & Massage +49€","⬆️ Upgrade +30€","🕓 Später auschecken +30€","➡️ Weiter"], leadIntro:"Perfekt. Zum Abschluss Ihrer Buchung brauche ich ein paar Angaben.", askName:"Wie ist Ihr <strong>Name</strong>?", askEmail:"Danke {name}! Ihre <strong>E-Mail</strong>?", askPhone:"Und Ihr <strong>Telefon</strong> (für WhatsApp)?", recap:"Ihre Zusammenfassung:", leadDone:"🎉 Danke {name}! Anfrage gespeichert. In der Live-Version erhalten Sie sofort die Bestätigung per E-Mail und WhatsApp.", genPdf:"📄 Angebot herunterladen (PDF)", sendWa:"💬 Per WhatsApp senden", human:"Ich verbinde Sie 🤝 Wählen Sie:", humanOpts:["💬 WhatsApp Rezeption","📞 Hotel anrufen","📝 Rückruf"], callbackAsk:"Nummer hinterlassen, die Rezeption ruft zurück:", notFound:"🤔 Diese genaue Info habe ich nicht. Ich verbinde Sie mit der Rezeption, oder nutzen Sie die Schnellbuttons.", roomNames:["Klassikzimmer","Superior-Zimmer","Familiensuite"], guests:"Pers." },
+    it: { badge:"🤖 Chatbot IA per hotel indipendenti", h1:'Il chatbot che <span>prenota, vende e risponde</span> per te', subtitle:"Prenotazione diretta, preventivo istantaneo, raccolta contatti, WhatsApp integrato e multilingue. HotelsChatbots lavora 24/7.", cta1:"Prova la demo →", cta2:"💬 WhatsApp", stat1:"tempo di risposta", stat2:"disponibilità", stat3:"di richieste automatizzate", stat4:"più prenotazioni dirette*", demoTitle:"Demo dal vivo: prenota in 30 secondi", demoSub:"Prova il percorso completo — disponibilità, tariffe, prenotazione, extra e preventivo PDF. Tutto in chat.", assistant:"Assistente 24/7", poweredBy:"Prenotazioni • Info • WhatsApp • Multilingue", online:"Online", send:"Invia", demoNote:"Demo front-end: prenotazione, pagamento e invio WhatsApp/e-mail reali richiedono il collegamento al tuo booking engine / PMS (piano Gruppo). Il preventivo PDF è generato nel browser.",
+      greet:"Ciao 👋 Sono l'assistente del tuo hotel. Posso <strong>prenotare una camera</strong>, mostrare le <strong>tariffe</strong>, rispondere alle domande (parcheggio, Wi-Fi, animali…) o <strong>metterti in contatto</strong> con la reception. Come posso aiutarti?",
+      quick:["🛏️ Prenota","💶 Tariffe","🅿️ Parcheggio","📶 Wi-Fi","🍳 Colazione","🤝 Parla con un umano"],
+      askDates:"Volentieri! Per quali <strong>date</strong>? (es. 12–14 ago, 2 persone)", availOk:"✅ Buone notizie, disponibilità per queste date. Le nostre camere:", availFew:"⚠️ Restano poche camere per queste date — ecco le disponibili:", altDates:"😔 Tutto esaurito. Alternative: <strong>i 2 giorni seguenti</strong> o <strong>la settimana precedente</strong>. Camere di esempio:", chosen:"Ottima scelta: <strong>{room}</strong> a {price} €/notte. Vuoi aggiungere un servizio?", upsell:["🥐 Colazione +15€","🅿️ Parcheggio +12€","💆 Spa e massaggio +49€","⬆️ Upgrade +30€","🕓 Check-out tardivo +30€","➡️ Continua"], leadIntro:"Perfetto. Per finalizzare la prenotazione mi servono alcuni dati.", askName:"Come ti <strong>chiami</strong>?", askEmail:"Grazie {name}! La tua <strong>e-mail</strong>?", askPhone:"E il tuo <strong>telefono</strong> (per WhatsApp)?", recap:"Il tuo riepilogo:", leadDone:"🎉 Grazie {name}! Richiesta salvata. Nella versione reale ricevi subito la conferma via e-mail e WhatsApp, e la reception è avvisata.", genPdf:"📄 Scarica preventivo (PDF)", sendWa:"💬 Invia su WhatsApp", human:"Ti metto in contatto 🤝 Scegli:", humanOpts:["💬 WhatsApp reception","📞 Chiama l'hotel","📝 Fatti richiamare"], callbackAsk:"Lascia il numero, la reception ti richiama:", notFound:"🤔 Non ho questa info esatta. Posso metterti in contatto con la reception, o usa i pulsanti rapidi.", roomNames:["Camera Classica","Camera Superior","Suite Familiare"], guests:"pers." },
+    nl: { badge:"🤖 AI-chatbot voor zelfstandige hotels", h1:'De chatbot die voor u <span>boekt, verkoopt en antwoordt</span>', subtitle:"Directe boeking, directe offerte, leadcapture, ingebouwde WhatsApp en meertalig. HotelsChatbots werkt 24/7.", cta1:"Demo proberen →", cta2:"💬 WhatsApp", stat1:"reactietijd", stat2:"beschikbaarheid", stat3:"van verzoeken geautomatiseerd", stat4:"meer directe boekingen*", demoTitle:"Live demo: boek in 30 seconden", demoSub:"Test het volledige traject — beschikbaarheid, tarieven, boeking, extra's en PDF-offerte. Alles in de chat.", assistant:"24/7 Assistent", poweredBy:"Boeking • Info • WhatsApp • Meertalig", online:"Online", send:"Verstuur", demoNote:"Front-end demo: echte boeking, betaling en WhatsApp/e-mailverzending vereisen koppeling met uw boekingsengine / PMS (Groep-plan). De PDF-offerte wordt in uw browser gemaakt.",
+      greet:"Hallo 👋 Ik ben de assistent van uw hotel. Ik kan <strong>een kamer boeken</strong>, <strong>tarieven</strong> tonen, vragen beantwoorden (parkeren, wifi, huisdieren…) of u <strong>doorverbinden</strong> met de receptie. Hoe kan ik helpen?",
+      quick:["🛏️ Kamer boeken","💶 Tarieven","🅿️ Parkeren","📶 Wifi","🍳 Ontbijt","🤝 Mens spreken"],
+      askDates:"Graag! Voor welke <strong>data</strong>? (bv. 12–14 aug, 2 personen)", availOk:"✅ Goed nieuws, beschikbaar voor deze data. Onze kamers:", availFew:"⚠️ Nog weinig kamers voor deze data — beschikbaar:", altDates:"😔 Volgeboekt. Alternatieven: <strong>de volgende 2 dagen</strong> of <strong>de vorige week</strong>. Voorbeeldkamers:", chosen:"Goede keuze: <strong>{room}</strong> voor €{price}/nacht. Een service toevoegen?", upsell:["🥐 Ontbijt +€15","🅿️ Parkeren +€12","💆 Spa & massage +€49","⬆️ Upgrade +€30","🕓 Laat uitchecken +€30","➡️ Doorgaan"], leadIntro:"Perfect. Om uw boeking af te ronden heb ik enkele gegevens nodig.", askName:"Wat is uw <strong>naam</strong>?", askEmail:"Bedankt {name}! Uw <strong>e-mail</strong>?", askPhone:"En uw <strong>telefoon</strong> (voor WhatsApp)?", recap:"Uw overzicht:", leadDone:"🎉 Bedankt {name}! Aanvraag opgeslagen. In de live versie ontvangt u direct de bevestiging per e-mail en WhatsApp.", genPdf:"📄 Offerte downloaden (PDF)", sendWa:"💬 Via WhatsApp sturen", human:"Ik verbind u door 🤝 Kies:", humanOpts:["💬 WhatsApp receptie","📞 Hotel bellen","📝 Teruggebeld worden"], callbackAsk:"Laat uw nummer achter, de receptie belt u terug:", notFound:"🤔 Die exacte info heb ik niet. Ik kan u doorverbinden met de receptie, of gebruik de snelknoppen.", roomNames:["Klassieke kamer","Superior kamer","Familiesuite"], guests:"pers." }
+  };
 
-    function normalize(s) {
-      return s.toLowerCase()
-        .normalize('NFD').replace(/[̀-ͯ]/g, '')
-        .replace(/[^a-z0-9\s]/g, ' ')
-        .replace(/\s+/g, ' ').trim();
-    }
+  let lang = 'fr';
+  const rooms = [
+    { cls:"r1", icon:"🛏️", price:89,  cap:2, key:0 },
+    { cls:"r2", icon:"🌆", price:129, cap:2, key:1 },
+    { cls:"r3", icon:"👨‍👩‍👧", price:189, cap:4, key:2 }
+  ];
 
-    function findAnswer(question) {
-      const q = normalize(question);
-      let best = null; let bestScore = 0;
-      for (const entry of knowledge) {
-        let score = 0;
-        for (const kw of entry.keywords) {
-          const nkw = normalize(kw);
-          if (q.includes(nkw)) {
-            score += nkw.length;
-          }
-        }
-        if (score > bestScore) { best = entry; bestScore = score; }
-      }
-      return best;
-    }
+  // Hotel-info knowledge base (FR canonical; demo)
+  const knowledge = [
+    { k:["arrivee","arrivée","check-in","checkin","arriver","heure d'arrivée","puis-je arriver"], a:"🕒 <strong>Check-in</strong> : chambres disponibles à partir de <strong>14h00</strong>. Bagagerie disponible en cas d'arrivée anticipée." },
+    { k:["depart","départ","check-out","checkout","quitter","heure de départ"], a:"🚪 <strong>Check-out</strong> : chambres à libérer avant <strong>11h00</strong>. Départ tardif possible (+30 € jusqu'à 14h, selon disponibilité)." },
+    { k:["parking","voiture","stationnement","garage"], a:"🚗 <strong>Parking</strong> : gratuit pour les clients, non surveillé. Possibilité de le réserver lors de votre séjour (+12 €/jour place couverte)." },
+    { k:["wifi","wi-fi","internet","connexion"], a:"📶 <strong>Wi-Fi</strong> : gratuit et illimité dans tout l'hôtel et les chambres. Code remis à l'arrivée." },
+    { k:["petit dejeuner","petit-déjeuner","breakfast","matin"], a:"🥐 <strong>Petit-déjeuner</strong> : buffet de <strong>7h à 10h30</strong>, <strong>15 €/pers</strong>. Service en chambre possible (+5 €)." },
+    { k:["restaurant","diner","dîner","manger","repas","carte","menu"], a:"🍽️ <strong>Restaurant</strong> : ouvert le soir de <strong>19h à 22h</strong>, cuisine de saison. Réservation conseillée à la réception. Room-service jusqu'à 23h." },
+    { k:["navette","aeroport","aéroport","gare","shuttle","transfert"], a:"✈️ <strong>Navette aéroport/gare</strong> : sur réservation (24h à l'avance), <strong>25 €</strong> par trajet (jusqu'à 4 pers). Indiquez votre horaire de vol/train à la réception." },
+    { k:["animaux","chien","chat","animal","pet"], a:"🐕 <strong>Animaux</strong> : acceptés (+15 €/jour/animal), à signaler à la réservation. Chiens d'assistance gratuits et partout admis." },
+    { k:["piscine","spa","hammam","sauna","jacuzzi"], a:"🏊 <strong>Piscine & spa</strong> : accès clients sur réservation. Massages et soins disponibles (+49 €). Maillot obligatoire." },
+    { k:["fumer","cigarette","tabac","vapoter"], a:"🚭 <strong>Fumer</strong> : interdit dans tout l'hôtel (pénalité 150 €). Espace extérieur dédié." },
+    { k:["annulation","annuler","remboursement"], a:"📅 <strong>Annulation</strong> : gratuite jusqu'à 48h avant l'arrivée. Au-delà, la 1re nuit est due." },
+    { k:["attraction","visite","touristique","activite","activité","a voir","à voir","que faire","alentours"], a:"📍 <strong>À voir autour de l'hôtel</strong> : centre historique (10 min à pied), musées, marché local le samedi, caves et vignobles à proximité. Demandez nos itinéraires et recommandations de restaurants à la réception." },
+    { k:["meteo","météo","temps qu'il fait","climat"], a:"🌤️ <strong>Météo</strong> : la réception vous indique chaque matin la météo du jour et nos suggestions d'activités selon le temps." },
+    { k:["evenement","événement","concert","festival","agenda"], a:"🎉 <strong>Événements locaux</strong> : concerts, marchés et festivals selon la saison. Demandez l'agenda de la semaine à la réception." },
+    { k:["taxe","séjour","sejour"], a:"🏛️ <strong>Taxe de séjour</strong> : 1,50 €/pers/nuit, payée sur place." },
+    { k:["wifi","reception","réception","horaire reception"], a:"🛎️ <strong>Réception</strong> : ouverte 24h/24. Pour une arrivée après 22h, prévenez-nous." }
+  ];
 
-    const chatBody = document.getElementById('chat-body');
+  // ---------- state ----------
+  let state = { step:"idle", room:null, extras:[], dates:"", name:"", email:"", phone:"" };
+  const chatBody = document.getElementById('chat-body');
+  const PHONE = "+33745542008", WA = "33745542008";
 
-    function appendMsg(text, who) {
-      const div = document.createElement('div');
-      div.className = 'msg msg-' + who;
-      div.innerHTML = text;
-      chatBody.appendChild(div);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
+  function t(key){ return I18N[lang][key]; }
+  function appendMsg(html, who){ const d=document.createElement('div'); d.className='msg msg-'+who; d.innerHTML=html; chatBody.appendChild(d); chatBody.scrollTop=chatBody.scrollHeight; return d; }
+  function botSay(html, cb){ const tp=document.createElement('div'); tp.className='typing'; tp.textContent='…'; chatBody.appendChild(tp); chatBody.scrollTop=chatBody.scrollHeight; setTimeout(()=>{ tp.remove(); appendMsg(html,'bot'); if(cb)cb(); },420); }
 
-    function askQuestion(q) {
-      appendMsg(q.replace(/</g,'&lt;'), 'user');
-      // Simulate typing latency
-      setTimeout(() => {
-        const match = findAnswer(q);
-        if (match) {
-          appendMsg(match.answer, 'bot');
-        } else {
-          appendMsg("🤔 Je n'ai pas trouvé d'information précise sur cette question dans le règlement intérieur. Pour une réponse personnalisée, contactez la réception au <strong>+33 (0) 1 23 45 67 89</strong> ou par e-mail. <em>Astuce : essayez les boutons rapides au-dessus pour les questions fréquentes.</em>", 'bot');
-        }
-      }, 450);
-    }
+  function chipRow(options, handler){
+    const wrap=document.createElement('div'); wrap.className='chip-row';
+    options.forEach((opt,idx)=>{ const b=document.createElement('button'); b.innerHTML=opt; b.onclick=()=>handler(idx,opt); wrap.appendChild(b); });
+    chatBody.appendChild(wrap); chatBody.scrollTop=chatBody.scrollHeight;
+  }
+
+  function showRooms(){
+    const names=t('roomNames'); const wrap=document.createElement('div'); wrap.className='rooms';
+    rooms.forEach(r=>{
+      const el=document.createElement('div'); el.className='room';
+      el.innerHTML=`<div class="photo ${r.cls}">${r.icon}</div><div class="rinfo"><h4>${names[r.key]}</h4><small>👤 ${r.cap} ${t('guests')}</small></div><div class="rprice">${r.price} €</div>`;
+      const b=document.createElement('button'); b.textContent= lang==='en'?'Book':(lang==='de'?'Buchen':(lang==='es'?'Reservar':(lang==='it'?'Prenota':(lang==='nl'?'Boek':'Réserver'))));
+      b.onclick=()=>chooseRoom(r); el.appendChild(b); wrap.appendChild(el);
+    });
+    chatBody.appendChild(wrap); chatBody.scrollTop=chatBody.scrollHeight;
+  }
+
+  function startBooking(){ state={step:"dates",room:null,extras:[],dates:"",name:"",email:"",phone:""}; botSay(t('askDates')); }
+
+  function handleDates(text){
+    state.dates=text; const r=Math.random();
+    if(r>0.55){ botSay(t('availOk'), showRooms); }
+    else if(r>0.25){ botSay(t('availFew'), showRooms); }
+    else { botSay(t('altDates'), showRooms); }
+    state.step="rooms";
+  }
+
+  function chooseRoom(r){
+    state.room=r; state.step="upsell";
+    botSay(t('chosen').replace('{room}', t('roomNames')[r.key]).replace('{price}', r.price), ()=>{
+      chipRow(t('upsell'), upsellPick);
+    });
+  }
+
+  const EXTRA_PRICES=[15,12,49,30,30];
+  function upsellPick(idx,label){
+    if(idx===5){ goLead(); return; }
+    if(!state.extras.find(e=>e.idx===idx)){ state.extras.push({idx, label:label.replace(/\s*\+.*$/,''), price:EXTRA_PRICES[idx]||0}); }
+    appendMsg(label,'user');
+    botSay("✅ "+ (lang==='en'?'Added. Anything else?':(lang==='es'?'Añadido. ¿Algo más?':(lang==='de'?'Hinzugefügt. Noch etwas?':(lang==='it'?'Aggiunto. Altro?':(lang==='nl'?'Toegevoegd. Nog iets?':'Ajouté. Autre chose ?'))))), ()=>chipRow(t('upsell'), upsellPick));
+  }
+
+  function goLead(){ state.step="name"; botSay(t('leadIntro'), ()=>botSay(t('askName'))); }
+
+  function handleLead(text){
+    if(state.step==="name"){ state.name=text; state.step="email"; botSay(t('askEmail').replace('{name}',text)); }
+    else if(state.step==="email"){ state.email=text; state.step="phone"; botSay(t('askPhone')); }
+    else if(state.step==="phone"){ state.phone=text; state.step="done"; finishLead(); }
+  }
+
+  function recapText(){
+    const names=t('roomNames'); const extras=state.extras.map(e=>e.label+' (+'+e.price+'€)').join(', ')||'-';
+    let total = (state.room?state.room.price:0) + state.extras.reduce((s,e)=>s+e.price,0);
+    return { room: state.room?names[state.room.key]:'-', extras, total };
+  }
+
+  function saveLead(){ try{ const leads=JSON.parse(localStorage.getItem('hc_leads')||'[]'); leads.push({...state, ts:new Date().toISOString()}); localStorage.setItem('hc_leads', JSON.stringify(leads)); }catch(e){} }
+
+  function finishLead(){
+    saveLead(); const rec=recapText();
+    const html = `${t('recap')}<br>🛏️ ${rec.room}<br>📅 ${state.dates}<br>➕ ${rec.extras}<br>👤 ${state.name} · ✉️ ${state.email} · 📞 ${state.phone}<br><strong>${lang==='en'?'Indicative total':(lang==='de'?'Richtpreis':(lang==='es'?'Total indicativo':(lang==='it'?'Totale indicativo':(lang==='nl'?'Indicatief totaal':'Total indicatif'))))} : ${rec.total} €/nuit</strong>`;
+    botSay(html, ()=>{
+      botSay(t('leadDone').replace('{name}', state.name), ()=>{
+        chipRow([t('genPdf'), t('sendWa')], (idx)=>{ if(idx===0) generatePDF(rec); else sendWhatsApp(rec); });
+      });
+    });
+  }
+
+  function sendWhatsApp(rec){
+    const msg = `Demande de réservation HotelsChatbots%0A- Chambre : ${rec.room}%0A- Dates : ${state.dates}%0A- Services : ${rec.extras}%0A- Client : ${state.name} (${state.email}, ${state.phone})%0A- Total indicatif : ${rec.total} €/nuit`;
+    window.open(`https://wa.me/${WA}?text=${msg}`, '_blank');
+  }
+
+  function generatePDF(rec){
+    try{
+      const { jsPDF } = window.jspdf; const doc=new jsPDF();
+      doc.setFontSize(18); doc.setTextColor(30,58,138); doc.text("HotelsChatbots — Devis / Quote", 20, 22);
+      doc.setFontSize(11); doc.setTextColor(60,60,60);
+      let y=40;
+      const lines=[
+        ["Chambre / Room", rec.room],
+        ["Dates", state.dates||"-"],
+        ["Services", rec.extras],
+        ["Client", state.name],
+        ["E-mail", state.email],
+        ["Téléphone", state.phone],
+        ["Total indicatif / nuit", rec.total+" EUR"]
+      ];
+      lines.forEach(l=>{ doc.setFont(undefined,'bold'); doc.text(l[0]+" :", 20, y); doc.setFont(undefined,'normal'); doc.text(String(l[1]), 80, y); y+=10; });
+      y+=6; doc.setFontSize(9); doc.setTextColor(120,120,120);
+      doc.text("Devis indicatif généré par le chatbot. Confirmation soumise à disponibilité.", 20, y);
+      doc.text("HotelsChatbots — jeveux.net — 07 45 54 20 08 — contact@jeveux.net", 20, y+6);
+      doc.save("devis-hotelschatbots.pdf");
+    }catch(e){ botSay("⚠️ PDF indisponible dans ce navigateur."); }
+  }
+
+  // ---------- human handoff ----------
+  function humanHandoff(){
+    state.step="human"; botSay(t('human'), ()=>chipRow(t('humanOpts'), (idx)=>{
+      if(idx===0){ window.open(`https://wa.me/${WA}?text=${encodeURIComponent('Bonjour, je souhaite parler à la réception.')}`,'_blank'); }
+      else if(idx===1){ window.location.href='tel:'+PHONE; }
+      else { state.step='callback'; botSay(t('callbackAsk')); }
+    }));
+  }
+
+  // ---------- intent routing ----------
+  function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim(); }
+  function findInfo(q){ const n=normalize(q); let best=null,score=0; for(const e of knowledge){ let s=0; for(const kw of e.k){ const nk=normalize(kw); if(n.includes(nk)) s+=nk.length; } if(s>score){score=s;best=e;} } return best; }
+
+  function handleInput(text){
+    appendMsg(text.replace(/</g,'&lt;'), 'user');
+    const n=normalize(text);
+    if(state.step==="dates"){ handleDates(text); return; }
+    if(["name","email","phone"].includes(state.step)){ handleLead(text); return; }
+    if(state.step==="callback"){ saveCallback(text); return; }
+    // booking intent
+    if(/(reserv|booking|book|buchen|prenot|boek|chambre|room|zimmer|habitacion|kamer|disponib|verfug|libre)/.test(n)){ startBooking(); return; }
+    // price intent
+    if(/(tarif|prix|price|preis|precio|prezzo|tarief|combien|cost)/.test(n)){ botSay(t('availOk'), showRooms); state.step="rooms"; return; }
+    // human intent
+    if(/(humain|human|mensch|persona|umano|receptie|reception|réception|appeler|call|anrufen|telefon|rappel|callback)/.test(n)){ humanHandoff(); return; }
+    // info
+    const info=findInfo(text);
+    if(info){ botSay(info.a); } else { botSay(t('notFound'), ()=>chipRow(t('humanOpts'), (idx)=>{ if(idx===0){window.open(`https://wa.me/${WA}`,'_blank');} else if(idx===1){window.location.href='tel:'+PHONE;} else {state.step='callback'; botSay(t('callbackAsk'));} })); }
+  }
+
+  function saveCallback(text){ state.phone=text; saveLead(); state.step='idle'; botSay("✅ "+(lang==='en'?'Got it, the front desk will call you back shortly.':(lang==='de'?'Notiert, die Rezeption ruft Sie bald zurück.':(lang==='es'?'Anotado, recepción te llamará pronto.':(lang==='it'?'Ricevuto, la reception ti richiamerà a breve.':(lang==='nl'?'Genoteerd, de receptie belt u snel terug.':'Noté, la réception vous rappelle rapidement.')))))); }
+
+  function quickClick(label){ handleInput(label.replace(/^[^\wÀ-ÿ]+/,'').trim()); }
+
+  // ---------- language + UI ----------
+  function renderQuick(){
+    const row=document.getElementById('quickRow'); row.innerHTML='';
+    t('quick').forEach(q=>{ const b=document.createElement('button'); b.innerHTML=q; b.onclick=()=>{ const txt=q.replace(/^[^A-Za-zÀ-ÿ]+/,'').trim(); handleInput(txt); }; row.appendChild(b); });
+  }
+  function applyI18n(){
+    document.querySelectorAll('[data-i18n]').forEach(el=>{ const k=el.getAttribute('data-i18n'); if(I18N[lang][k]!==undefined) el.innerHTML=I18N[lang][k]; });
+    document.getElementById('chat-input').placeholder = lang==='en'?'Type your message…':(lang==='de'?'Nachricht eingeben…':(lang==='es'?'Escribe tu mensaje…':(lang==='it'?'Scrivi il tuo messaggio…':(lang==='nl'?'Typ uw bericht…':'Tapez votre message…'))));
+    document.documentElement.lang=lang;
+    renderQuick();
+  }
+  function setLang(l){
+    lang=l; document.querySelectorAll('#langSwitch button').forEach(b=>b.classList.toggle('active', b.dataset.lang===l));
+    applyI18n(); chatBody.innerHTML=''; state={step:"idle",room:null,extras:[],dates:"",name:"",email:"",phone:""}; appendMsg(t('greet'),'bot');
+  }
+
+  // auto-detect browser language among supported
+  (function(){ const supported=['fr','en','es','de','it','nl']; const b=(navigator.language||'fr').slice(0,2); if(supported.includes(b)) lang=b; setLang(lang); })();
   </script>
 
 </body>
