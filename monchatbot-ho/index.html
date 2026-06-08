@@ -192,7 +192,7 @@
     <p class="subtitle" data-i18n="subtitle">Réservation directe, devis instantané, capture de prospects, WhatsApp intégré et multilingue. HotelsChatbots travaille 24h/24 pour remplir votre hôtel pendant que votre équipe se concentre sur l'accueil.</p>
     <div class="cta-row">
       <a href="#demo" class="btn btn-primary" data-i18n="cta1">Essayer la démo →</a>
-      <a href="https://wa.me/33745542008" class="btn btn-wa" target="_blank" rel="noopener" data-i18n="cta2">💬 WhatsApp</a>
+      <a href="https://wa.me/33678315574" class="btn btn-wa" target="_blank" rel="noopener" data-i18n="cta2">💬 WhatsApp</a>
     </div>
     <div class="hero-stats">
       <div><strong>&lt; 5 s</strong><small data-i18n="stat1">temps de réponse</small></div>
@@ -387,7 +387,7 @@
       <h2 data-i18n="contactTitle">Votre chatbot en ligne en 48 h</h2>
       <p data-i18n="contactSub">Envoyez-nous votre règlement intérieur et le lien de votre site. On s'occupe du reste.</p>
       <div class="cta-row">
-        <a href="https://wa.me/33745542008" class="btn btn-wa" target="_blank" rel="noopener">💬 WhatsApp 07 45 54 20 08</a>
+        <a href="https://wa.me/33678315574" class="btn btn-wa" target="_blank" rel="noopener">💬 WhatsApp 06 78 31 55 74</a>
         <a href="mailto:contact@jeveux.net?subject=Demande%20HotelsChatbots" class="btn btn-primary">📩 contact@jeveux.net</a>
       </div>
     </div>
@@ -395,10 +395,10 @@
 
   <footer>
     <p>© 2026 HotelsChatbots — <span data-i18n="footService">un service</span> <a href="/">jeveux.net</a></p>
-    <p>📞 <a href="tel:+33745542008">07 45 54 20 08</a> · <a href="mailto:contact@jeveux.net">contact@jeveux.net</a></p>
+    <p>📞 <a href="tel:+33678315574">06 78 31 55 74</a> · <a href="mailto:contact@jeveux.net">contact@jeveux.net</a></p>
   </footer>
 
-  <a class="wa-float" href="https://wa.me/33745542008" target="_blank" rel="noopener">💬 WhatsApp</a>
+  <a class="wa-float" href="https://wa.me/33678315574" target="_blank" rel="noopener">💬 WhatsApp</a>
 
   <script>
   // ====================== i18n (UI + flux) ======================
@@ -459,7 +459,7 @@
   // ---------- state ----------
   let state = { step:"idle", room:null, extras:[], dates:"", name:"", email:"", phone:"" };
   const chatBody = document.getElementById('chat-body');
-  const PHONE = "+33745542008", WA = "33745542008";
+  const PHONE = "+33678315574", WA = "33678315574";
 
   function t(key){ return I18N[lang][key]; }
   function appendMsg(html, who){ const d=document.createElement('div'); d.className='msg msg-'+who; d.innerHTML=html; chatBody.appendChild(d); chatBody.scrollTop=chatBody.scrollHeight; return d; }
@@ -556,7 +556,7 @@
       lines.forEach(l=>{ doc.setFont(undefined,'bold'); doc.text(l[0]+" :", 20, y); doc.setFont(undefined,'normal'); doc.text(String(l[1]), 80, y); y+=10; });
       y+=6; doc.setFontSize(9); doc.setTextColor(120,120,120);
       doc.text("Devis indicatif généré par le chatbot. Confirmation soumise à disponibilité.", 20, y);
-      doc.text("HotelsChatbots — jeveux.net — 07 45 54 20 08 — contact@jeveux.net", 20, y+6);
+      doc.text("HotelsChatbots — jeveux.net — 06 78 31 55 74 — contact@jeveux.net", 20, y+6);
       doc.save("devis-hotelschatbots.pdf");
     }catch(e){ botSay("⚠️ PDF indisponible dans ce navigateur."); }
   }
