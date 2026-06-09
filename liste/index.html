@@ -20,11 +20,12 @@
   .tools textarea{width:100%;border:1px solid #ddcca8;border-radius:8px;padding:9px;font-size:14px;font-family:inherit;color:#4a3520;background:#fffdf7;resize:vertical;min-height:54px}
   .tools .hint{font-size:11.5px;color:#9a6b4a;margin-top:5px}
   .card{background:#fffdf7;border:1px solid #ddcca8;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-  .card .nom{font-size:16.5px;font-weight:800;color:#4a3520}
-  .meta{font-size:13.5px;color:#6b5a44;margin-top:4px;word-break:break-word}
+  .nom{font-size:16.5px;font-weight:800;color:#4a3520}
+  .ville-chip{display:inline-block;font-size:12.5px;font-weight:700;color:#fff;background:#8a5a2b;border-radius:7px;padding:2px 9px;margin-left:8px;vertical-align:middle;white-space:nowrap}
+  .ville-chip.vide{background:#cbb893;color:#5b4226}
+  .meta{font-size:13.5px;color:#6b5a44;margin-top:5px;word-break:break-word}
   .meta .lbl{color:#9a6b4a}
   .meta a{color:#8a5a2b;font-weight:600}
-  .pill{display:inline-block;font-size:11px;font-weight:700;color:#6e4720;background:#f6ecd6;border-radius:6px;padding:2px 8px;margin-left:6px}
   .btns{display:flex;gap:8px;margin-top:12px}
   .btn{flex:1;text-align:center;padding:12px 8px;border-radius:10px;font-weight:700;font-size:14.5px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
   .btn-call{background:#16a34a;color:#fff}
@@ -51,7 +52,7 @@
   </div>
 
   <div id="list"></div>
-  <footer>Données du 8 juin 2026 — sourcing OpenStreetMap + audit. Adresse postale non collectée (ville uniquement). Page en noindex, non listée publiquement.</footer>
+  <footer>Données du 8 juin 2026 — sourcing OpenStreetMap + audit. Ville affichée à côté du nom quand elle est connue. Page en noindex, non listée publiquement.</footer>
 </div>
 
 <script>
@@ -60,20 +61,19 @@ const list = document.getElementById('list');
 const q = document.getElementById('q');
 const count = document.getElementById('count');
 const msgEl = document.getElementById('msg');
-
 function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-
 function render(items){
   count.textContent = items.length + ' hôtel' + (items.length>1?'s':'') + ' affiché' + (items.length>1?'s':'');
   if(!items.length){ list.innerHTML='<div class="empty">Aucun résultat.</div>'; return; }
-  list.innerHTML = items.map((h,i)=>{
-    const ville = h.ville ? esc(h.ville) : '<span class="lbl">ville non renseignée</span>';
+  list.innerHTML = items.map(h=>{
+    const chip = h.ville
+      ? '<span class="ville-chip">📍 '+esc(h.ville)+'</span>'
+      : '<span class="ville-chip vide">ville ?</span>';
     const email = h.email ? '<a href="mailto:'+esc(h.email)+'">'+esc(h.email)+'</a>' : '<span class="lbl">—</span>';
     const site = h.site ? ' · <a href="'+esc(h.site)+'" target="_blank" rel="noopener">site</a>' : '';
     return '<div class="card">'
-      + '<div class="nom">'+esc(h.nom)+'</div>'
-      + '<div class="meta"><span class="lbl">📍 </span>'+ville+site+'</div>'
-      + '<div class="meta"><span class="lbl">📞 </span>'+esc(h.tel_aff||h.tel)+'</div>'
+      + '<div class="nom">'+esc(h.nom)+chip+'</div>'
+      + '<div class="meta"><span class="lbl">📞 </span>'+esc(h.tel_aff||h.tel)+site+'</div>'
       + '<div class="meta"><span class="lbl">✉️ </span>'+email+'</div>'
       + '<div class="btns">'
       +   '<a class="btn btn-call" href="tel:'+esc(h.tel)+'">📞 Appeler</a>'
@@ -83,11 +83,9 @@ function render(items){
       + '</div>';
   }).join('');
 }
-
 function filt(){
-  const t = q.value.trim().toLowerCase();
-  if(!t){ render(DATA); return; }
-  render(DATA.filter(h => (h.nom+' '+h.ville+' '+h.email).toLowerCase().includes(t)));
+  const t=q.value.trim().toLowerCase();
+  render(t? DATA.filter(h=>(h.nom+' '+h.ville+' '+h.email).toLowerCase().includes(t)) : DATA);
 }
 q.addEventListener('input', filt);
 render(DATA);
