@@ -88,6 +88,16 @@
   .faq details[open] summary::after{content:"–"}
   .faq details p{padding:0 22px 20px;color:#6b5a44;font-size:15px}
 
+  .calls{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .callcard{background:#fffdf7;border:1px solid #ddcca8;border-radius:18px;padding:22px 22px 24px}
+  .callcard .lang{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#8a5a2b;background:#f6ecd6;border:1px solid #ddcca8;padding:5px 12px;border-radius:999px;margin-bottom:16px}
+  .bubble{padding:11px 15px;border-radius:14px;font-size:14.5px;line-height:1.5;margin-bottom:10px;max-width:90%}
+  .bubble .who{display:block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-bottom:3px;opacity:.7}
+  .bubble.agent{background:#f6ecd6;color:#3a2a18;border-bottom-left-radius:4px}
+  .bubble.agent .who{color:#8a5a2b}
+  .bubble.client{background:#fff;border:1px solid #ddcca8;color:#4a3520;margin-left:auto;border-bottom-right-radius:4px}
+  .bubble.client .who{color:#9a6b4a}
+
   .cta{background:linear-gradient(135deg,#3a2a18 0%,#5b4226 100%);color:#fff;text-align:center;padding:74px 0}
   .cta h2{color:#fff;font-size:34px;margin-bottom:14px;font-weight:800}
   .cta p{font-size:18px;opacity:.92;margin-bottom:30px;max-width:560px;margin-left:auto;margin-right:auto}
@@ -118,6 +128,7 @@
     <a href="/" class="logo"><span class="dot">●</span> MonStandardiste<span style="color:#8a5a2b">.ho</span></a>
     <nav class="nav-links">
       <a href="#avantages">Avantages</a>
+      <a href="#exemple">Exemple d'appel</a>
       <a href="#fonctionnement">Comment ça marche</a>
       <a href="#tarifs">Tarifs</a>
       <a href="#faq">FAQ</a>
@@ -187,6 +198,48 @@
       <div class="card"><span class="icon">🔄</span><h3>Vous gardez votre numéro</h3><p>Aucune portabilité. Un simple renvoi d'appel suffit : la nuit ou quand vous êtes occupé, l'assistant prend le relais. Mise en place en 2 minutes.</p></div>
       <div class="card"><span class="icon">🤝</span><h3>Transfert vers un humain</h3><p>Réclamation, urgence ou demande complexe ? L'assistant passe la main à votre réception, ou prend un message prioritaire.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- EXEMPLE D'APPEL -->
+<section id="exemple">
+  <div class="container">
+    <div class="section-title">
+      <small>En conditions réelles</small>
+      <h2>À quoi ressemble un appel avec votre standardiste IA</h2>
+      <p>Trois extraits d'appels réels typiques. L'assistant détecte la langue dès les premiers mots, répond uniquement à partir de vos informations et capte la réservation — de jour comme de nuit.</p>
+    </div>
+    <div class="calls">
+
+      <div class="callcard">
+        <span class="lang">🇫🇷 Appel en français · 23h10</span>
+        <div class="bubble agent"><span class="who">Standardiste IA</span>Hôtel Le Patio, bonjour, Léa à votre écoute. Comment puis-je vous aider ?</div>
+        <div class="bubble client"><span class="who">Client</span>Bonsoir, il vous reste une chambre pour deux personnes ce soir ?</div>
+        <div class="bubble agent"><span class="who">Standardiste IA</span>Oui, il nous reste une chambre double à 119 € la nuit, petit-déjeuner inclus. Souhaitez-vous que je la réserve à votre nom ?</div>
+        <div class="bubble client"><span class="who">Client</span>Parfait, oui. Au nom de Martin.</div>
+        <div class="bubble agent"><span class="who">Standardiste IA</span>C'est noté, M. Martin : chambre double, ce soir, arrivée jusqu'à minuit. Je vous envoie la confirmation par e-mail. Excellente soirée !</div>
+      </div>
+
+      <div class="callcard">
+        <span class="lang">🇬🇧 Call in English · 8:40 am</span>
+        <div class="bubble agent"><span class="who">AI receptionist</span>Le Patio hotel, good morning, this is Léa. How may I help you?</div>
+        <div class="bubble client"><span class="who">Guest</span>Hi, do you have parking and what time is check-in?</div>
+        <div class="bubble agent"><span class="who">AI receptionist</span>Yes, we have private parking at 14 € per night, and check-in is from 3 pm. Would you like me to note a parking spot for your stay?</div>
+        <div class="bubble client"><span class="who">Guest</span>Yes please, arriving Friday.</div>
+        <div class="bubble agent"><span class="who">AI receptionist</span>All set — parking reserved for Friday. I'll email you the details. Safe travels!</div>
+      </div>
+
+      <div class="callcard">
+        <span class="lang">🇪🇸 Llamada en español · 19h05</span>
+        <div class="bubble agent"><span class="who">Recepcionista IA</span>Hotel Le Patio, buenas tardes, le atiende Léa. ¿En qué puedo ayudarle?</div>
+        <div class="bubble client"><span class="who">Cliente</span>Hola, ¿admiten perros en las habitaciones?</div>
+        <div class="bubble agent"><span class="who">Recepcionista IA</span>Sí, admitimos mascotas pequeñas con un suplemento de 12 € por noche. ¿Desea que prepare una habitación pet-friendly?</div>
+        <div class="bubble client"><span class="who">Cliente</span>Sí, para el sábado.</div>
+        <div class="bubble agent"><span class="who">Recepcionista IA</span>Perfecto, habitación pet-friendly para el sábado. Le envío la confirmación por correo. ¡Hasta pronto!</div>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:30px"><a href="#contact" class="btn btn-primary">Entendre la vôtre en démo →</a></p>
   </div>
 </section>
 
